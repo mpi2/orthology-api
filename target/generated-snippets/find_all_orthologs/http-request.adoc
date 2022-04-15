@@ -1,0 +1,7 @@
+[source,http,options="nowrap"]
+----
+GET /api/ortholog/find_all_orthologs HTTP/1.1
+Authorization: Bearer 
+Host: localhost:8080
+
+----

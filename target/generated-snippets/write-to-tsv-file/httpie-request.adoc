@@ -1,0 +1,5 @@
+[source,bash]
+----
+$ http GET 'http://localhost:8080/api/ortholog/write_to_tsv_file' \
+    'Authorization:Bearer '
+----

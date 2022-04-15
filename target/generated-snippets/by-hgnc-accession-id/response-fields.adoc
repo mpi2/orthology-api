@@ -1,0 +1,60 @@
+|===
+|Path|Type|Description
+
+|`+[].humanGeneSymbol+`
+|`+String+`
+|Human Gene Symbol
+
+|`+[].hgncAccId+`
+|`+String+`
+|Human Gene Accession Id
+
+|`+[].humanSupportCountThreshold+`
+|`+Number+`
+|Human Support Count Threshold
+
+|`+[].humanCategoryForThreshold+`
+|`+String+`
+|Human Category For Threshold
+
+|`+[].humanOrthologsAboveThreshold+`
+|`+Number+`
+|Human Orthologs Above Threshold
+
+|`+[].category+`
+|`+String+`
+|Category
+
+|`+[].supportCount+`
+|`+Number+`
+|Support Count
+
+|`+[].isMaxHumanToMouse+`
+|`+String+`
+|Is Max Human To Mouse
+
+|`+[].isMaxMouseToHuman+`
+|`+String+`
+|Is Max Mouse To Human
+
+|`+[].mouseOrthologsAboveThreshold+`
+|`+Number+`
+|Mouse Orthologs Above Threshold
+
+|`+[].mouseCategoryForThreshold+`
+|`+String+`
+|Mouse Category For Threshold
+
+|`+[].mouseSupportCountThreshold+`
+|`+Number+`
+|Mouse Support Count Threshold
+
+|`+[].mgiGeneAccId+`
+|`+String+`
+|Mouse Gene Accession Id
+
+|`+[].mouseGeneSymbol+`
+|`+String+`
+|Mouse Gene Symbol
+
+|===

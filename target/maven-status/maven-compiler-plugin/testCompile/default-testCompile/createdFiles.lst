@@ -1,0 +1,9 @@
+org/orthologyapi/conf/ControllerTestTemplate.class
+org/orthologyapi/OrthologyApiApplicationTests.class
+org/orthologyapi/conf/IntegrationTestTemplate.class
+org/orthologyapi/conf/TestResourceLoader.class
+org/orthologyapi/service/OrthologServiceTest.class
+org/orthologyapi/descriptor/OrthologyFieldsDescriptors.class
+org/orthologyapi/controller/OrthologControllerTest.class
+org/orthologyapi/constant/DBSetupFilesPaths.class
+org/orthologyapi/conf/RestCaller.class

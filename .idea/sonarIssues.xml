@@ -28,6 +28,31 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../impc-production-tracker/impc_prod_tracker/core/src/main/java/org/gentar/util/JsonHelper.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../impc-production-tracker/impc_prod_tracker/rest-api/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../impc-production-tracker/impc_prod_tracker/rest-api/src/test/java/org/gentar/biology/targ_rep/es_cell/EsCellFieldsDescriptors.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../impc-production-tracker/impc_prod_tracker/rest-api/src/test/java/org/gentar/framework/ControllerTestTemplate.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../impc-production-tracker/impc_prod_tracker/rest-api/src/test/java/org/gentar/framework/IntegrationTestTemplate.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/README.md">
           <value>
             <set />
@@ -59,6 +84,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/orthologyApi/src/main/resources/application.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/pom.xml">
           <value>
             <set />
           </value>
@@ -168,7 +198,32 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/orthologyapi/util/JsonHelper.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/resources/application.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/org/orthologyapi/DBSetupFilesPaths.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/org/orthologyapi/conf/ControllerTestTemplate.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/org/orthologyapi/conf/DBUnitConfig.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/org/orthologyapi/conf/IntegrationTestTemplate.java">
           <value>
             <set />
           </value>
@@ -188,12 +243,67 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/org/orthologyapi/constant/DBSetupFilesPaths.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/org/orthologyapi/constant/DBSetupFilesPathsConst.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/org/orthologyapi/constant/EndpointsConst.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/org/orthologyapi/constant/FolderNamesConst.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/test/java/org/orthologyapi/controller/OrthologControllerTest.java">
           <value>
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/org/orthologyapi/descriptor/OrthologyFieldsDescriptors.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/test/java/org/orthologyapi/service/OrthologServiceTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/resources/application-test.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/resources/dbunit/orthology/orthologyDb.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/resources/integrationtest/expectedOrthologyBymouseGene.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/resources/integrationtests/expectedAllOrthologPageable.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/resources/integrationtests/expectedAllOrthologyPageable.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/resources/integrationtests/expectedOrthologyBymouseGene.json">
           <value>
             <set />
           </value>

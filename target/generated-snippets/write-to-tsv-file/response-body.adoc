@@ -1,0 +1,6 @@
+[source,options="nowrap"]
+----
+Human Gene Symbol	Hgnc Acc Id	Human Support Count Threshold	Human Category For Threshold	Human Orthologs Above Threshold	Category	Support Count	Is Max Human To Mouse	Is Max Mouse To Human	Mouse Orthologs AboveT hreshold	Mouse Category For Threshold	Mouse Support Count Threshold	Mgi Gene Acc Id	Mouse Gene Symbol
+A1CF	HGNC:24086	5	one-to-one	1	GOOD	11	max	max	1	one-to-one	5	MGI:1917115	A1cf	
+
+----

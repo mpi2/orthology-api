@@ -6,11 +6,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 import org.orthologyapi.dto.OrthologDto;
-import org.orthologyapi.mapper.OrthologMapper;
+import org.orthologyapi.descriptor.OrthologMapper;
 import org.orthologyapi.repository.OrthologRepository;
 import org.springframework.stereotype.Service;
 

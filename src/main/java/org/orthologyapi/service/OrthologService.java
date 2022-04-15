@@ -6,7 +6,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.orthologyapi.dto.OrthologDto;
-import org.orthologyapi.mapper.OrthologMapper;
+import org.orthologyapi.descriptor.OrthologMapper;
 import org.orthologyapi.projection.OrthologProjection;
 import org.orthologyapi.repository.OrthologRepository;
 import org.springframework.data.domain.Page;
@@ -52,19 +52,16 @@ public class OrthologService {
             .map(OrthologMapper::orthologToDto).collect(Collectors.toList());
     }
 
-    public ResponseEntity findAllOrthologsPageable(
-        final Pageable orthologPageable,
-        final PagedResourcesAssembler orthologAssembler) {
-            Page<OrthologProjection> orthologProjectionPage = orthologRepository.findAllOrthologsPageable(orthologPageable);
-            Page<OrthologDto> orthologDtosPage =
-                orthologProjectionPage.map(OrthologMapper::orthologToDto);
+    public ResponseEntity findAllOrthologsPageable(final Pageable orthologPageable,
+                                                   final PagedResourcesAssembler orthologAssembler) {
 
-            PagedModel pr =
-                orthologAssembler.toModel(orthologDtosPage,
-                    linkTo(methodOn(OrthologService.class)
-                        .findAllOrthologsPageable(orthologPageable, orthologAssembler)).withSelfRel());
+        Page<OrthologProjection> orthologProjectionPage =
+            orthologRepository.findAllOrthologsPageable(orthologPageable);
+
+        Page<OrthologDto> orthologDtosPage =
+            orthologProjectionPage.map(OrthologMapper::orthologToDto);
 
 
-            return new ResponseEntity<>(pr, HttpStatus.OK);
+        return new ResponseEntity<>(orthologAssembler.toModel(orthologDtosPage), HttpStatus.OK);
     }
 }
