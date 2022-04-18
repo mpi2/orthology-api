@@ -1,5 +1,0 @@
-[source,bash]
-----
-$ http GET 'http://localhost:8080/api/ortholog/find_by_mouse_genes?genes=A1cf' \
-    'Authorization:Bearer '
-----

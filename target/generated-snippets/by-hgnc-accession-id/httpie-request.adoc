@@ -1,5 +1,5 @@
 [source,bash]
 ----
 $ http GET 'http://localhost:8080/api/ortholog/find_by_hgnc_ids?hgncIds=HGNC:24086' \
-    'Authorization:Bearer '
+    'Authorization:None'
 ----

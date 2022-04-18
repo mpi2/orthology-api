@@ -2,9 +2,11 @@
 /Users/ogunes/Documents/orthology-api/src/test/java/org/orthologyapi/service/OrthologServiceTest.java
 /Users/ogunes/Documents/orthology-api/src/test/java/org/orthologyapi/OrthologyApiApplicationTests.java
 /Users/ogunes/Documents/orthology-api/src/test/java/org/orthologyapi/conf/DBUnitConfig.java
+/Users/ogunes/Documents/orthology-api/src/test/java/org/orthologyapi/constant/DBSetupFilesPathsConst.java
 /Users/ogunes/Documents/orthology-api/src/test/java/org/orthologyapi/descriptor/OrthologyFieldsDescriptors.java
+/Users/ogunes/Documents/orthology-api/src/test/java/org/orthologyapi/constant/FolderNamesConst.java
+/Users/ogunes/Documents/orthology-api/src/test/java/org/orthologyapi/constant/EndpointsConst.java
 /Users/ogunes/Documents/orthology-api/src/test/java/org/orthologyapi/conf/IntegrationTestTemplate.java
 /Users/ogunes/Documents/orthology-api/src/test/java/org/orthologyapi/controller/OrthologControllerTest.java
 /Users/ogunes/Documents/orthology-api/src/test/java/org/orthologyapi/conf/RestCaller.java
 /Users/ogunes/Documents/orthology-api/src/test/java/org/orthologyapi/conf/TestResourceLoader.java
-/Users/ogunes/Documents/orthology-api/src/test/java/org/orthologyapi/constant/DBSetupFilesPaths.java

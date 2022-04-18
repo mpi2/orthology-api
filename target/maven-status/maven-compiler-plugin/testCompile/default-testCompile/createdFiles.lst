@@ -2,8 +2,11 @@ org/orthologyapi/conf/ControllerTestTemplate.class
 org/orthologyapi/OrthologyApiApplicationTests.class
 org/orthologyapi/conf/IntegrationTestTemplate.class
 org/orthologyapi/conf/TestResourceLoader.class
+org/orthologyapi/constant/EndpointsConst.class
+org/orthologyapi/constant/DBSetupFilesPathsConst.class
 org/orthologyapi/service/OrthologServiceTest.class
 org/orthologyapi/descriptor/OrthologyFieldsDescriptors.class
 org/orthologyapi/controller/OrthologControllerTest.class
-org/orthologyapi/constant/DBSetupFilesPaths.class
+org/orthologyapi/constant/FolderNamesConst.class
+org/orthologyapi/conf/DBUnitConfig.class
 org/orthologyapi/conf/RestCaller.class

@@ -38,6 +38,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../impc-production-tracker/impc_prod_tracker/rest-api/src/main/asciidoc/themes/riak.css">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../impc-production-tracker/impc_prod_tracker/rest-api/src/test/java/org/gentar/biology/targ_rep/es_cell/EsCellFieldsDescriptors.java">
           <value>
             <set />
@@ -49,6 +54,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../impc-production-tracker/impc_prod_tracker/rest-api/src/test/java/org/gentar/framework/IntegrationTestTemplate.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../impc-production-tracker/impc_prod_tracker/rest-api/target/generated-snippets/targrep/allele/alleleById/http-response.adoc">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../impc-production-tracker/impc_prod_tracker/rest-api/target/generated-snippets/targrep/esCell/es_cell_by_name/response-body.adoc">
           <value>
             <set />
           </value>
@@ -89,6 +104,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/asciidoc/restapi.adoc">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/orthologyapi/OrthologyApiApplication.java">
           <value>
             <set />
           </value>
@@ -304,6 +329,31 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/test/resources/integrationtests/expectedOrthologyBymouseGene.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/target/generated-docs/restapi.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/target/generated-snippets/by-human-genes/http-response.adoc">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/target/generated-snippets/by-human-genes/httpie-request.adoc">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/target/generated-snippets/by-human-genes/request-body.adoc">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/target/generated-snippets/by-human-genes/response-body.adoc">
           <value>
             <set />
           </value>

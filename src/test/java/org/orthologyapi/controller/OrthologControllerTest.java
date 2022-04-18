@@ -1,8 +1,8 @@
 package org.orthologyapi.controller;
 
 import static org.orthologyapi.constant.DBSetupFilesPathsConst.DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML;
-import static org.orthologyapi.constant.DBSetupFilesPathsConst.EXPECTED_All_ORTHOLOGY_PAGEABLE_JSON;
-import static org.orthologyapi.constant.DBSetupFilesPathsConst.EXPECTED_ORTHOLOGY_BYMOUSE_GENE_JSON;
+import static org.orthologyapi.constant.DBSetupFilesPathsConst.EXPECTED_All_ORTHOLOGS_PAGEABLE_JSON;
+import static org.orthologyapi.constant.DBSetupFilesPathsConst.EXPECTED_ORTHOLOGS_JSON;
 import static org.orthologyapi.constant.DBSetupFilesPathsConst.INTEGRATION_TESTS_RESOURCE_PATH;
 import static org.orthologyapi.constant.EndpointsConst.API_ORTHOLOG_FIND_ALL_ORTHOLOGS;
 import static org.orthologyapi.constant.EndpointsConst.API_ORTHOLOG_FIND_BY_HGNC_IDS_LINK;
@@ -97,7 +97,7 @@ class OrthologControllerTest extends ControllerTestTemplate {
                 documentOrthologyEndPoints(EMBEDDED_ORTHOLOG_DTO_LIST_PREFIX, FIND_ALL_ORTHOLOGS));
 
         String expectedOutputAsString =
-            loadExpectedResponseFromResource(EXPECTED_All_ORTHOLOGY_PAGEABLE_JSON);
+            loadExpectedResponseFromResource(EXPECTED_All_ORTHOLOGS_PAGEABLE_JSON);
 
         JSONAssert.assertEquals(expectedOutputAsString, contentAsString, JSONCompareMode.STRICT);
     }
@@ -106,7 +106,7 @@ class OrthologControllerTest extends ControllerTestTemplate {
     @DatabaseSetup(DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
     @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
     @DisplayName("Test Export Tsv File")
-    void export() throws Exception {
+    void exportTsvFile() throws Exception {
     }
 
     private void assertOrthologyEndpoints(String url, String folderName)
@@ -116,7 +116,7 @@ class OrthologControllerTest extends ControllerTestTemplate {
                 .executeGetAndDocument(url, documentOrthologyEndPoints(EMPTY_PREFIX, folderName));
 
         String expectedOutputAsString =
-            loadExpectedResponseFromResource(EXPECTED_ORTHOLOGY_BYMOUSE_GENE_JSON);
+            loadExpectedResponseFromResource(EXPECTED_ORTHOLOGS_JSON);
 
         JSONAssert.assertEquals(expectedOutputAsString, contentAsString, JSONCompareMode.STRICT);
     }

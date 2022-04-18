@@ -21,7 +21,7 @@ public class RestCaller {
     {
         ResultActions resultActions = mvc.perform(MockMvcRequestBuilders
             .get(url)
-            .header(HEADER_AUTHORIZATION, "Bearer "))
+            .header(HEADER_AUTHORIZATION, "None"))
             .andExpect(status().isOk())
             .andDo(documentMethod);
         MvcResult obtained = resultActions.andReturn();

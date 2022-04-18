@@ -1,7 +1,7 @@
 [source,http,options="nowrap"]
 ----
 GET /api/ortholog/find_by_mgi_ids?mgiIds=MGI:1917115 HTTP/1.1
-Authorization: Bearer 
+Authorization: None
 Host: localhost:8080
 
 ----

@@ -1,0 +1,80 @@
+|===
+|Path|Type|Description
+
+|`+_embedded.orthologDtoList.[].humanGeneSymbol+`
+|`+String+`
+|Human Gene Symbol
+
+|`+_embedded.orthologDtoList.[].hgncAccId+`
+|`+String+`
+|Human Gene Accession Id
+
+|`+_embedded.orthologDtoList.[].humanSupportCountThreshold+`
+|`+Number+`
+|Human Support Count Threshold
+
+|`+_embedded.orthologDtoList.[].humanCategoryForThreshold+`
+|`+String+`
+|Human Category For Threshold
+
+|`+_embedded.orthologDtoList.[].humanOrthologsAboveThreshold+`
+|`+Number+`
+|Human Orthologs Above Threshold
+
+|`+_embedded.orthologDtoList.[].category+`
+|`+String+`
+|Category
+
+|`+_embedded.orthologDtoList.[].supportCount+`
+|`+Number+`
+|Support Count
+
+|`+_embedded.orthologDtoList.[].isMaxHumanToMouse+`
+|`+String+`
+|Is Max Human To Mouse
+
+|`+_embedded.orthologDtoList.[].isMaxMouseToHuman+`
+|`+String+`
+|Is Max Mouse To Human
+
+|`+_embedded.orthologDtoList.[].mouseOrthologsAboveThreshold+`
+|`+Number+`
+|Mouse Orthologs Above Threshold
+
+|`+_embedded.orthologDtoList.[].mouseCategoryForThreshold+`
+|`+String+`
+|Mouse Category For Threshold
+
+|`+_embedded.orthologDtoList.[].mouseSupportCountThreshold+`
+|`+Number+`
+|Mouse Support Count Threshold
+
+|`+_embedded.orthologDtoList.[].mgiGeneAccId+`
+|`+String+`
+|Mouse Gene Accession Id
+
+|`+_embedded.orthologDtoList.[].mouseGeneSymbol+`
+|`+String+`
+|Mouse Gene Symbol
+
+|`+_links.self.href+`
+|`+String+`
+|Self Link
+
+|`+page.size+`
+|`+Number+`
+|Page Size
+
+|`+page.totalElements+`
+|`+Number+`
+|Total Elements
+
+|`+page.totalPages+`
+|`+Number+`
+|Total Pages
+
+|`+page.number+`
+|`+Number+`
+|Page Number
+
+|===

@@ -1,0 +1,134 @@
+= ORTHOLOGY REST API
+{date}
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:highlightjs-theme: github
+:toc: left
+:toclevels: 3
+:sectlinks:
+:sectnums:
+
+[introduction]
+== Introduction
+
+
+== Usage of HTTP Verbs
+
+The following table describes how the Orthology API interprets the HTTP verbs.
+
+.HTTP Verbs
+|===
+|HTTP Verb | Usage
+
+|GET
+|GET is used to retrieve information without changing the state of the system.
+|===
+
+Other verbs, such as DELETE, POST, UPDATE are not supported by Ortgology at present.
+
+== Pagination and Sorting
+Most of the endpoints returning collections are paginated and can be sorted. If no parameters are
+specified, then the default ones are applied.
+
+=== Pagination
+The parameters to specify the pagination are:
+|===
+|Parameter | Description
+|page
+|Number of the page to retrieve. It starts with 0 (which is the default value).
+|size
+|Number of elements to retrieve.
+
+|===
+
+== ONE TO ONE ORTHOLOGS
+anchor:chapter-configure[]
+This section describes the REST endpoints for projects in the system.
+
+Orthology api provides GET endpoints that provides the one to one orthologs data for the essential genes and the reference database services.
+
+
+=== Fields
+These are the fields you are going to see in the body of a request in a GET or in the payload for POST or PUT
+operations.
+include::{snippets}/by-mouse-genes/response-fields.adoc[]
+
+=== GET By Mouse Gene Symbol
+
+Get All the one-to-one orthologs mapping by mouse gene symbol or symbol list. The mouse gene symbol list should be entered with , separated in the endpoint
+
+===== Example Request
+
+Curl:
+include::{snippets}/by-mouse-genes/curl-request.adoc[]
+
+===== Example Response
+
+include::{snippets}/by-mouse-genes/http-response.adoc[]
+
+=== GET By Human Gene Symbol
+
+Get All the one-to-one orthologs mapping by human gene symbol or symbol list. The human gene symbol list should be entered with , separated in the endpoint
+
+===== Example Request
+
+Curl:
+include::{snippets}/by-human-genes/curl-request.adoc[]
+
+===== Example Response
+
+include::{snippets}/by-human-genes/http-response.adoc[]
+
+=== GET By Mgi Accession Id
+
+Get All the one-to-one orthologs mapping by mgi accession id or mgi accession id list. The mgi accession id list should be entered with , separated in the endpoint
+
+===== Example Request
+
+Curl:
+include::{snippets}/by-mgi-accession-id/curl-request.adoc[]
+
+===== Example Response
+
+include::{snippets}/by-mgi-accession-ids/http-response.adoc[]
+
+=== GET By Hgnc Accession Id
+
+Get All the one-to-one orthologs mapping by hgnc accession id or hgnc accession id list. The hgnc accession id list should be entered with , separated in the endpoint
+
+===== Example Request
+
+Curl:
+include::{snippets}/by-hgnc-accession-id/curl-request.adoc[]
+
+===== Example Response
+
+include::{snippets}/by-hgnc-accession-ids/http-response.adoc[]
+
+=== GET All Orthologs
+
+Get All the one-to-one ortholog
+
+===== Example Request
+
+Curl:
+include::{snippets}/find-all-orthologs/curl-request.adoc[]
+
+===== Example Response
+
+include::{snippets}/find-all-orthologs/http-response.adoc[]
+
+
+=== GET All Orthologs As Tsv File
+
+Get All the one-to-one orthologs as tsv file
+
+===== Example Request
+
+ /api/ortholog/write_to_tsv_file
+
+== Lastest updates
+
+* 2022-04-14: - Orthology api has been created
+
