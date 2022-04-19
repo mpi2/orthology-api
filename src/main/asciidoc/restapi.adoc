@@ -44,7 +44,7 @@ The parameters to specify the pagination are:
 
 == ONE TO ONE ORTHOLOGS
 anchor:chapter-configure[]
-This section describes the REST endpoints for projects in the system.
+This section describes the REST endpoints for one to one orthologs in the system.
 
 Orthology api provides GET endpoints that provides the one to one orthologs data for the essential genes and the reference database services.
 
