@@ -123,6 +123,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/orthologyapi/descriptor/OrthologMapper.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/org/orthologyapi/dto/OneToOneOrthologDto.java">
           <value>
             <set />
@@ -234,6 +239,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/test/java/org/orthologyapi/DBSetupFilesPaths.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/org/orthologyapi/OrthologyApiApplicationTests.java">
           <value>
             <set />
           </value>

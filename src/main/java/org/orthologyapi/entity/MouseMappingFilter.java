@@ -15,13 +15,13 @@ public class MouseMappingFilter {
   @Id
   private Long id;
 
-  private Long supportCount_Threshold;
+  private Long supportCountThreshold;
 
   private Long orthologsAboveThreshold;
 
   private String categoryForThreshold;
 
   @ManyToOne(targetEntity = MouseGene.class, cascade= CascadeType.ALL)
-  @JoinColumn(name = "mouse_gene_id")
+  @JoinColumn(name = "mouseGeneId")
   private MouseGene mouseGenes;
 }

@@ -31,5 +31,5 @@ public class OrthologDto {
     
     String mgiGeneAccId;
     
-    String MouseGeneSymbol;
+    String mouseGeneSymbol;
 }

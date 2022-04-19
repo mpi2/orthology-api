@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 import org.orthologyapi.descriptor.OrthologMapper;
 import org.orthologyapi.dto.OrthologDto;
@@ -25,7 +24,7 @@ public class ReportService {
     public boolean writeReport(HttpServletResponse response) throws IOException {
         List<OrthologDto> orthologDtos =
             orthologRepository.findAllOrthologsForTsvFile().stream().map(
-                OrthologMapper::orthologToDto).collect(Collectors.toList());
+                OrthologMapper::orthologToDto).toList();
         printReport(response, orthologDtos);
         return true;
     }

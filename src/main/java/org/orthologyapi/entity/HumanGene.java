@@ -17,21 +17,21 @@ public class HumanGene {
     @Id
     private Long id;
 
-    private String hgnc_acc_id;
+    private String hgncAccId;
 
     private String name;
 
     private String symbol;
 
-    private String ensembl_gene_acc_id;
+    private String ensemblGeneAccId;
 
-    private Long entrez_gene_acc_id;
+    private Long entrezGeneAccId;
 
     @ManyToMany()
     @JoinTable(
-        name = "human_gene_synonym_relation",
-        joinColumns = @JoinColumn(name = "human_gene_id"),
-        inverseJoinColumns = @JoinColumn(name = "human_gene_synonym_id"))
+        name = "humanGeneSynonymRelation",
+        joinColumns = @JoinColumn(name = "humanGeneId"),
+        inverseJoinColumns = @JoinColumn(name = "humanGeneSynonymId"))
     private List<HumanGeneSynonym> humanGeneSynonyms;
 
 }

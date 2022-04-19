@@ -15,13 +15,13 @@ public class HumanMappingFilter {
   @Id
   private Long id;
 
-  private Long support_count_threshold;
+  private Long supportCountThreshold;
 
-  private Long orthologs_above_threshold;
+  private Long orthologsAboveThreshold;
 
-  private String category_for_threshold;
+  private String categoryForThreshold;
 
   @ManyToOne(targetEntity = HumanGene.class, cascade= CascadeType.ALL)
-  @JoinColumn(name = "human_gene_id")
+  @JoinColumn(name = "humanGeneId")
   private HumanGene humanGenes;
 }

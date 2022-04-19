@@ -102,13 +102,6 @@ class OrthologControllerTest extends ControllerTestTemplate {
         JSONAssert.assertEquals(expectedOutputAsString, contentAsString, JSONCompareMode.STRICT);
     }
 
-    @Test
-    @DatabaseSetup(DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
-    @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
-    @DisplayName("Test Export Tsv File")
-    void exportTsvFile() throws Exception {
-    }
-
     private void assertOrthologyEndpoints(String url, String folderName)
         throws Exception {
         String contentAsString =

@@ -60,8 +60,8 @@ public class MouseGene {
 
   @ManyToMany()
   @JoinTable(
-      name = "mouse_gene_synonym_relation",
-      joinColumns = @JoinColumn(name = "mouse_gene_id"),
-      inverseJoinColumns = @JoinColumn(name = "mouse_gene_synonym_id"))
+      name = "mouseGeneSynonymRelation",
+      joinColumns = @JoinColumn(name = "mouseGeneId"),
+      inverseJoinColumns = @JoinColumn(name = "mousGeeneSynonymId"))
   private List<MouseGeneSynonym> mouseGeneSynonyms;
 }
