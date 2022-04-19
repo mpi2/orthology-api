@@ -8,8 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
-import org.orthologyapi.dto.OrthologDto;
 import org.orthologyapi.descriptor.OrthologMapper;
+import org.orthologyapi.dto.OrthologDto;
 import org.orthologyapi.repository.OrthologRepository;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +22,12 @@ public class ReportService {
         this.orthologRepository = orthologRepository;
     }
 
-    public void writeReport(HttpServletResponse response) throws IOException {
+    public boolean writeReport(HttpServletResponse response) throws IOException {
         List<OrthologDto> orthologDtos =
             orthologRepository.findAllOrthologsForTsvFile().stream().map(
                 OrthologMapper::orthologToDto).collect(Collectors.toList());
         printReport(response, orthologDtos);
-
+        return true;
     }
 
 
@@ -59,11 +59,9 @@ public class ReportService {
     private String convertListToTsvFileFormat(List<OrthologDto> orthologDtos) {
         String header = generateReportHeaders();
 
-        String report = convertListToString(orthologDtos)
-            .stream()
-            .collect(Collectors.joining("\n"));
+        String report = String.join("\n", convertListToString(orthologDtos));
 
-        return Arrays.asList(header, report).stream().collect(Collectors.joining("\n"));
+        return String.join("\n", header, report);
     }
 
     private String generateReportHeaders() {
@@ -85,11 +83,7 @@ public class ReportService {
 
         );
 
-        String headerString = headers
-            .stream()
-            .collect(Collectors.joining("\t"));
-
-        return headerString;
+        return String.join("\t", headers);
 
     }
 

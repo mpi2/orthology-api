@@ -75,8 +75,8 @@ public class OrthologController {
 
     @GetMapping(value = {"/write_to_tsv_file"})
     @Transactional(readOnly = true)
-    public void export(HttpServletResponse response) throws
+    public boolean export(HttpServletResponse response) throws
         IOException {
-        reportService.writeReport(response);
+        return reportService.writeReport(response);
     }
 }
