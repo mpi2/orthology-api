@@ -56,7 +56,8 @@ include::{snippets}/by-mouse-genes/response-fields.adoc[]
 
 === GET By Mouse Gene Symbol
 
-Get All the one-to-one orthologs mapping by mouse gene symbol or symbol list. The mouse gene symbol list should be entered with , separated in the endpoint
+Get All the one-to-one orthologs mapping by mouse gene symbol or symbol list. The mouse gene symbol list should be entered with , separated in the endpoint.
+Note:Parameter size can not be bigger than 200.
 
 ===== Example Request
 
@@ -69,7 +70,8 @@ include::{snippets}/by-mouse-genes/http-response.adoc[]
 
 === GET By Human Gene Symbol
 
-Get All the one-to-one orthologs mapping by human gene symbol or symbol list. The human gene symbol list should be entered with , separated in the endpoint
+Get All the one-to-one orthologs mapping by human gene symbol or symbol list. The human gene symbol list should be entered with , separated in the endpoint.
+Note:Parameter size can not be bigger than 200.
 
 ===== Example Request
 
@@ -82,7 +84,8 @@ include::{snippets}/by-human-genes/http-response.adoc[]
 
 === GET By Mgi Accession Id
 
-Get All the one-to-one orthologs mapping by mgi accession id or mgi accession id list. The mgi accession id list should be entered with , separated in the endpoint
+Get All the one-to-one orthologs mapping by mgi accession id or mgi accession id list. The mgi accession id list should be entered with , separated in the endpoint.
+Note:Parameter size can not be bigger than 200.
 
 ===== Example Request
 

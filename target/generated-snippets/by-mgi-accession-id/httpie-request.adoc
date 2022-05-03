@@ -1,5 +1,0 @@
-[source,bash]
-----
-$ http GET 'http://localhost:8080/api/ortholog/find_by_mgi_ids?mgiIds=MGI:1917115' \
-    'Authorization:None'
-----

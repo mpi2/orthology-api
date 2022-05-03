@@ -1,7 +1,0 @@
-[source,http,options="nowrap"]
-----
-GET /api/ortholog/find_by_hgnc_ids?hgncIds=HGNC:24086 HTTP/1.1
-Authorization: None
-Host: localhost:8080
-
-----

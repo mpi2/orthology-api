@@ -1,5 +1,0 @@
-[source,bash]
-----
-$ curl 'http://localhost:8080/api/ortholog/find_by_hgnc_ids?hgncIds=HGNC:24086' -i -X GET \
-    -H 'Authorization: None'
-----

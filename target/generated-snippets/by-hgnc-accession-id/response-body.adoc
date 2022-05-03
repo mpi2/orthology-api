@@ -1,4 +1,0 @@
-[source,options="nowrap"]
-----
-[{"humanGeneSymbol":"A1CF","hgncAccId":"HGNC:24086","humanSupportCountThreshold":5,"humanCategoryForThreshold":"one-to-one","humanOrthologsAboveThreshold":1,"category":"GOOD","supportCount":11,"isMaxHumanToMouse":"max","isMaxMouseToHuman":"max","mouseOrthologsAboveThreshold":1,"mouseCategoryForThreshold":"one-to-one","mouseSupportCountThreshold":5,"mgiGeneAccId":"MGI:1917115","mouseGeneSymbol":"A1cf"}]
-----

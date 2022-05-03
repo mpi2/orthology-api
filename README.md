@@ -46,7 +46,8 @@ Path|	Type|	Description
 |mouseGeneSymbol|String|Mouse Gene Symbol
 
 ##### GET By Mouse Gene Symbol
-Get All the one-to-one orthologs mapping by mouse gene symbol or symbol list. The mouse gene symbol list should be entered with , separated in the endpoint
+Get All the one-to-one orthologs mapping by mouse gene symbol or symbol list. The mouse gene symbol list should be entered with , separated in the endpoint.
+Note:Parameter size can not be bigger than 200.
 
 ###### Example Request
 ```sh
@@ -79,8 +80,8 @@ Content-Length: 405
 
 #### GET By Human Gene Symbol
 
-Get All the one-to-one orthologs mapping by human gene symbol or symbol list. The human gene symbol list should be entered with , separated in the endpoint
-
+Get All the one-to-one orthologs mapping by human gene symbol or symbol list. The human gene symbol list should be entered with , separated in the endpoint.
+Note:Parameter size can not be bigger than 200.
 ###### Example Request
 ```sh
  '/api/ortholog/find_by_human_genes?genes=A1CF' -i -X GET
@@ -111,8 +112,8 @@ Content-Length: 405
 ```
 #### GET By Mgi Accession Id
 
-Get All the one-to-one orthologs mapping by mgi accession id or mgi accession id list. The mgi accession id list should be entered with , separated in the endpoint
-
+Get All the one-to-one orthologs mapping by mgi accession id or mgi accession id list. The mgi accession id list should be entered with , separated in the endpoint.
+Note:Parameter size can not be bigger than 200.
 ##### Example Request
 ```sh
  '/api/ortholog/find_by_mgi_ids?mgiIds=MGI:1917115' -i -X GET
@@ -143,8 +144,8 @@ Content-Length: 405
 ```
 #### GET By Hgnc Accession Id
 
-Get All the one-to-one orthologs mapping by hgnc accession id or hgnc accession id list. The hgnc accession id list should be entered with , separated in the endpoint
-
+Get All the one-to-one orthologs mapping by hgnc accession id or hgnc accession id list. The hgnc accession id list should be entered with , separated in the endpoint.
+Note:Parameter size can not be bigger than 200.
 ##### Example Request
 ```sh
  '/api/ortholog/find_by_hgnc_ids?hgncIds=HGNC:24086' -i -X GET

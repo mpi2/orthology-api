@@ -1,7 +1,0 @@
-[source,http,options="nowrap"]
-----
-GET /api/ortholog/find_by_human_genes?genes=A1CF HTTP/1.1
-Authorization: None
-Host: localhost:8080
-
-----

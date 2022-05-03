@@ -1,5 +1,0 @@
-[source,bash]
-----
-$ http GET 'http://localhost:8080/api/ortholog/find_all_orthologs' \
-    'Authorization:Bearer '
-----
