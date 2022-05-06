@@ -1,4 +1,4 @@
-FROM maven:3.8.5-amazoncorretto-17 as build
+FROM maven:3-amazoncorretto-17 as build
 
 COPY pom.xml /usr/src/orthology-api/
 
