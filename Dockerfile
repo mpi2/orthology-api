@@ -5,8 +5,6 @@ COPY pom.xml /usr/src/orthology-api/
 
 COPY src /usr/src/orthology-api/src
 
-COPY target /usr/src/orthology-api/target
-
 
 RUN mvn -f /usr/src/orthology-api/pom.xml clean package
 
