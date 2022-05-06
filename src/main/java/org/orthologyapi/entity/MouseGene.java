@@ -62,6 +62,6 @@ public class MouseGene {
   @JoinTable(
       name = "mouseGeneSynonymRelation",
       joinColumns = @JoinColumn(name = "mouseGeneId"),
-      inverseJoinColumns = @JoinColumn(name = "mousGeeneSynonymId"))
+      inverseJoinColumns = @JoinColumn(name = "mouseGeneSynonymId"))
   private List<MouseGeneSynonym> mouseGeneSynonyms;
 }
