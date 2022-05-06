@@ -1,0 +1,35 @@
+<dataset>
+
+
+    <HUMAN_GENE ID="3"
+                SYMBOL="A1CF"
+                HGNC_ACC_ID="HGNC:24086"/>
+
+
+    <MOUSE_GENE ID="49957"
+                MGI_GENE_ACC_ID="MGI:1917115"
+                SYMBOL="A1cf"/>
+
+    <HUMAN_MAPPING_FILTER ID="174725"
+                          HUMAN_GENE_ID="3"
+                          SUPPORT_COUNT_THRESHOLD="5"
+                          CATEGORY_FOR_THRESHOLD="one-to-one"
+                          ORTHOLOGS_ABOVE_THRESHOLD="1"/>
+
+
+    <MOUSE_MAPPING_FILTER ID="448019"
+                          MOUSE_GENE_ID="49957"
+                          ORTHOLOGS_ABOVE_THRESHOLD="1"
+                          CATEGORY_FOR_THRESHOLD="one-to-one"
+                          SUPPORT_COUNT_THRESHOLD="5"/>
+
+
+    <ORTHOLOG ID="11715"
+              CATEGORY="GOOD"
+              MOUSE_GENE_ID="49957"
+              HUMAN_GENE_ID="3"
+              SUPPORT_COUNT="11"
+              IS_MAX_HUMAN_TO_MOUSE="max"
+              IS_MAX_MOUSE_TO_HUMAN="max"/>git
+
+</dataset>
