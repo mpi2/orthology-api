@@ -76,16 +76,16 @@ build_image:
        
         - docker logout ${CI_REGISTRY}
 
-#        - |
-#          if [[ "${DOCKER_HUB_PUSH}" == "true" ]]; then
-#
-#              echo "${DOCKER_HUB_PSWD}" | docker login -u "${DOCKER_HUB_USER}" --password-stdin
-#              docker tag "${CI_REGISTRY_IMAGE}":"${CI_COMMIT_SHA:0:12}" "${DOCKER_HUB_USER}"/"${DOCKER_HUB_REPO}":"${CI_COMMIT_SHA:0:12}"
-#              docker tag "${CI_REGISTRY_IMAGE}":"${CI_COMMIT_SHA:0:12}" "${DOCKER_HUB_USER}"/"${DOCKER_HUB_REPO}":latest
-#              docker push "${DOCKER_HUB_USER}"/"${DOCKER_HUB_REPO}":"${CI_COMMIT_SHA:0:12}"  | tee ${MOUNT_POINT}/dockerhub-push-latest.log
-#              docker push "${DOCKER_HUB_USER}"/"${DOCKER_HUB_REPO}":latest  | tee ${MOUNT_POINT}/dockerhub-push-latest.log
-#              docker logout
-#          fi
+        - |
+          if [[ "${DOCKER_HUB_PUSH}" == "true" ]]; then
+
+              echo "${DOCKER_HUB_PSWD}" | docker login -u "${DOCKER_HUB_USER}" --password-stdin
+              docker tag "${CI_REGISTRY_IMAGE}":"${CI_COMMIT_SHA:0:12}" "${DOCKER_HUB_USER}"/"${DOCKER_HUB_REPO}":"${CI_COMMIT_SHA:0:12}"
+              docker tag "${CI_REGISTRY_IMAGE}":"${CI_COMMIT_SHA:0:12}" "${DOCKER_HUB_USER}"/"${DOCKER_HUB_REPO}":latest
+              docker push "${DOCKER_HUB_USER}"/"${DOCKER_HUB_REPO}":"${CI_COMMIT_SHA:0:12}"  | tee ${MOUNT_POINT}/dockerhub-push-latest.log
+              docker push "${DOCKER_HUB_USER}"/"${DOCKER_HUB_REPO}":latest  | tee ${MOUNT_POINT}/dockerhub-push-latest.log
+              docker logout
+          fi
     artifacts:
         paths:
             - "$MOUNT_POINT/"
