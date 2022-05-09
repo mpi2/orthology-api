@@ -1,12 +1,12 @@
 version: '3.7'
 services:
-
   orthology:
-    #image: orthology-api
+#    build: ./
+    image: rwilsonebi/orthology-api
     depends_on:
       - "postgresql"
     command: [ "./wait-for-db.sh", "postgresql:5432", "java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar", "--server.port=8902", "--spring.profiles.active=docker"]
-    build: ./
+
     ports:
       - "8902:8902"
     environment:
