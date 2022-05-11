@@ -9,12 +9,12 @@ ENDPOINT='http://hx-rke-wp-webadmin-20-worker-1.caas.ebi.ac.uk:31016/api/ortholo
 for i in "$@"
 do
 case $i in
-    -p|--hx)
-   ENDPOINT='http://hx-rke-wp-webadmin-20-worker-1.caas.ebi.ac.uk:31016/api/ortholog'
+    -p|--hh)
+   ENDPOINT='http://hh-rke-wp-webadmin-20-worker-1.caas.ebi.ac.uk:31016/api/ortholog'
     shift # past argument
     ;;
-    -d|--hh)
-    ENDPOINT='http://hh-rke-wp-webadmin-20-worker-1.caas.ebi.ac.uk:31016/api/ortholog'
+    -d|--hx)
+    ENDPOINT='http://hx-rke-wp-webadmin-20-worker-1.caas.ebi.ac.uk:31016/api/ortholog'
     shift # past argument
     ;;
     --default)
@@ -89,44 +89,49 @@ run_test()
 
 find_by_mouse_genes_test()
 {
-    echo "Find by mouse genes test"
+
 
     parameter="?genes=A1bg"
     endpoint="/find_by_mouse_genes"
     expected_result='[{"humanGeneSymbol":"A1BG","hgncAccId":"HGNC:5","humanSupportCountThreshold":5,"humanCategoryForThreshold":"one-to-one","humanOrthologsAboveThreshold":1,"category":"GOOD","supportCount":12,"isMaxHumanToMouse":"max","isMaxMouseToHuman":"max","mouseOrthologsAboveThreshold":1,"mouseCategoryForThreshold":"one-to-one","mouseSupportCountThreshold":5,"mgiGeneAccId":"MGI:2152878","mouseGeneSymbol":"A1bg"}]'
+
+    echo "Find by mouse genes test for: ${ENDPOINT}$endpoint$parameter"
     run_test  "$expected_result" "$endpoint" "$parameter"
 
 }
 
 find_by_human_genes_test()
 {
-    echo "Find by human genes test"
+
 
     parameter="?genes=A1CF"
     endpoint="/find_by_human_genes"
     expected_result='[{"humanGeneSymbol":"A1CF","hgncAccId":"HGNC:24086","humanSupportCountThreshold":5,"humanCategoryForThreshold":"one-to-one","humanOrthologsAboveThreshold":1,"category":"GOOD","supportCount":11,"isMaxHumanToMouse":"max","isMaxMouseToHuman":"max","mouseOrthologsAboveThreshold":1,"mouseCategoryForThreshold":"one-to-one","mouseSupportCountThreshold":5,"mgiGeneAccId":"MGI:1917115","mouseGeneSymbol":"A1cf"}]'
+    echo "Find by human genes test for: ${ENDPOINT}$endpoint$parameter"
     run_test  "$expected_result" "$endpoint" "$parameter"
 
 }
 
 find_by_mgi_ids_test()
 {
-    echo "Find by mouse gene ids test"
+
 
     parameter="?mgiIds=MGI:1917115"
     endpoint="/find_by_mgi_ids"
     expected_result='[{"humanGeneSymbol":"A1CF","hgncAccId":"HGNC:24086","humanSupportCountThreshold":5,"humanCategoryForThreshold":"one-to-one","humanOrthologsAboveThreshold":1,"category":"GOOD","supportCount":11,"isMaxHumanToMouse":"max","isMaxMouseToHuman":"max","mouseOrthologsAboveThreshold":1,"mouseCategoryForThreshold":"one-to-one","mouseSupportCountThreshold":5,"mgiGeneAccId":"MGI:1917115","mouseGeneSymbol":"A1cf"}]'
+    echo "Find by mouse gene ids test for: ${ENDPOINT}$endpoint$parameter"
     run_test  "$expected_result" "$endpoint" "$parameter"
 
 }
 
 find_by_hgnc_ids_genes_test()
 {
-    echo "Find by human gene ids test"
+    echo "Find by human gene ids test for: ${ENDPOINT}$endpoint$parameter"
 
     parameter="?hgncIds=HGNC:24086"
     endpoint="/find_by_hgnc_ids"
     expected_result='[{"humanGeneSymbol":"A1CF","hgncAccId":"HGNC:24086","humanSupportCountThreshold":5,"humanCategoryForThreshold":"one-to-one","humanOrthologsAboveThreshold":1,"category":"GOOD","supportCount":11,"isMaxHumanToMouse":"max","isMaxMouseToHuman":"max","mouseOrthologsAboveThreshold":1,"mouseCategoryForThreshold":"one-to-one","mouseSupportCountThreshold":5,"mgiGeneAccId":"MGI:1917115","mouseGeneSymbol":"A1cf"}]'
+    echo "Find by human gene ids test for: ${ENDPOINT}$endpoint$parameter"
     run_test  "$expected_result" "$endpoint" "$parameter"
 
 }
