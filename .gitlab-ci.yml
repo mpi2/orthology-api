@@ -46,6 +46,7 @@ stages:
 #   - env
    - build
    - dev-deploy
+   - dev-test
 
 # env:
 #   stage: env
