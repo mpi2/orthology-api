@@ -45,8 +45,10 @@ variables:
 stages:
 #   - env
    - build
-   - dev-deploy
-   - dev-test
+   - hh-dev-deploy
+   - hx-dev-deploy
+   - hh-dev-test
+   - hx-dev-test
 
 # env:
 #   stage: env
@@ -96,7 +98,7 @@ build_image:
 
 
 hh-dev:
-  stage: dev-deploy
+  stage: hh-dev-deploy
   services:
     - name: $CI_REGISTRY/mouse-informatics/dind:latest
       alias: docker
@@ -165,7 +167,7 @@ hh-dev:
 
 
 hx-dev:
-  stage: dev-deploy
+  stage: hx-dev-deploy
   services:
     - name: $CI_REGISTRY/mouse-informatics/dind:latest
       alias: docker
@@ -230,9 +232,28 @@ hx-dev:
         kubectl get pod,deployment,rs,svc,ing
       fi
 
-dev-test:
+hh-dev-test:
   image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
-  stage: dev-test
+  stage: hh-dev-test
+  before_script:
+    - apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
+  script:
+
+    # Establish a data directory
+    - mkdir -p "$MOUNT_POINT"
+    - cd "$MOUNT_POINT"
+
+    - source "$CI_PROJECT_DIR"/scripts/service_test.sh
+
+
+  artifacts:
+    paths:
+      - "$MOUNT_POINT/"
+
+
+hx-dev-test:
+  image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
+  stage: hx-dev-test
   before_script:
     - apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
   script:
