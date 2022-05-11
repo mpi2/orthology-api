@@ -5,12 +5,36 @@ DEBUG=false
 
 ENDPOINT='http://hx-rke-wp-webadmin-20-worker-1.caas.ebi.ac.uk:31016/api/ortholog'
 
+
+for i in "$@"
+do
+case $i in
+    -p|--hx)
+   ENDPOINT='http://hx-rke-wp-webadmin-20-worker-1.caas.ebi.ac.uk:31016/api/ortholog'
+    shift # past argument
+    ;;
+    -d|--hh)
+    ENDPOINT='http://hh-rke-wp-webadmin-20-worker-1.caas.ebi.ac.uk:31016/api/ortholog'
+    shift # past argument
+    ;;
+    --default)
+      error_exit "default error exit";
+    shift # past argument
+    ;;
+    *)
+      error_exit "Unknowing error exit";
+          # unknown option
+    ;;
+esac
+done
+
+
+
 error_exit()
 {
     printf '%s\n' "$1" 1>&2;
     exit 1;
 }
-
 check_http_status_code()
 {
     json_response_with_status="$1"
