@@ -243,10 +243,6 @@ dev-test:
 
     - source "$CI_PROJECT_DIR"/scripts/service_test.sh
 
-    # Reduce the number of files saved as artifacts
-    - rm ${MOUNT_POINT}/*.tsv
-    - rm ${MOUNT_POINT}/*.csv
-
 
   artifacts:
     paths:
