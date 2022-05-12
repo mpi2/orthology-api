@@ -95,8 +95,6 @@ build_image:
             - "$MOUNT_POINT/"
 
 
-
-
 hh-dev:
   stage: dev-deploy
   services:
@@ -162,9 +160,6 @@ hh-dev:
         kubectl rollout status -f kube/wp/dev/api-service/api-service-deployment.yaml
         kubectl get pod,deployment,rs,svc,ing
       fi
-
-
-
 
 hx-dev:
   stage: dev-deploy
@@ -252,7 +247,6 @@ hh-dev-test:
     paths:
       - "$MOUNT_POINT/"
 
-
 hx-dev-test:
   image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
   rules:
@@ -272,7 +266,6 @@ hx-dev-test:
   artifacts:
     paths:
       - "$MOUNT_POINT/"
-
 
 hh-production:
   stage: production-deploy
@@ -313,9 +306,6 @@ hh-production:
         kubectl get pod,deployment,rs,svc,ing
       fi
 
-
-
-
 hx-production:
   stage: production-deploy
   image: $CI_REGISTRY/mouse-informatics/helm-kubectl-alpine:latest
@@ -355,7 +345,6 @@ hx-production:
         kubectl get pod,deployment,rs,svc,ing
       fi
 
-
 hh-production-test:
   image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
   rules:
@@ -390,7 +379,6 @@ hx-production-test:
     - cd "$MOUNT_POINT"
 
     - source "$CI_PROJECT_DIR"/scripts/service_test.sh --hx-dev | tee ${MOUNT_POINT}/hh-dev-test.log
-
 
   artifacts:
     paths:
