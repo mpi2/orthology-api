@@ -358,7 +358,7 @@ hh-production-test:
     - mkdir -p "$MOUNT_POINT"
     - cd "$MOUNT_POINT"
 
-    - source "$CI_PROJECT_DIR"/scripts/service_test.sh --hh-dev | tee ${MOUNT_POINT}/hh-dev-test.log
+    - source "$CI_PROJECT_DIR"/scripts/service_test.sh --hh-production | tee ${MOUNT_POINT}/hh-dev-test.log
 
 
   artifacts:
@@ -378,7 +378,7 @@ hx-production-test:
     - mkdir -p "$MOUNT_POINT"
     - cd "$MOUNT_POINT"
 
-    - source "$CI_PROJECT_DIR"/scripts/service_test.sh --hx-dev | tee ${MOUNT_POINT}/hh-dev-test.log
+    - source "$CI_PROJECT_DIR"/scripts/service_test.sh --hx-production | tee ${MOUNT_POINT}/hh-dev-test.log
 
   artifacts:
     paths:

@@ -9,12 +9,20 @@ ENDPOINT='http://hh-rke-wp-webadmin-20-worker-1.caas.ebi.ac.uk:31016/api/ortholo
 for i in "$@"
 do
 case $i in
-    -p|--hh-dev)
+    -d-hh|--hh-dev)
    ENDPOINT='http://hh-rke-wp-webadmin-20-worker-1.caas.ebi.ac.uk:31016/api/ortholog'
     shift # past argument
     ;;
-    -d|--hx-dev)
+    -d-hx|--hx-dev)
     ENDPOINT='http://hx-rke-wp-webadmin-20-worker-1.caas.ebi.ac.uk:31016/api/ortholog'
+    shift # past argument
+    ;;
+    -p-hh|--hh-production)
+    ENDPOINT='http://hh-rke-wp-webadmin-20-worker-1.caas.ebi.ac.uk:31037/api/ortholog'
+    shift # past argument
+    ;;
+    -p-hx|--hx-production)
+    ENDPOINT='http://hx-rke-wp-webadmin-20-worker-1.caas.ebi.ac.uk:31037/api/ortholog'
     shift # past argument
     ;;
     --default)
