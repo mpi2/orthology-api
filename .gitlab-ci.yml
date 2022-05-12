@@ -291,8 +291,6 @@ hh-production:
         kubectl config use-context "${HH_KUBERNETES_NAMESPACE}"
         kubectl version
 
-        cd impc_prod_tracker
-
         #
         #
         # Substitute the "latest" image tag in your deployment template with a more specific tag
@@ -334,8 +332,6 @@ hx-production:
         kubectl config set-context "${HX_KUBERNETES_NAMESPACE}" --cluster=local --user=${HX_KUBERNETES_USER} --namespace="${HX_KUBERNETES_NAMESPACE}"
         kubectl config use-context "${HX_KUBERNETES_NAMESPACE}"
         kubectl version
-
-        cd impc_prod_tracker
 
         #
         #
@@ -393,7 +389,7 @@ hx-production-test:
     - mkdir -p "$MOUNT_POINT"
     - cd "$MOUNT_POINT"
 
-    - source "$CI_PROJECT_DIR"/scripts/service_test.sh --hh-dev | tee ${MOUNT_POINT}/hh-dev-test.log
+    - source "$CI_PROJECT_DIR"/scripts/service_test.sh --hx-dev | tee ${MOUNT_POINT}/hh-dev-test.log
 
 
   artifacts:
