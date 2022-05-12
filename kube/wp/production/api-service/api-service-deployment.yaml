@@ -4,7 +4,7 @@ metadata:
   labels:
     app: api-service-production
   name: api-service-production
-  namespace: mi-orthology-production
+  namespace: mi-orthology
 spec:
   replicas: 1
   selector:

@@ -4,13 +4,13 @@ metadata:
   labels:
     app: api-service-production
   name: api-service-production
-  namespace: mi-orthology-production
+  namespace: mi-orthology
 spec:
   ports:
   - protocol: TCP
     port: 8080
     targetPort: 8080
-    nodePort: 31016
+    nodePort: 31037
   selector:
     app: api-service-production
   #
