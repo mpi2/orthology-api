@@ -234,6 +234,8 @@ hx-dev:
 
 hh-dev-test:
   image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
+  rules:
+    - if: '$PRODUCTION_DEPLOYMENT != "true" && $CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
   stage: dev-test
   before_script:
     - apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -253,6 +255,8 @@ hh-dev-test:
 
 hx-dev-test:
   image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
+  rules:
+    - if: '$PRODUCTION_DEPLOYMENT != "true" && $CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
   stage: dev-test
   before_script:
     - apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -274,7 +278,7 @@ hh-production:
   stage: production-deploy
   image: $CI_REGISTRY/mouse-informatics/helm-kubectl-alpine:latest
   rules:
-    - if: '$PRODUCTION_DEPLOYMENT == "true" && $CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$PRODUCTION_DEPLOYMENT != "true" && $CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
   script:
     # Only deploy from the MPI2 impc-production-tracker repository rather than repository forks
     - |
@@ -318,7 +322,7 @@ hx-production:
   stage: production-deploy
   image: $CI_REGISTRY/mouse-informatics/helm-kubectl-alpine:latest
   rules:
-    - if: '$PRODUCTION_DEPLOYMENT == "true" && $CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$PRODUCTION_DEPLOYMENT != "true" && $CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
   script:
     # Only deploy from the MPI2 impc-production-tracker repository rather than repository forks
     - |
@@ -358,6 +362,8 @@ hx-production:
 
 hh-production-test:
   image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
+  rules:
+    - if: '$PRODUCTION_DEPLOYMENT != "true" && $CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
   stage: production-test
   before_script:
     - apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -376,6 +382,8 @@ hh-production-test:
 
 hx-production-test:
   image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
+  rules:
+    - if: '$PRODUCTION_DEPLOYMENT != "true" && $CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
   stage: production-test
   before_script:
     - apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
