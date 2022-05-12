@@ -3,17 +3,17 @@ set -e
 
 DEBUG=false
 
-ENDPOINT='http://hx-rke-wp-webadmin-20-worker-1.caas.ebi.ac.uk:31016/api/ortholog'
+ENDPOINT='http://hh-rke-wp-webadmin-20-worker-1.caas.ebi.ac.uk:31016/api/ortholog'
 
 
 for i in "$@"
 do
 case $i in
-    -p|--hh)
+    -p|--hh-dev)
    ENDPOINT='http://hh-rke-wp-webadmin-20-worker-1.caas.ebi.ac.uk:31016/api/ortholog'
     shift # past argument
     ;;
-    -d|--hx)
+    -d|--hx-dev)
     ENDPOINT='http://hx-rke-wp-webadmin-20-worker-1.caas.ebi.ac.uk:31016/api/ortholog'
     shift # past argument
     ;;
@@ -126,8 +126,6 @@ find_by_mgi_ids_test()
 
 find_by_hgnc_ids_genes_test()
 {
-    echo "Find by human gene ids test for: ${ENDPOINT}$endpoint$parameter"
-
     parameter="?hgncIds=HGNC:24086"
     endpoint="/find_by_hgnc_ids"
     expected_result='[{"humanGeneSymbol":"A1CF","hgncAccId":"HGNC:24086","humanSupportCountThreshold":5,"humanCategoryForThreshold":"one-to-one","humanOrthologsAboveThreshold":1,"category":"GOOD","supportCount":11,"isMaxHumanToMouse":"max","isMaxMouseToHuman":"max","mouseOrthologsAboveThreshold":1,"mouseCategoryForThreshold":"one-to-one","mouseSupportCountThreshold":5,"mgiGeneAccId":"MGI:1917115","mouseGeneSymbol":"A1cf"}]'

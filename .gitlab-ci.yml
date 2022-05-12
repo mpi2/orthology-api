@@ -45,10 +45,8 @@ variables:
 stages:
 #   - env
    - build
-   - hh-dev-deploy
-   - hx-dev-deploy
-   - hh-dev-test
-   - hx-dev-test
+   - dev-deploy
+   - dev-test
 
 # env:
 #   stage: env
@@ -98,7 +96,7 @@ build_image:
 
 
 hh-dev:
-  stage: hh-dev-deploy
+  stage: dev-deploy
   services:
     - name: $CI_REGISTRY/mouse-informatics/dind:latest
       alias: docker
@@ -167,7 +165,7 @@ hh-dev:
 
 
 hx-dev:
-  stage: hx-dev-deploy
+  stage: dev-deploy
   services:
     - name: $CI_REGISTRY/mouse-informatics/dind:latest
       alias: docker
@@ -234,7 +232,7 @@ hx-dev:
 
 hh-dev-test:
   image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
-  stage: hh-dev-test
+  stage: dev-test
   before_script:
     - apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
   script:
@@ -243,7 +241,7 @@ hh-dev-test:
     - mkdir -p "$MOUNT_POINT"
     - cd "$MOUNT_POINT"
 
-    - source "$CI_PROJECT_DIR"/scripts/service_test.sh
+    - source "$CI_PROJECT_DIR"/scripts/service_test.sh --hh-dev | tee ${MOUNT_POINT}/hh-dev-test.log
 
 
   artifacts:
@@ -253,7 +251,7 @@ hh-dev-test:
 
 hx-dev-test:
   image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
-  stage: hx-dev-test
+  stage: dev-test
   before_script:
     - apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
   script:
@@ -262,7 +260,7 @@ hx-dev-test:
     - mkdir -p "$MOUNT_POINT"
     - cd "$MOUNT_POINT"
 
-    - source "$CI_PROJECT_DIR"/scripts/service_test.sh
+    - source "$CI_PROJECT_DIR"/scripts/service_test.sh --hx-dev | tee ${MOUNT_POINT}/hx-dev-test.log
 
 
   artifacts:
