@@ -2,26 +2,26 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: api-service
-  name: api-service
+    app: api-service-production
+  name: api-service-production
   namespace: mi-orthology-production
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: api-service
+      app: api-service-production
   strategy:
     type: Recreate
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: api-service
+        app: api-service-production
     spec:
       containers:
       - image: rwilsonebi/orthology-api:latest
         imagePullPolicy: Always
-        name: api-service
+        name: api-service-production
         env:
 #        - name: SERVER_SERVLET_CONTEXT_PATH
 #          value: /orthology-api
