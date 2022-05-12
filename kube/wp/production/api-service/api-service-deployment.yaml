@@ -19,19 +19,19 @@ spec:
         app: api-service
     spec:
       containers:
-        - image: rwilsonebi/orthology-api:latest
-          imagePullPolicy: Always
-          name: api-service
-          env:
-            #        - name: SERVER_SERVLET_CONTEXT_PATH
-            #          value: /orthology-api
-            - name: TRACKER_POSTGRESQL_DB_HOST
-              value: orthology-database
-            - name: TRACKER_POSTGRESQL_DB_PORT
-              value: "5432"
-            - name: REDEPLOY_KEY
-              value: "STRING_REPLACED_DURING_REDEPLOY"
-            ports:
-              - containerPort: 8080
-                protocol: TCP
-            resources: { }
+      - image: rwilsonebi/orthology-api:latest
+        imagePullPolicy: Always
+        name: api-service
+        env:
+#        - name: SERVER_SERVLET_CONTEXT_PATH
+#          value: /orthology-api
+        - name: TRACKER_POSTGRESQL_DB_HOST
+          value: orthology-database
+        - name: TRACKER_POSTGRESQL_DB_PORT
+          value: "5432"
+        - name: REDEPLOY_KEY
+          value: "STRING_REPLACED_DURING_REDEPLOY"
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: { }
