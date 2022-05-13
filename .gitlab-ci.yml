@@ -39,12 +39,25 @@ variables:
    # Logged as: GitLab.com CI jobs failing if using docker:stable-dind image
    # see: https://gitlab.com/gitlab-com/gl-infra/production/issues/982
    DOCKER_TLS_CERTDIR: ""
+   SCAN_KUBERNETES_MANIFESTS: "true"
+
+
+  # Use this command to look at your docker environment
+  # Note: This step can be overwritten by before_script sections in specific jobs.
+  #
+  #before_script:
+  #   - docker info
+
+include:
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
 
 
 
 stages:
 #   - env
    - build
+   - test
    - dev-deploy
    - dev-test
    - production-deploy
@@ -58,6 +71,8 @@ stages:
 
 build_image:
     stage: build
+    rules:
+      - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
     services:
       - name: $CI_REGISTRY/mouse-informatics/dind:latest
         alias: docker
@@ -95,6 +110,63 @@ build_image:
             - "$MOUNT_POINT/"
 
 
+sast:
+  stage: test
+  script:
+    - echo "Running SAST scan ..."
+
+  artifacts:
+    reports:
+      container_scanning: gl-sast-report.json
+
+
+secret_detection:
+  stage: test
+  script:
+    - echo "Running secret detection scan ..."
+
+  artifacts:
+    reports:
+      container_scanning: gl-secret-detection-report.json
+
+
+
+trivy_container_scanning:
+  stage: test
+
+  services:
+    - name: $CI_REGISTRY/mouse-informatics/dind:latest
+      alias: docker
+
+  rules:
+    - if: '$CI_BUILD_REF_NAME == "main"'
+      when: on_success
+      allow_failure: true
+
+  before_script:
+    - export TRIVY_VERSION=$(wget -qO - "https://api.github.com/repos/aquasecurity/trivy/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
+    - echo $TRIVY_VERSION
+    - wget --no-verbose https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz -O - | tar -zxvf -
+    - echo "${CI_REGISTRY_PASSWORD}" | docker login -u "${CI_REGISTRY_USER}" --password-stdin  ${CI_REGISTRY}
+
+  script:
+    # Build report
+    - ./trivy --cache-dir .trivycache/ image --exit-code 0 --no-progress --format template --template "@contrib/gitlab.tpl" -o gl-container-scanning-report.json "${CI_REGISTRY_IMAGE}":"${CI_COMMIT_SHA:0:12}"
+    # Print report
+    - ./trivy --cache-dir .trivycache/ image --exit-code 0 --no-progress --severity HIGH "${CI_REGISTRY_IMAGE}":"${CI_COMMIT_SHA:0:12}"
+    # Fail on critical vulnerability
+    - ./trivy --cache-dir .trivycache/ image --exit-code 1 --severity CRITICAL --no-progress "${CI_REGISTRY_IMAGE}":"${CI_COMMIT_SHA:0:12}"
+
+    - docker logout ${CI_REGISTRY}
+
+  cache:
+    paths:
+      - .trivycache/
+
+  artifacts:
+    reports:
+      container_scanning: gl-container-scanning-report.json
+
 hh-dev:
   stage: dev-deploy
   services:
@@ -102,7 +174,7 @@ hh-dev:
       alias: docker
   image: $CI_REGISTRY/mouse-informatics/helm-kubectl-alpine:latest
   rules:
-    - if: '$PRODUCTION_DEPLOYMENT != "true" && $CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
+    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
   script:
     # Only deploy from the MPI2 impc-production-tracker repository rather than repository forks
     - |
@@ -168,7 +240,7 @@ hx-dev:
       alias: docker
   image: $CI_REGISTRY/mouse-informatics/helm-kubectl-alpine:latest
   rules:
-    - if: '$PRODUCTION_DEPLOYMENT != "true" && $CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
+    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
   script:
     # Only deploy from the MPI2 impc-production-tracker repository rather than repository forks
     - |
@@ -230,7 +302,7 @@ hx-dev:
 hh-dev-test:
   image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
   rules:
-    - if: '$PRODUCTION_DEPLOYMENT != "true" && $CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
+    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
   stage: dev-test
   before_script:
     - apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -250,7 +322,7 @@ hh-dev-test:
 hx-dev-test:
   image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
   rules:
-    - if: '$PRODUCTION_DEPLOYMENT != "true" && $CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
+    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
   stage: dev-test
   before_script:
     - apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -271,7 +343,7 @@ hh-production:
   stage: production-deploy
   image: $CI_REGISTRY/mouse-informatics/helm-kubectl-alpine:latest
   rules:
-    - if: '$PRODUCTION_DEPLOYMENT != "true" && $CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
+    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
   script:
     # Only deploy from the MPI2 impc-production-tracker repository rather than repository forks
     - |
@@ -310,7 +382,7 @@ hx-production:
   stage: production-deploy
   image: $CI_REGISTRY/mouse-informatics/helm-kubectl-alpine:latest
   rules:
-    - if: '$PRODUCTION_DEPLOYMENT != "true" && $CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
+    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
   script:
     # Only deploy from the MPI2 impc-production-tracker repository rather than repository forks
     - |
@@ -348,7 +420,7 @@ hx-production:
 hh-production-test:
   image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
   rules:
-    - if: '$PRODUCTION_DEPLOYMENT != "true" && $CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
+    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
   stage: production-test
   before_script:
     - apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -368,7 +440,7 @@ hh-production-test:
 hx-production-test:
   image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
   rules:
-    - if: '$PRODUCTION_DEPLOYMENT != "true" && $CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
+    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
   stage: production-test
   before_script:
     - apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -383,3 +455,9 @@ hx-production-test:
   artifacts:
     paths:
       - "$MOUNT_POINT/"
+
+
+
+
+
+
