@@ -71,8 +71,6 @@ stages:
 
 build_image:
     stage: build
-    rules:
-      - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
     services:
       - name: $CI_REGISTRY/mouse-informatics/dind:latest
         alias: docker
