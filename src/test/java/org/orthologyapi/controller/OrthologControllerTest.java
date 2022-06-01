@@ -9,11 +9,13 @@ import static org.orthologyapi.constant.EndpointsConst.API_ORTHOLOG_FIND_BY_HGNC
 import static org.orthologyapi.constant.EndpointsConst.API_ORTHOLOG_FIND_BY_HUMAN_GENES_LINK;
 import static org.orthologyapi.constant.EndpointsConst.API_ORTHOLOG_FIND_BY_MGI_IDS_LINK;
 import static org.orthologyapi.constant.EndpointsConst.API_ORTHOLOG_FIND_BY_MOUSE_GENES_LINK;
+import static org.orthologyapi.constant.EndpointsConst.API_ORTHOLOG_ONE_TO_MANY_FIND_BY_MGI_IDS_LINK;
 import static org.orthologyapi.constant.FolderNamesConst.BY_HGNC_ACCESSION_ID;
 import static org.orthologyapi.constant.FolderNamesConst.BY_HUMAN_GENES;
 import static org.orthologyapi.constant.FolderNamesConst.BY_MGI_ACCESSION_ID;
 import static org.orthologyapi.constant.FolderNamesConst.BY_MOUSE_GENES;
 import static org.orthologyapi.constant.FolderNamesConst.FIND_ALL_ORTHOLOGS;
+import static org.orthologyapi.constant.FolderNamesConst.ONE_TO_MANY_BY_MGI_ACCESSION_ID;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 
@@ -75,6 +77,15 @@ class OrthologControllerTest extends ControllerTestTemplate {
     void findAllOneToOneOrthologsByMgiAccessionIdList() throws Exception {
 
         assertOrthologyEndpoints(API_ORTHOLOG_FIND_BY_MGI_IDS_LINK, BY_MGI_ACCESSION_ID);
+    }
+
+    @Test
+    @DatabaseSetup(DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
+    @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
+    @DisplayName("Test One To Many Orthologs By Mgi Accession Id List Controller")
+    void findAllOneToManyOrthologsByMgiAccessionIdList() throws Exception {
+
+        assertOrthologyEndpoints(API_ORTHOLOG_ONE_TO_MANY_FIND_BY_MGI_IDS_LINK, ONE_TO_MANY_BY_MGI_ACCESSION_ID);
     }
 
     @Test
