@@ -42,9 +42,7 @@ The parameters to specify the pagination are:
 
 |===
 
-== ONE TO ONE ORTHOLOGS
-anchor:chapter-configure[]
-This section describes the REST endpoints for one to one orthologs in the system.
+
 
 Orthology api provides GET endpoints that provides the one to one orthologs data for the essential genes and the reference database services.
 
@@ -54,10 +52,16 @@ These are the fields you are going to see in the body of a request in a GET or i
 operations.
 include::{snippets}/by-mouse-genes/response-fields.adoc[]
 
+
+== ONE TO ONE ORTHOLOGS
+
+anchor:chapter-configure[]
+This section describes the REST endpoints for one to one orthologs in the system.
+
 === GET By Mouse Gene Symbol
 
 Get All the one-to-one orthologs mapping by mouse gene symbol or symbol list. The mouse gene symbol list should be entered with , separated in the endpoint.
-Note:Parameter size can not be bigger than 200.
+Note:Parameter size can not be bigger than 600.
 
 ===== Example Request
 
@@ -71,7 +75,7 @@ include::{snippets}/by-mouse-genes/http-response.adoc[]
 === GET By Human Gene Symbol
 
 Get All the one-to-one orthologs mapping by human gene symbol or symbol list. The human gene symbol list should be entered with , separated in the endpoint.
-Note:Parameter size can not be bigger than 200.
+Note:Parameter size can not be bigger than 600.
 
 ===== Example Request
 
@@ -85,7 +89,7 @@ include::{snippets}/by-human-genes/http-response.adoc[]
 === GET By Mgi Accession Id
 
 Get All the one-to-one orthologs mapping by mgi accession id or mgi accession id list. The mgi accession id list should be entered with , separated in the endpoint.
-Note:Parameter size can not be bigger than 200.
+Note:Parameter size can not be bigger than 600.
 
 ===== Example Request
 
@@ -131,7 +135,28 @@ Get All the one-to-one orthologs as tsv file
 
  /api/ortholog/write_to_tsv_file
 
+
+== ONE TO MANY ORTHOLOGS
+
+anchor:chapter-configure[]
+This section describes the REST endpoints for one to many orthologs in the system.
+
+=== GET By Mgi Accession Id
+
+Get All the one-to-many orthologs mapping by mgi accession id or mgi accession id list. The mgi accession id list should be entered with , separated in the endpoint.
+Note:Parameter size can not be bigger than 600.
+
+===== Example Request
+
+Curl:
+include::{snippets}/one-to-many-by-mgi-accession-id/curl-request.adoc[]
+
+===== Example Response
+
+include::{snippets}/one-to-many-by-mgi-accession-id/http-response.adoc[]
+
+
 == Lastest updates
 
-* 2022-04-14: - Orthology api has been created
+* 2022-06-01: - One to Many end point added
 

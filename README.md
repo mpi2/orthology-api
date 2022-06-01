@@ -47,7 +47,7 @@ Path|	Type|	Description
 
 ##### GET By Mouse Gene Symbol
 Get All the one-to-one orthologs mapping by mouse gene symbol or symbol list. The mouse gene symbol list should be entered with , separated in the endpoint.
-Note:Parameter size can not be bigger than 200.
+Note:Parameter size can not be bigger than 600.
 
 ###### Example Request
 ```sh
@@ -81,7 +81,7 @@ Content-Length: 405
 #### GET By Human Gene Symbol
 
 Get All the one-to-one orthologs mapping by human gene symbol or symbol list. The human gene symbol list should be entered with , separated in the endpoint.
-Note:Parameter size can not be bigger than 200.
+Note:Parameter size can not be bigger than 600.
 ###### Example Request
 ```sh
  '/api/ortholog/find_by_human_genes?genes=A1CF' -i -X GET
@@ -113,7 +113,7 @@ Content-Length: 405
 #### GET By Mgi Accession Id
 
 Get All the one-to-one orthologs mapping by mgi accession id or mgi accession id list. The mgi accession id list should be entered with , separated in the endpoint.
-Note:Parameter size can not be bigger than 200.
+Note:Parameter size can not be bigger than 600.
 ##### Example Request
 ```sh
  '/api/ortholog/find_by_mgi_ids?mgiIds=MGI:1917115' -i -X GET
@@ -145,7 +145,7 @@ Content-Length: 405
 #### GET By Hgnc Accession Id
 
 Get All the one-to-one orthologs mapping by hgnc accession id or hgnc accession id list. The hgnc accession id list should be entered with , separated in the endpoint.
-Note:Parameter size can not be bigger than 200.
+Note:Parameter size can not be bigger than 600.
 ##### Example Request
 ```sh
  '/api/ortholog/find_by_hgnc_ids?hgncIds=HGNC:24086' -i -X GET
@@ -231,8 +231,46 @@ Get All the one-to-one orthologs as tsv file
 ```sh
  '/api/ortholog/write_to_tsv_file' -i -X GET
 ```
+
+#### ONE TO MANY ORTHOLOGS
+
+
+#### GET By Mgi Accession Id
+
+Get All the one-to-many orthologs mapping by mgi accession id or mgi accession id list. The mgi accession id list should be entered with , separated in the endpoint. Note:Parameter size can not be bigger than 650.
+##### Example Request
+```sh
+ '/api/ortholog/find_one_to_many_by_mgi_ids?mgiIds=MGI:1917115' -i -X GET
+```
+##### Example Response
+```sh
+ HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 405
+ [
+   {
+      "humanGeneSymbol":"A1CF",
+      "hgncAccId":"HGNC:24086",
+      "humanSupportCountThreshold":5,
+      "humanCategoryForThreshold":"one-to-one",
+      "humanOrthologsAboveThreshold":1,
+      "category":"GOOD",
+      "supportCount":11,
+      "isMaxHumanToMouse":"max",
+      "isMaxMouseToHuman":"max",
+      "mouseOrthologsAboveThreshold":1,
+      "mouseCategoryForThreshold":"one-to-one",
+      "mouseSupportCountThreshold":5,
+      "mgiGeneAccId":"MGI:1917115",
+      "mouseGeneSymbol":"A1cf"
+   }
+]
+```
+
+
+
 ##### Lastest updates
 
-* 2022-04-14: - Orthology api has been created
+* 2022-06-01: - Orthology api has been created
 
 

@@ -40,6 +40,13 @@ public class OrthologService {
             .map(OrthologMapper::orthologToDto).toList();
     }
 
+    public List<OrthologDto> findAllOneToManyOrthologsByMgiAccessionIdList(
+        List<String> mgiAccessionIds) {
+        return orthologRepository
+            .findAllOneToManyOrthologsByMgiAccessionIdList(mgiAccessionIds).stream()
+            .map(OrthologMapper::orthologToDto).toList();
+    }
+
     public List<OrthologDto> findAllOneToOneOrthologsByHgncAccessionIdList(
         List<String> hgncAccessionIds) {
         return orthologRepository

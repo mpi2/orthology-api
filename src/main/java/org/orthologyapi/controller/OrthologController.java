@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/ortholog")
 public class OrthologController {
 
+    public static final int PARAMETER_SIZE = 651;
     OrthologService orthologService;
     ReportService reportService;
 
@@ -33,37 +34,46 @@ public class OrthologController {
     public List<OrthologDto> findAllOneToOneOrthologsByMouseGeneList(
         @RequestParam(value = "genes") List<String> genes) throws SizeLimitExceededException {
 
-        if (genes.size() < 200) {
+        if (genes.size() < PARAMETER_SIZE) {
             return orthologService.findAllOneToOneOrthologsByMouseGeneList(genes);
         }
-        throw new SizeLimitExceededException("Mouse genes parameters number can not be more than 200");
+        throw new SizeLimitExceededException("Mouse genes parameters number can not be more than "+ PARAMETER_SIZE);
     }
 
     @GetMapping("/find_by_human_genes")
     public List<OrthologDto> findAllOneToOneOrthologsByHumanGeneList(
         @RequestParam(value = "genes") List<String> genes) throws SizeLimitExceededException {
-        if (genes.size() < 200) {
+        if (genes.size() < PARAMETER_SIZE) {
             return orthologService.findAllOneToOneOrthologsByHumanGeneList(genes);
         }
-        throw new SizeLimitExceededException("Human genes parameters number can not be more than 200");
+        throw new SizeLimitExceededException("Human genes parameters number can not be more than "+ PARAMETER_SIZE);
     }
 
     @GetMapping("/find_by_mgi_ids")
     public List<OrthologDto> findAllOneToOneOrthologsByMgiAccessionIdList(
         @RequestParam(value = "mgiIds") List<String> mgiIds) throws SizeLimitExceededException {
-        if (mgiIds.size() < 200) {
+        if (mgiIds.size() < PARAMETER_SIZE) {
             return orthologService.findAllOneToOneOrthologsByMgiAccessionIdList(mgiIds);
         }
-        throw new SizeLimitExceededException("Mgi accession ids Parameter number can not be more than 200");
+        throw new SizeLimitExceededException("Mgi accession ids Parameter number can not be more than "+ PARAMETER_SIZE);
+    }
+
+    @GetMapping("/find_one_to_many_by_mgi_ids")
+    public List<OrthologDto> findAllOneToManyOrthologsByMgiAccessionIdList(
+        @RequestParam(value = "mgiIds") List<String> mgiIds) throws SizeLimitExceededException {
+        if (mgiIds.size() < PARAMETER_SIZE) {
+            return orthologService.findAllOneToManyOrthologsByMgiAccessionIdList(mgiIds);
+        }
+        throw new SizeLimitExceededException("Mgi accession ids Parameter number can not be more than "+ PARAMETER_SIZE);
     }
 
     @GetMapping("/find_by_hgnc_ids")
     public List<OrthologDto> findAllOneToOneOrthologsByHgncAccessionIdList(
         @RequestParam(value = "hgncIds") List<String> hgncIds) throws SizeLimitExceededException {
-        if (hgncIds.size() < 200) {
+        if (hgncIds.size() < PARAMETER_SIZE) {
             return orthologService.findAllOneToOneOrthologsByHgncAccessionIdList(hgncIds);
         }
-        throw new SizeLimitExceededException("Hgnc accession ids number can not be more than 200");
+        throw new SizeLimitExceededException("Hgnc accession ids number can not be more than "+PARAMETER_SIZE);
     }
 
     @GetMapping(value = {"/find_all_orthologs"})
