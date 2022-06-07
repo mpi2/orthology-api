@@ -10,11 +10,11 @@ for i in "$@"
 do
 case $i in
     -d-hh|--hh-dev)
-    ENDPOINT='http://hx-rke-wp-webadmin-20-worker-1.caas.ebi.ac.uk:31037/api/ortholog'
+   ENDPOINT='http://hh-rke-wp-webadmin-20-worker-1.caas.ebi.ac.uk:31016/api/ortholog'
     shift # past argument
     ;;
     -d-hx|--hx-dev)
-    ENDPOINT='http://hx-rke-wp-webadmin-20-worker-1.caas.ebi.ac.uk:31037/api/ortholog'
+    ENDPOINT='http://hx-rke-wp-webadmin-20-worker-1.caas.ebi.ac.uk:31016/api/ortholog'
     shift # past argument
     ;;
     -p-hh|--hh-production)
