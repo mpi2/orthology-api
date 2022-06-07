@@ -2,31 +2,31 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: api-service-production
-  name: api-service-production
-  namespace: mi-orthology
+    app: api-ortholog-service-reference-db
+  name: api-ortholog-service-reference-db
+  namespace: mi-reference-data
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: api-service-production
+      app: api-ortholog-service-reference-db
   strategy:
     type: Recreate
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: api-service-production
+        app: api-ortholog-service-reference-db
     spec:
       containers:
       - image: rwilsonebi/orthology-api:latest
         imagePullPolicy: Always
-        name: api-service-production
+        name: api-ortholog-service-reference-db
         env:
 #        - name: SERVER_SERVLET_CONTEXT_PATH
 #          value: /orthology-api
         - name: POSTGRESQL_DB_HOST
-          value: orthology-database
+          value: reference-database
         - name: POSTGRESQL_DB_PORT
           value: "5432"
         - name: REDEPLOY_KEY

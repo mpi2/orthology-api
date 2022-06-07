@@ -62,6 +62,8 @@ stages:
    - dev-test
    - production-deploy
    - production-test
+   - reference-deploy
+   - reference-test
 
 # env:
 #   stage: env
@@ -359,7 +361,6 @@ hh-production:
         # Substitute the "latest" image tag in your deployment template with a more specific tag
         # and record the deployment so you can rollback to this particular version.
         #
-        sed -i "s/impc-production-tracker-mirror:latest/impc-production-tracker-mirror:${PRODUCTION_API_TAG}/g" kube/wp/production/api-service/api-service-deployment.yaml
         sed -i "s/STRING_REPLACED_DURING_REDEPLOY/$(date)/g" kube/wp/production/api-service/api-service-deployment.yaml
 
         if kubectl apply -f kube/wp/production/api-service/api-service-deployment.yaml --record | grep -q unchanged; then
@@ -398,7 +399,6 @@ hx-production:
         # Substitute the "latest" image tag in your deployment template with a more specific tag
         # and record the deployment so you can rollback to this particular version.
         #
-        sed -i "s/impc-production-tracker-mirror:latest/impc-production-tracker-mirror:${PRODUCTION_API_TAG}/g" kube/wp/production/api-service/api-service-deployment.yaml
         sed -i "s/STRING_REPLACED_DURING_REDEPLOY/$(date)/g" kube/wp/production/api-service/api-service-deployment.yaml
 
         if kubectl apply -f kube/wp/production/api-service/api-service-deployment.yaml --record | grep -q unchanged; then
@@ -455,6 +455,91 @@ hx-production-test:
       - "$MOUNT_POINT/"
 
 
+hh-reference-deploy:
+  stage: reference-deploy
+  # Use an image with helm v2.14.3, kubectl v1.15.2, alpine 3.10
+  # rancher/hyperkube:v1.15.3-rancher1 installed on the hh cluster
+  image: $CI_REGISTRY/mouse-informatics/helm-kubectl-alpine:latest
+  only:
+    refs:
+      - master
+  script:
+    - source ${MOUNT_POINT}/datetime.env
+    - echo ${NOW}
+    #
+    - kubectl config set-cluster local --server="${HH_KUBERNETES_ENDPOINT}"
+    - kubectl config set clusters.local.certificate-authority-data "${HH_KUBERNETES_CERTIFICATE_AUTHORITY_DATA}"
+    - kubectl config set-credentials ${HH_KUBERNETES_REFERENCE_USER} --token="${HH_KUBERNETES_REFERENCE_USER_TOKEN}"
+    - kubectl config set-context "${HH_KUBERNETES_REFERENCE_NAMESPACE}" --cluster=local --user=${HH_KUBERNETES_REFERENCE_USER} --namespace="${HH_KUBERNETES_REFERENCE_NAMESPACE}"
+    - kubectl config use-context "${HH_KUBERNETES_REFERENCE_NAMESPACE}"
+    - kubectl version
+    #
+    - sed -i "s/latest/${NOW}/g" kube/wp/reference/api-service/api-service-deployment.yaml
+    - sed -i "s/STRING_REPLACED_DURING_REDEPLOY/$(date)/g" kube/wp/reference/api-service/api-service-deployment.yaml
+
+    - |
+      if kubectl apply -f  kube/wp/reference/api-service/api-service-deployment.yaml --record | grep -q unchanged; then
+          echo "=> Patching deployment to force image update."
+          kubectl patch -f  kube/wp/reference/api-service/api-service-deployment.yaml --record -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"ci-last-updated\":\"$(date +'%s')\"}}}}}"
+      else
+          echo "=> Deployment apply has changed the object, no need to force image update."
+      fi
+
+
+    - kubectl rollout status -f  kube/wp/reference/api-service/api-service-deployment.yaml
+    - kubectl get pod,deployment,rs
+
+
+
+hx-reference-deploy:
+  stage: reference-deploy
+  # Use an image with helm v2.14.3, kubectl v1.15.2, alpine 3.10
+  # rancher/hyperkube:v1.15.3-rancher1 installed on the hh cluster
+  image: $CI_REGISTRY/mouse-informatics/helm-kubectl-alpine:latest
+  only:
+    refs:
+      - master
+  script:
+    - source ${MOUNT_POINT}/datetime.env
+    - echo ${NOW}
+    #
+    - kubectl config set-cluster local --server="${HX_KUBERNETES_ENDPOINT}"
+    - kubectl config set clusters.local.certificate-authority-data "${HX_KUBERNETES_CERTIFICATE_AUTHORITY_DATA}"
+    - kubectl config set-credentials ${HX_KUBERNETES_REFERENCE_USER} --token="${HX_KUBERNETES_REFERENCE_USER_TOKEN}"
+    - kubectl config set-context "${HX_KUBERNETES_REFERENCE_NAMESPACE}" --cluster=local --user=${HX_KUBERNETES_REFERENCE_USER} --namespace="${HX_KUBERNETES_REFERENCE_NAMESPACE}"
+    - kubectl config use-context "${HX_KUBERNETES_REFERENCE_NAMESPACE}"
+    - kubectl version
+    #
+    - sed -i "s/latest/${NOW}/g" kube/wp/reference/api-service/api-service-deployment.yaml
+    - sed -i "s/STRING_REPLACED_DURING_REDEPLOY/$(date)/g" kube/wp/reference/api-service/api-service-deployment.yaml
+
+    - |
+      if kubectl apply -f  kube/wp/reference/api-service/api-service-deployment.yaml --record | grep -q unchanged; then
+          echo "=> Patching deployment to force image update."
+          kubectl patch -f  kube/wp/reference/api-service/api-service-deployment.yaml --record -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"ci-last-updated\":\"$(date +'%s')\"}}}}}"
+      else
+          echo "=> Deployment apply has changed the object, no need to force image update."
+      fi
+
+
+    - kubectl rollout status -f  kube/wp/reference/api-service/api-service-deployment.yaml
+    - kubectl get pod,deployment,rs
+
+reference-test:
+  image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
+  stage: reference-test
+  before_script:
+    - apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
+  script:
+    # Establish a data directory
+    - mkdir -p "$MOUNT_POINT"
+    - cd "$MOUNT_POINT"
+
+    - source "$CI_PROJECT_DIR"/scripts/service_test.sh --reference | tee ${MOUNT_POINT}/production-test.log
+
+  artifacts:
+    paths:
+      - "$MOUNT_POINT/"
 
 
 

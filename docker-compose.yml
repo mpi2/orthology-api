@@ -10,9 +10,9 @@ services:
     ports:
       - "8902:8902"
     environment:
-      - TRACKER_PORT=8902
-      - TRACKER_POSTGRESQL_DB_HOST=postgresql
-      - TRACKER_POSTGRESQL_DB_PORT=5432
+      - PORT=8902
+      - POSTGRESQL_DB_HOST=postgresql
+      - POSTGRESQL_DB_PORT=5432
     networks:
       production:
 
