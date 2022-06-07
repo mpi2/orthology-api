@@ -462,9 +462,6 @@ hh-reference-deploy:
   image: $CI_REGISTRY/mouse-informatics/helm-kubectl-alpine:latest
   rules:
     - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
-  only:
-    refs:
-      - master
   script:
     - source ${MOUNT_POINT}/datetime.env
     - echo ${NOW}
@@ -500,9 +497,6 @@ hx-reference-deploy:
   image: $CI_REGISTRY/mouse-informatics/helm-kubectl-alpine:latest
   rules:
     - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
-  only:
-    refs:
-      - master
   script:
     - source ${MOUNT_POINT}/datetime.env
     - echo ${NOW}
