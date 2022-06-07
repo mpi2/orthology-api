@@ -25,6 +25,10 @@ case $i in
     ENDPOINT='http://hx-rke-wp-webadmin-20-worker-1.caas.ebi.ac.uk:31037/api/ortholog'
     shift # past argument
     ;;
+    -p-re|--reference)
+    ENDPOINT='https://www.gentar.org/orthology-api/api/ortholog'
+    shift # past argument
+    ;;
     --default)
       error_exit "default error exit";
     shift # past argument
