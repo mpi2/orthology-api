@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-[[ -z "${PORT}" ]] && port=8080 || port="${PORT}"
+[[ -z "${TRACKER_PORT}" ]] && port=8080 || port="${TRACKER_PORT}"
 
 if [ -z "${DOCKER_PRODUCTION}" ]; then
 
