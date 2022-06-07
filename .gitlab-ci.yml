@@ -498,7 +498,6 @@ hx-reference-deploy:
   rules:
     - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
   script:
-    - source ${MOUNT_POINT}/datetime.env
     - echo ${NOW}
     #
     - kubectl config set-cluster local --server="${HX_KUBERNETES_ENDPOINT}"
