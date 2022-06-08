@@ -23,7 +23,7 @@ if [ -z "${DOCKER_PRODUCTION}" ]; then
         -Dftp.proxyPort=3128 \
         -Dftp.nonProxyHosts=*.ebi.ac.uk\|localhost\|127.0.0.1 \
         -jar app.jar \
-        --server.port="${port}" --spring.profiles.active=docker
+        --server.port="${port}" --spring.profiles.active=dockerreference
 
     fi
 
