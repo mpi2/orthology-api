@@ -9,7 +9,7 @@ echo "second qwewqewqewqewqeqwe"
     if [ -z "${EBI_PROXY}" ]; then
 echo "thirdc qwewqewqewqewqeqwe"
       java -Djava.security.egd=file:/dev/./urandom -jar app.jar \
-        --server.port="${port}" --spring.profiles.active=dockerreference
+        --server.port="${port}" --spring.profiles.active=docker
 
     fi
 
