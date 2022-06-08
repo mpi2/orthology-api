@@ -463,7 +463,6 @@ hh-reference-deploy:
   rules:
     - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
   script:
-    - echo ${NOW}
     #
     - kubectl config set-cluster local --server="${HH_KUBERNETES_ENDPOINT}"
     - kubectl config set clusters.local.certificate-authority-data "${HH_KUBERNETES_CERTIFICATE_AUTHORITY_DATA}"
@@ -472,7 +471,7 @@ hh-reference-deploy:
     - kubectl config use-context "${HH_KUBERNETES_REFERENCE_NAMESPACE}"
     - kubectl version
     #
-    - sed -i "s/latest/${NOW}/g" kube/wp/reference/api-service/api-service-deployment.yaml
+    - sed -i "s/latest/${CI_COMMIT_SHA:0:12}/g" kube/wp/reference/api-service/api-service-deployment.yaml
     - sed -i "s/STRING_REPLACED_DURING_REDEPLOY/$(date)/g" kube/wp/reference/api-service/api-service-deployment.yaml
 
     - |
@@ -497,7 +496,6 @@ hx-reference-deploy:
   rules:
     - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
   script:
-    - echo ${NOW}
     #
     - kubectl config set-cluster local --server="${HX_KUBERNETES_ENDPOINT}"
     - kubectl config set clusters.local.certificate-authority-data "${HX_KUBERNETES_CERTIFICATE_AUTHORITY_DATA}"
@@ -506,7 +504,7 @@ hx-reference-deploy:
     - kubectl config use-context "${HX_KUBERNETES_REFERENCE_NAMESPACE}"
     - kubectl version
     #
-    - sed -i "s/latest/${NOW}/g" kube/wp/reference/api-service/api-service-deployment.yaml
+    - sed -i "s/latest/${CI_COMMIT_SHA:0:12}/g" kube/wp/reference/api-service/api-service-deployment.yaml
     - sed -i "s/STRING_REPLACED_DURING_REDEPLOY/$(date)/g" kube/wp/reference/api-service/api-service-deployment.yaml
 
     - |

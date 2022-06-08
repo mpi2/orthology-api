@@ -19,7 +19,7 @@ spec:
         app: api-ortholog-service-reference-db
     spec:
       containers:
-      - image: rwilsonebi/orthology-api:latest
+      - image: dockerhub.ebi.ac.uk/mouse-informatics/orthology-api:latest
         imagePullPolicy: Always
         name: api-ortholog-service-reference-db
         env:
