@@ -299,45 +299,7 @@ hx-dev:
         kubectl get pod,deployment,rs,svc,ing
       fi
 
-hh-dev-test:
-  image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
-  rules:
-    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
-  stage: dev-test
-  before_script:
-    - apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
-  script:
 
-    # Establish a data directory
-    - mkdir -p "$MOUNT_POINT"
-    - cd "$MOUNT_POINT"
-
-    - source "$CI_PROJECT_DIR"/scripts/service_test.sh --hh-dev | tee ${MOUNT_POINT}/hh-dev-test.log
-
-
-  artifacts:
-    paths:
-      - "$MOUNT_POINT/"
-
-hx-dev-test:
-  image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
-  rules:
-    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
-  stage: dev-test
-  before_script:
-    - apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
-  script:
-
-    # Establish a data directory
-    - mkdir -p "$MOUNT_POINT"
-    - cd "$MOUNT_POINT"
-
-    - source "$CI_PROJECT_DIR"/scripts/service_test.sh --hx-dev | tee ${MOUNT_POINT}/hx-dev-test.log
-
-
-  artifacts:
-    paths:
-      - "$MOUNT_POINT/"
 
 hh-production:
   stage: production-deploy
@@ -414,46 +376,6 @@ hx-production:
         kubectl rollout status -f kube/wp/production/api-service/api-service-deployment.yaml
         kubectl get pod,deployment,rs,svc,ing
       fi
-
-hh-production-test:
-  image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
-  rules:
-    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
-  stage: production-test
-  before_script:
-    - apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
-  script:
-
-    # Establish a data directory
-    - mkdir -p "$MOUNT_POINT"
-    - cd "$MOUNT_POINT"
-
-    - source "$CI_PROJECT_DIR"/scripts/service_test.sh --hh-production | tee ${MOUNT_POINT}/hh-dev-test.log
-
-
-  artifacts:
-    paths:
-      - "$MOUNT_POINT/"
-
-hx-production-test:
-  image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
-  rules:
-    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
-  stage: production-test
-  before_script:
-    - apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
-  script:
-
-    # Establish a data directory
-    - mkdir -p "$MOUNT_POINT"
-    - cd "$MOUNT_POINT"
-
-    - source "$CI_PROJECT_DIR"/scripts/service_test.sh --hx-production | tee ${MOUNT_POINT}/hh-dev-test.log
-
-  artifacts:
-    paths:
-      - "$MOUNT_POINT/"
-
 
 hh-reference-deploy:
   stage: reference-deploy
