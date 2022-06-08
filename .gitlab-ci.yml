@@ -58,10 +58,6 @@ stages:
 #   - env
    - build
    - test
-   - dev-deploy
-   - dev-test
-   - production-deploy
-   - production-test
    - reference-deploy
    - reference-test
 
