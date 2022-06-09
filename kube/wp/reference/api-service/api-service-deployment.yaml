@@ -23,8 +23,12 @@ spec:
         imagePullPolicy: Always
         name: api-ortholog-service-reference-db
         env:
-#        - name: SERVER_SERVLET_CONTEXT_PATH
-#          value: /orthology-api
+        - name: SERVER_SERVLET_CONTEXT_PATH
+          value: /orthology-api
+        - name: EBI_PROXY
+          value: "true"
+        - name: REFERENCE_SERVICE
+          value: "true"
         - name: POSTGRESQL_DB_HOST
           value: reference-database
         - name: POSTGRESQL_DB_PORT
