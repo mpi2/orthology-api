@@ -148,8 +148,6 @@ find_one_to_one_by_hgnc_ids_genes_test()
 
 find_all_by_mgi_ids_test()
 {
-
-
     parameter="?mgiIds=MGI:1917115"
     endpoint="/find_all_by_mgi_ids"
     expected_result='[{"humanGeneSymbol":"A1CF","hgncAccId":"HGNC:24086","humanSupportCountThreshold":5,"humanCategoryForThreshold":"one-to-one","humanOrthologsAboveThreshold":1,"category":"GOOD","supportCount":11,"isMaxHumanToMouse":"max","isMaxMouseToHuman":"max","mouseOrthologsAboveThreshold":1,"mouseCategoryForThreshold":"one-to-one","mouseSupportCountThreshold":5,"mgiGeneAccId":"MGI:1917115","mouseGeneSymbol":"A1cf"}]'
@@ -164,6 +162,7 @@ main()
     find_one_to_one_by_human_genes_test
     find_one_to_one_by_mgi_ids_test
     find_one_to_one_by_hgnc_ids_genes_test
+    find_all_by_mgi_ids_test
 }
 
 main
