@@ -51,7 +51,7 @@ Note:Parameter size can not be bigger than 600.
 
 ###### Example Request
 ```sh
- '/api/ortholog/find_by_mouse_genes?genes=A1cf' -i -X GET
+ '/api/ortholog/one_to_one/find_by_mouse_genes?genes=A1cf' -i -X GET
 ```
 ###### Example Response
 ```sh
@@ -84,7 +84,7 @@ Get All the one-to-one orthologs mapping by human gene symbol or symbol list. Th
 Note:Parameter size can not be bigger than 600.
 ###### Example Request
 ```sh
- '/api/ortholog/find_by_human_genes?genes=A1CF' -i -X GET
+ '/api/ortholog/one_to_one/find_by_human_genes?genes=A1CF' -i -X GET
 ```
 ###### Example Response
 ```sh
@@ -116,7 +116,7 @@ Get All the one-to-one orthologs mapping by mgi accession id or mgi accession id
 Note:Parameter size can not be bigger than 600.
 ##### Example Request
 ```sh
- '/api/ortholog/find_by_mgi_ids?mgiIds=MGI:1917115' -i -X GET
+ '/api/ortholog/one_to_one/find_by_mgi_ids?mgiIds=MGI:1917115' -i -X GET
 ```
 ##### Example Response
 ```sh
@@ -148,7 +148,7 @@ Get All the one-to-one orthologs mapping by hgnc accession id or hgnc accession 
 Note:Parameter size can not be bigger than 600.
 ##### Example Request
 ```sh
- '/api/ortholog/find_by_hgnc_ids?hgncIds=HGNC:24086' -i -X GET
+ '/api/ortholog/one_to_one/find_by_hgnc_ids?hgncIds=HGNC:24086' -i -X GET
 ```
 ##### Example Response
 ```sh
@@ -180,7 +180,7 @@ Get All the one-to-one ortholog
 
 ##### Example Request
 ```sh
- '/api/ortholog/find_all_orthologs' -i -X GET
+ '/api/ortholog/find_all' -i -X GET
 ```
 ##### Example Response
 ```sh
@@ -210,7 +210,7 @@ Content-Length: 600
    },
    "_links":{
       "self":{
-         "href":"/api/ortholog/find_all_orthologs?page=0&size=20"
+         "href":"/api/ortholog/find_all?page=0&size=20"
       }
    },
    "page":{
@@ -237,10 +237,10 @@ Get All the one-to-one orthologs as tsv file
 
 #### GET By Mgi Accession Id
 
-Get All the one-to-many orthologs mapping by mgi accession id or mgi accession id list. The mgi accession id list should be entered with , separated in the endpoint. Note:Parameter size can not be bigger than 650.
+Get All the orthologs mapping by mgi accession id or mgi accession id list. The mgi accession id list should be entered with , separated in the endpoint. Note:Parameter size can not be bigger than 650.
 ##### Example Request
 ```sh
- '/api/ortholog/find_one_to_many_by_mgi_ids?mgiIds=MGI:1917115' -i -X GET
+ '/api/ortholog/find_all_by_mgi_ids?mgiIds=MGI:1917115' -i -X GET
 ```
 ##### Example Response
 ```sh
@@ -271,6 +271,7 @@ Content-Length: 405
 
 ##### Lastest updates
 
-* 2022-06-01: - Orthology api has been created
+* 2022-06-15: - endpoints changed
+* 2022-06-15: - find_all_by_mgi_ids added
 
 

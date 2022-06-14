@@ -50,15 +50,15 @@ Orthology api provides GET endpoints that provides the one to one orthologs data
 === Fields
 These are the fields you are going to see in the body of a request in a GET or in the payload for POST or PUT
 operations.
-include::{snippets}/by-mouse-genes/response-fields.adoc[]
+include::{snippets}/one-to-one-by-mouse-genes/response-fields.adoc[]
 
 
-== ONE TO ONE ORTHOLOGS
+== ORTHOLOGS
 
 anchor:chapter-configure[]
-This section describes the REST endpoints for one to one orthologs in the system.
+This section describes the REST endpoints for orthologs in the system.
 
-=== GET By Mouse Gene Symbol
+=== GET One To One Orthologs By Mouse Gene Symbol
 
 Get All the one-to-one orthologs mapping by mouse gene symbol or symbol list. The mouse gene symbol list should be entered with , separated in the endpoint.
 Note:Parameter size can not be bigger than 600.
@@ -66,13 +66,13 @@ Note:Parameter size can not be bigger than 600.
 ===== Example Request
 
 Curl:
-include::{snippets}/by-mouse-genes/curl-request.adoc[]
+include::{snippets}/one-to-one-by-mouse-genes/curl-request.adoc[]
 
 ===== Example Response
 
-include::{snippets}/by-mouse-genes/http-response.adoc[]
+include::{snippets}/one-to-one-by-mouse-genes/http-response.adoc[]
 
-=== GET By Human Gene Symbol
+=== GET One To One Orthologs By Human Gene Symbol
 
 Get All the one-to-one orthologs mapping by human gene symbol or symbol list. The human gene symbol list should be entered with , separated in the endpoint.
 Note:Parameter size can not be bigger than 600.
@@ -80,13 +80,13 @@ Note:Parameter size can not be bigger than 600.
 ===== Example Request
 
 Curl:
-include::{snippets}/by-human-genes/curl-request.adoc[]
+include::{snippets}/one-to-one-by-human-genes/curl-request.adoc[]
 
 ===== Example Response
 
-include::{snippets}/by-human-genes/http-response.adoc[]
+include::{snippets}/one-to-one-by-human-genes/http-response.adoc[]
 
-=== GET By Mgi Accession Id
+=== GET One To One Orthologs By Mgi Accession Ids
 
 Get All the one-to-one orthologs mapping by mgi accession id or mgi accession id list. The mgi accession id list should be entered with , separated in the endpoint.
 Note:Parameter size can not be bigger than 600.
@@ -94,24 +94,24 @@ Note:Parameter size can not be bigger than 600.
 ===== Example Request
 
 Curl:
-include::{snippets}/by-mgi-accession-id/curl-request.adoc[]
+include::{snippets}/one-to-one-by-mgi-accession-id/curl-request.adoc[]
 
 ===== Example Response
 
-include::{snippets}/by-mgi-accession-ids/http-response.adoc[]
+include::{snippets}/one-to-one-by-mgi-accession-ids/http-response.adoc[]
 
-=== GET By Hgnc Accession Id
+=== GET One To One Orthologs By Hgnc Accession Id
 
 Get All the one-to-one orthologs mapping by hgnc accession id or hgnc accession id list. The hgnc accession id list should be entered with , separated in the endpoint
 
 ===== Example Request
 
 Curl:
-include::{snippets}/by-hgnc-accession-id/curl-request.adoc[]
+include::{snippets}/one-to-one-by-hgnc-accession-id/curl-request.adoc[]
 
 ===== Example Response
 
-include::{snippets}/by-hgnc-accession-ids/http-response.adoc[]
+include::{snippets}/one-to-one-by-hgnc-accession-ids/http-response.adoc[]
 
 === GET All Orthologs
 
@@ -136,12 +136,7 @@ Get All the one-to-one orthologs as tsv file
  /api/ortholog/write_to_tsv_file
 
 
-== ONE TO MANY ORTHOLOGS
-
-anchor:chapter-configure[]
-This section describes the REST endpoints for one to many orthologs in the system.
-
-=== GET By Mgi Accession Id
+=== GET All Orthologs By Mgi Ids
 
 Get All the one-to-many orthologs mapping by mgi accession id or mgi accession id list. The mgi accession id list should be entered with , separated in the endpoint.
 Note:Parameter size can not be bigger than 600.
@@ -149,14 +144,15 @@ Note:Parameter size can not be bigger than 600.
 ===== Example Request
 
 Curl:
-include::{snippets}/one-to-many-by-mgi-accession-id/curl-request.adoc[]
+include::{snippets}/all-by-mgi-accession-id/curl-request.adoc[]
 
 ===== Example Response
 
-include::{snippets}/one-to-many-by-mgi-accession-id/http-response.adoc[]
+include::{snippets}/all-by-mgi-accession-id/http-response.adoc[]
 
 
 == Lastest updates
 
-* 2022-06-01: - One to Many end point added
+* 2022-06-15: - endpoints changed
+* 2022-06-15: - find_all_by_mgi_ids added
 

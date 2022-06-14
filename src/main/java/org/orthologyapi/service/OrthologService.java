@@ -23,34 +23,34 @@ public class OrthologService {
         this.orthologRepository = orthologRepository;
     }
 
-    public List<OrthologDto> findAllOneToOneOrthologsByMouseGeneList(List<String> genes) {
-        return orthologRepository.findAllOrthologsByMouseGeneList(genes).stream()
+    public List<OrthologDto> findAllOneToOneOrthologsByMouseGenes(List<String> genes) {
+        return orthologRepository.findOneToOneOrthologsByMouseGenes(genes).stream()
             .map(OrthologMapper::orthologToDto).toList();
     }
 
-    public List<OrthologDto> findAllOneToOneOrthologsByHumanGeneList(List<String> genes) {
-        return orthologRepository.findAllOrthologsByHumanGeneList(genes).stream()
+    public List<OrthologDto> findAllOneToOneOrthologsByHumanGenes(List<String> genes) {
+        return orthologRepository.findOneToOneOrthologsByHumanGenes(genes).stream()
             .map(OrthologMapper::orthologToDto).toList();
     }
 
-    public List<OrthologDto> findAllOneToOneOrthologsByMgiAccessionIdList(
+    public List<OrthologDto> findAllOneToOneOrthologsByMgiAccessionIds(
         List<String> mgiAccessionIds) {
         return orthologRepository
-            .findAllOrthologsByMgiAccessionIdList(mgiAccessionIds).stream()
+            .findOneToOneOrthologsByMgiAccessionIds(mgiAccessionIds).stream()
             .map(OrthologMapper::orthologToDto).toList();
     }
 
-    public List<OrthologDto> findAllOneToManyOrthologsByMgiAccessionIdList(
+    public List<OrthologDto> findAllOneToManyOrthologsByMgiAccessionIds(
         List<String> mgiAccessionIds) {
         return orthologRepository
-            .findAllOneToManyOrthologsByMgiAccessionIdList(mgiAccessionIds).stream()
+            .findOrthologsByMgiAccessionIds(mgiAccessionIds).stream()
             .map(OrthologMapper::orthologToDto).toList();
     }
 
-    public List<OrthologDto> findAllOneToOneOrthologsByHgncAccessionIdList(
+    public List<OrthologDto> findAllOneToOneOrthologsByHgncAccessionIds(
         List<String> hgncAccessionIds) {
         return orthologRepository
-            .findAllOrthologsByHgncAccessionIdList(hgncAccessionIds).stream()
+            .findOneToOneOrthologsByHgncAccessionIds(hgncAccessionIds).stream()
             .map(OrthologMapper::orthologToDto).toList();
     }
 

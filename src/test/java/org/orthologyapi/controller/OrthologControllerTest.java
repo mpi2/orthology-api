@@ -4,18 +4,18 @@ import static org.orthologyapi.constant.DBSetupFilesPathsConst.DBUNIT_ORTHOLOGY_
 import static org.orthologyapi.constant.DBSetupFilesPathsConst.EXPECTED_All_ORTHOLOGS_PAGEABLE_JSON;
 import static org.orthologyapi.constant.DBSetupFilesPathsConst.EXPECTED_ORTHOLOGS_JSON;
 import static org.orthologyapi.constant.DBSetupFilesPathsConst.INTEGRATION_TESTS_RESOURCE_PATH;
-import static org.orthologyapi.constant.EndpointsConst.API_ORTHOLOG_FIND_ALL_ORTHOLOGS;
-import static org.orthologyapi.constant.EndpointsConst.API_ORTHOLOG_FIND_BY_HGNC_IDS_LINK;
-import static org.orthologyapi.constant.EndpointsConst.API_ORTHOLOG_FIND_BY_HUMAN_GENES_LINK;
-import static org.orthologyapi.constant.EndpointsConst.API_ORTHOLOG_FIND_BY_MGI_IDS_LINK;
-import static org.orthologyapi.constant.EndpointsConst.API_ORTHOLOG_FIND_BY_MOUSE_GENES_LINK;
-import static org.orthologyapi.constant.EndpointsConst.API_ORTHOLOG_ONE_TO_MANY_FIND_BY_MGI_IDS_LINK;
-import static org.orthologyapi.constant.FolderNamesConst.BY_HGNC_ACCESSION_ID;
-import static org.orthologyapi.constant.FolderNamesConst.BY_HUMAN_GENES;
-import static org.orthologyapi.constant.FolderNamesConst.BY_MGI_ACCESSION_ID;
-import static org.orthologyapi.constant.FolderNamesConst.BY_MOUSE_GENES;
+import static org.orthologyapi.constant.EndpointsConst.FIND_ALL_ORTHOLOGS_LINK;
+import static org.orthologyapi.constant.EndpointsConst.FIND_ONE_TO_ONE_BY_HGNC_IDS_LINK;
+import static org.orthologyapi.constant.EndpointsConst.FIND_ONE_TO_ONE_BY_HUMAN_GENES_LINK;
+import static org.orthologyapi.constant.EndpointsConst.FIND_ONE_ONE_BY_MGI_IDS_LINK;
+import static org.orthologyapi.constant.EndpointsConst.FIND_ONE_TO_ONE_BY_MOUSE_GENES_LINK;
+import static org.orthologyapi.constant.EndpointsConst.FIND_BY_MGI_IDS_LINK;
+import static org.orthologyapi.constant.FolderNamesConst.ONE_TO_ONE_BY_HGNC_ACCESSION_ID;
+import static org.orthologyapi.constant.FolderNamesConst.ONE_TO_ONE_BY_HUMAN_GENES;
+import static org.orthologyapi.constant.FolderNamesConst.ONE_TO_ONE_BY_MGI_ACCESSION_ID;
+import static org.orthologyapi.constant.FolderNamesConst.ONE_TO_ONE_BY_MOUSE_GENES;
 import static org.orthologyapi.constant.FolderNamesConst.FIND_ALL_ORTHOLOGS;
-import static org.orthologyapi.constant.FolderNamesConst.ONE_TO_MANY_BY_MGI_ACCESSION_ID;
+import static org.orthologyapi.constant.FolderNamesConst.All_BY_MGI_ACCESSION_ID;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 
@@ -46,7 +46,7 @@ class OrthologControllerTest extends ControllerTestTemplate {
     private RestCaller restCaller;
 
     @BeforeEach
-    public void setup() throws Exception {
+    public void setup() {
         restCaller = new RestCaller(mvc());
 
     }
@@ -55,56 +55,56 @@ class OrthologControllerTest extends ControllerTestTemplate {
     @Test
     @DatabaseSetup(DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
     @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
-    @DisplayName("Test One To One Orthologs By Mouse Gene List Controller")
+    @DisplayName("Test One To One Orthologs By Mouse Gene List")
     void findAllOneToOneOrthologsByMouseGeneList() throws Exception {
 
-        assertOrthologyEndpoints(API_ORTHOLOG_FIND_BY_MOUSE_GENES_LINK, BY_MOUSE_GENES);
+        assertOrthologyEndpoints(FIND_ONE_TO_ONE_BY_MOUSE_GENES_LINK, ONE_TO_ONE_BY_MOUSE_GENES);
     }
 
     @Test
     @DatabaseSetup(DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
     @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
-    @DisplayName("Test One To OneOrthologs By Human Gene List Controller")
+    @DisplayName("Test One To OneOrthologs By Human Gene List")
     void findAllOneToOneOrthologsByHumanGeneList() throws Exception {
 
-        assertOrthologyEndpoints(API_ORTHOLOG_FIND_BY_HUMAN_GENES_LINK, BY_HUMAN_GENES);
+        assertOrthologyEndpoints(FIND_ONE_TO_ONE_BY_HUMAN_GENES_LINK, ONE_TO_ONE_BY_HUMAN_GENES);
     }
 
     @Test
     @DatabaseSetup(DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
     @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
-    @DisplayName("Test One To One Orthologs By Mgi Accession Id List Controller")
+    @DisplayName("Test One To One Orthologs By Mgi Accession Id List")
     void findAllOneToOneOrthologsByMgiAccessionIdList() throws Exception {
 
-        assertOrthologyEndpoints(API_ORTHOLOG_FIND_BY_MGI_IDS_LINK, BY_MGI_ACCESSION_ID);
+        assertOrthologyEndpoints(FIND_ONE_ONE_BY_MGI_IDS_LINK, ONE_TO_ONE_BY_MGI_ACCESSION_ID);
     }
 
     @Test
     @DatabaseSetup(DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
     @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
-    @DisplayName("Test One To Many Orthologs By Mgi Accession Id List Controller")
+    @DisplayName("Test Orthologs By Mgi Accession Id List")
     void findAllOneToManyOrthologsByMgiAccessionIdList() throws Exception {
 
-        assertOrthologyEndpoints(API_ORTHOLOG_ONE_TO_MANY_FIND_BY_MGI_IDS_LINK, ONE_TO_MANY_BY_MGI_ACCESSION_ID);
+        assertOrthologyEndpoints(FIND_BY_MGI_IDS_LINK, All_BY_MGI_ACCESSION_ID);
     }
 
     @Test
     @DatabaseSetup(DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
     @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
-    @DisplayName("Test One To One Orthologs By Hgnc Accession Id List Controller")
+    @DisplayName("Test One To One Orthologs By Hgnc Accession Id List")
     void findAllOneToOneOrthologsByHgncAccessionIdList() throws Exception {
 
-        assertOrthologyEndpoints(API_ORTHOLOG_FIND_BY_HGNC_IDS_LINK, BY_HGNC_ACCESSION_ID);
+        assertOrthologyEndpoints(FIND_ONE_TO_ONE_BY_HGNC_IDS_LINK, ONE_TO_ONE_BY_HGNC_ACCESSION_ID);
     }
 
 
     @Test
     @DatabaseSetup(DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
     @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
-    @DisplayName("Test All One To One Orthologs Pageable Controller")
+    @DisplayName("Test All Orthologs Pageable")
     void findAllOrthologsPageable() throws Exception {
         String contentAsString =
-            restCaller.executeGetAndDocument(API_ORTHOLOG_FIND_ALL_ORTHOLOGS,
+            restCaller.executeGetAndDocument(FIND_ALL_ORTHOLOGS_LINK,
                 documentOrthologyEndPoints(EMBEDDED_ORTHOLOG_DTO_LIST_PREFIX, FIND_ALL_ORTHOLOGS));
 
         String expectedOutputAsString =
