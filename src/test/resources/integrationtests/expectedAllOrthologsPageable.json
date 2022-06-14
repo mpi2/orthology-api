@@ -22,7 +22,7 @@
   "_links": {
 
     "self": {
-      "href": "http://localhost:8080/api/ortholog/find_all_orthologs?page=0&size=20"
+      "href": "http://localhost:8080/api/ortholog/find_all?page=0&size=20"
     }
   },
   "page": {

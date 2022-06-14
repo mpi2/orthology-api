@@ -40,7 +40,7 @@ public interface OrthologRepository extends PagingAndSortingRepository<Ortholog,
         "order by " +
         "h.symbol asc;",
         nativeQuery = true)
-    List<OrthologProjection> findAllOrthologsByMouseGeneList(@Param("genes") List<String> genes);
+    List<OrthologProjection> findOneToOneOrthologsByMouseGenes(@Param("genes") List<String> genes);
 
     @Query(value = "select h.symbol as humanGeneSymbol, " +
         "       h.hgnc_acc_id as hgncAccId, " +
@@ -68,7 +68,7 @@ public interface OrthologRepository extends PagingAndSortingRepository<Ortholog,
         "order by " +
         "h.symbol asc;",
         nativeQuery = true)
-    List<OrthologProjection> findAllOrthologsByHumanGeneList(@Param("genes") List<String> genes);
+    List<OrthologProjection> findOneToOneOrthologsByHumanGenes(@Param("genes") List<String> genes);
 
     @Query(value = "select h.symbol as humanGeneSymbol, " +
         "       h.hgnc_acc_id as hgncAccId, " +
@@ -96,7 +96,7 @@ public interface OrthologRepository extends PagingAndSortingRepository<Ortholog,
         "order by " +
         "h.symbol asc;",
         nativeQuery = true)
-    List<OrthologProjection> findAllOrthologsByMgiAccessionIdList(
+    List<OrthologProjection> findOneToOneOrthologsByMgiAccessionIds(
         @Param("accessionIds") List<String> accessionIds);
 
     @Query(value = "select h.symbol as humanGeneSymbol, " +
@@ -119,12 +119,11 @@ public interface OrthologRepository extends PagingAndSortingRepository<Ortholog,
         "o.mouse_gene_id=m.id and " +
         "m.id=mmf.mouse_gene_id and " +
         "m.mgi_gene_acc_id IN :accessionIds and " +
-        "mmf.support_count_threshold=5 and " +
-        "mmf.category_for_threshold='one-to-one' " +
+        "mmf.support_count_threshold=5" +
         "order by " +
         "h.symbol asc;",
         nativeQuery = true)
-    List<OrthologProjection> findAllOneToManyOrthologsByMgiAccessionIdList(
+    List<OrthologProjection> findOrthologsByMgiAccessionIds(
         @Param("accessionIds") List<String> accessionIds);
 
     @Query(value = "select h.symbol as humanGeneSymbol, " +
@@ -153,7 +152,7 @@ public interface OrthologRepository extends PagingAndSortingRepository<Ortholog,
         "order by " +
         "h.symbol asc;",
         nativeQuery = true)
-    List<OrthologProjection> findAllOrthologsByHgncAccessionIdList(
+    List<OrthologProjection> findOneToOneOrthologsByHgncAccessionIds(
         @Param("accessionIds") List<String> accessionIds);
 
     @Query(value = "select h.symbol as humanGeneSymbol, " +
