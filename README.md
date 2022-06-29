@@ -223,15 +223,6 @@ Content-Length: 600
 ```
 
 
-#### GET All Orthologs As Tsv File
-
-Get All the one-to-one orthologs as tsv file
-
-##### Example Request
-```sh
- '/api/ortholog/write_to_tsv_file' -i -X GET
-```
-
 #### ONE TO MANY ORTHOLOGS
 
 
@@ -269,9 +260,31 @@ Content-Length: 405
 
 
 
+#### GET All Orthologs As Tsv File
+
+Get All the orthologs as tsv file
+
+##### Example Request
+```sh
+ '/api/ortholog/write_to_tsv_file' -i -X GET
+```
+
+
+
+#### GET All One To One Orthologs As Tsv File
+
+Get All the one-to-one orthologs as tsv file
+
+##### Example Request
+```sh
+ '/api/ortholog/one_to_one/write_to_tsv_file' -i -X GET
+```
+
+
+
 ##### Lastest updates
 
-* 2022-06-15: - endpoints changed
-* 2022-06-15: - find_all_by_mgi_ids added
+* 2022-06-29: - one_to_one/write_to_tsv_file endpoint added.
+* 2022-06-15: - find_all_by_mgi_ids added.
 
 
