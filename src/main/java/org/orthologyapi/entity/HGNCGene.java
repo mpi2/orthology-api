@@ -12,8 +12,8 @@ import javax.persistence.Id;
 @Entity
 @Data
 public class HGNCGene {
-    @Id
 
+    @Id
     private Long id;
 
     private String agrAccId;

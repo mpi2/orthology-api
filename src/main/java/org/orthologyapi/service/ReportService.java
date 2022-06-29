@@ -21,9 +21,17 @@ public class ReportService {
         this.orthologRepository = orthologRepository;
     }
 
-    public boolean writeReport(HttpServletResponse response) throws IOException {
+    public boolean writeReportForAllOthologs(HttpServletResponse response) throws IOException {
         List<OrthologDto> orthologDtos =
             orthologRepository.findAllOrthologsForTsvFile().stream().map(
+                OrthologMapper::orthologToDto).toList();
+        printReport(response, orthologDtos);
+        return true;
+    }
+
+    public boolean writeReportForOneToOneOrthologs(HttpServletResponse response) throws IOException {
+        List<OrthologDto> orthologDtos =
+            orthologRepository.findOneToOneOrthologsForTsvFile().stream().map(
                 OrthologMapper::orthologToDto).toList();
         printReport(response, orthologDtos);
         return true;

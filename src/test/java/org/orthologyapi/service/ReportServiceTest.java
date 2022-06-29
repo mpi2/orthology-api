@@ -34,16 +34,26 @@ class ReportServiceTest {
     }
 
     @Test
-    void writeReport() throws IOException {
+    void writeReportForAllOrthologs() throws IOException {
         StringWriter stringWriter = new StringWriter();
         PrintWriter printWriter = new PrintWriter(stringWriter);
         Mockito.when(mockResponse.getWriter()).thenReturn(printWriter);
         Mockito.when(orthologRepository.findAllOrthologsForTsvFile())
             .thenReturn(orthologTestData());
-        boolean actual = reportService.writeReport(mockResponse);
+        boolean actual = reportService.writeReportForAllOthologs(mockResponse);
         Assertions.assertTrue(actual);
     }
 
+    @Test
+    void writeReportForOneToOneOrthologs() throws IOException {
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(stringWriter);
+        Mockito.when(mockResponse.getWriter()).thenReturn(printWriter);
+        Mockito.when(orthologRepository.findOneToOneOrthologsForTsvFile())
+            .thenReturn(orthologTestData());
+        boolean actual = reportService.writeReportForOneToOneOrthologs(mockResponse);
+        Assertions.assertTrue(actual);
+    }
 
     private List<OrthologProjection> orthologTestData() {
         List<OrthologProjection> orthologProjections = new ArrayList<>();

@@ -127,15 +127,6 @@ include::{snippets}/find-all-orthologs/curl-request.adoc[]
 include::{snippets}/find-all-orthologs/http-response.adoc[]
 
 
-=== GET All Orthologs As Tsv File
-
-Get All the one-to-one orthologs as tsv file
-
-===== Example Request
-
- /api/ortholog/write_to_tsv_file
-
-
 === GET All Orthologs By Mgi Ids
 
 Get All the one-to-many orthologs mapping by mgi accession id or mgi accession id list. The mgi accession id list should be entered with , separated in the endpoint.
@@ -151,8 +142,27 @@ include::{snippets}/all-by-mgi-accession-id/curl-request.adoc[]
 include::{snippets}/all-by-mgi-accession-id/http-response.adoc[]
 
 
+=== GET All Orthologs As Tsv File
+
+Get All the orthologs as tsv file
+
+===== Example Request
+
+ /api/ortholog/write_to_tsv_file
+
+
+=== GET All One To One Orthologs As Tsv File
+
+Get All the one-to-one orthologs as tsv file
+
+===== Example Request
+
+ /api/ortholog/one_to_one/write_to_tsv_file
+
+
+
 == Lastest updates
 
-* 2022-06-15: - endpoints changed.
+* 2022-06-29: - one_to_one/write_to_tsv_file endpoint added.
 * 2022-06-15: - find_all_by_mgi_ids added.
 
