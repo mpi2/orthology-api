@@ -151,18 +151,18 @@ Get All the orthologs as tsv file
  /api/ortholog/write_to_tsv_file
 
 
-=== GET All One To One Orthologs As Tsv File
+=== GET All One To One Impc Orthologs As Tsv File
 
-Get All the one-to-one orthologs as tsv file
+Get All the one-to-one Impc orthologs as tsv file
 
 ===== Example Request
 
- /api/ortholog/one_to_one/write_to_tsv_file
+ /api/ortholog/one_to_one/impc/write_to_tsv_file
 
 
 
 == Lastest updates
 
-* 2022-06-29: - one_to_one/write_to_tsv_file endpoint added.
+* 2022-06-29: - one_to_one/impc/write_to_tsv_file endpoint added.
 * 2022-06-15: - find_all_by_mgi_ids added.
 

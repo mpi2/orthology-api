@@ -49,9 +49,9 @@ class ReportServiceTest {
         StringWriter stringWriter = new StringWriter();
         PrintWriter printWriter = new PrintWriter(stringWriter);
         Mockito.when(mockResponse.getWriter()).thenReturn(printWriter);
-        Mockito.when(orthologRepository.findOneToOneOrthologsForTsvFile())
+        Mockito.when(orthologRepository.findOneToOneImpcOrthologsForTsvFile())
             .thenReturn(orthologTestData());
-        boolean actual = reportService.writeReportForOneToOneOrthologs(mockResponse);
+        boolean actual = reportService.writeReportForOneToOneImpcOrthologs(mockResponse);
         Assertions.assertTrue(actual);
     }
 
