@@ -29,9 +29,9 @@ public class ReportService {
         return true;
     }
 
-    public boolean writeReportForOneToOneOrthologs(HttpServletResponse response) throws IOException {
+    public boolean writeReportForOneToOneImpcOrthologs(HttpServletResponse response) throws IOException {
         List<OrthologDto> orthologDtos =
-            orthologRepository.findOneToOneOrthologsForTsvFile().stream().map(
+            orthologRepository.findOneToOneImpcOrthologsForTsvFile().stream().map(
                 OrthologMapper::orthologToDto).toList();
         printReport(response, orthologDtos);
         return true;

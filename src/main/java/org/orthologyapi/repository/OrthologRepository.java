@@ -195,6 +195,7 @@ public interface OrthologRepository extends PagingAndSortingRepository<Ortholog,
         "from human_gene h, human_mapping_filter hmf, ortholog o, mouse_gene m, mouse_mapping_filter mmf " +
         "where h.id=hmf.human_gene_id and " +
         "hmf.support_count_threshold=5 and " +
+        "(m.subtype='protein coding gene' or m.subtype='miRNA gene') and " +
         "hmf.category_for_threshold='one-to-one' and " +
         "h.id=o.human_gene_id and " +
         "o.support_count>=5 and " +
@@ -205,7 +206,7 @@ public interface OrthologRepository extends PagingAndSortingRepository<Ortholog,
         "order by " +
         "h.symbol asc;",
         nativeQuery = true)
-    List<OrthologProjection> findOneToOneOrthologsForTsvFile();
+    List<OrthologProjection> findOneToOneImpcOrthologsForTsvFile();
 
 
 

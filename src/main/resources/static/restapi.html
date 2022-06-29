@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<meta name="author" content="2022-06-29T09:15:07Z">
+<meta name="author" content="2022-06-29T10:34:15Z">
 <title>ORTHOLOGY REST API</title>
 <style>
 /* Derived from the Riak documentation theme developed by Basho Technologies, Inc. | CC BY 3.0 License | http://docs.basho.org */
@@ -2108,7 +2108,7 @@ table.tableblock.grid-all {
 <div id="header">
 <h1>ORTHOLOGY REST API</h1>
 <div class="details">
-<span id="author" class="author">2022-06-29T09:15:07Z</span><br>
+<span id="author" class="author">2022-06-29T10:34:15Z</span><br>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -2164,7 +2164,7 @@ table.tableblock.grid-all {
 <li><a href="#_example_request_7">Example Request</a></li>
 </ul>
 </li>
-<li><a href="#_get_all_one_to_one_orthologs_as_tsv_file">3.8. GET All One To One Orthologs As Tsv File</a>
+<li><a href="#_get_all_one_to_one_impc_orthologs_as_tsv_file">3.8. GET All One To One Impc Orthologs As Tsv File</a>
 <ul class="sectlevel4">
 <li><a href="#_example_request_8">Example Request</a></li>
 </ul>
@@ -2537,15 +2537,15 @@ Content-Length: 405
 </div>
 </div>
 <div class="sect2">
-<h3 id="_get_all_one_to_one_orthologs_as_tsv_file"><a class="link" href="#_get_all_one_to_one_orthologs_as_tsv_file">3.8. GET All One To One Orthologs As Tsv File</a></h3>
+<h3 id="_get_all_one_to_one_impc_orthologs_as_tsv_file"><a class="link" href="#_get_all_one_to_one_impc_orthologs_as_tsv_file">3.8. GET All One To One Impc Orthologs As Tsv File</a></h3>
 <div class="paragraph">
-<p>Get All the one-to-one orthologs as tsv file</p>
+<p>Get All the one-to-one Impc orthologs as tsv file</p>
 </div>
 <div class="sect4">
 <h5 id="_example_request_8"><a class="link" href="#_example_request_8">Example Request</a></h5>
 <div class="literalblock">
 <div class="content">
-<pre>/api/ortholog/one_to_one/write_to_tsv_file</pre>
+<pre>/api/ortholog/one_to_one/impc/write_to_tsv_file</pre>
 </div>
 </div>
 </div>
@@ -2558,7 +2558,7 @@ Content-Length: 405
 <div class="ulist">
 <ul>
 <li>
-<p>2022-06-29: - one_to_one/write_to_tsv_file endpoint added.</p>
+<p>2022-06-29: - one_to_one/impc/write_to_tsv_file endpoint added.</p>
 </li>
 <li>
 <p>2022-06-15: - find_all_by_mgi_ids added.</p>
@@ -2570,7 +2570,7 @@ Content-Length: 405
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-06-29 10:14:43 BST
+Last updated 2022-06-29 11:33:53 BST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
