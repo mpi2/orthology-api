@@ -1,12 +1,12 @@
 package org.orthologyapi.service;
 
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.servlet.http.HttpServletResponse;
 import org.orthologyapi.descriptor.OrthologMapper;
 import org.orthologyapi.dto.OrthologDto;
 import org.orthologyapi.repository.OrthologRepository;

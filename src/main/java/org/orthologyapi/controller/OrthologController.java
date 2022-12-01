@@ -1,9 +1,9 @@
 package org.orthologyapi.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import javax.naming.SizeLimitExceededException;
-import javax.servlet.http.HttpServletResponse;
 import org.orthologyapi.dto.OrthologDto;
 import org.orthologyapi.service.OrthologService;
 import org.orthologyapi.service.ReportService;
