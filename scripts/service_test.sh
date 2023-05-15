@@ -101,7 +101,6 @@ run_test()
 
 find_one_to_one_by_mouse_genes_test()
 {
-Find by human genes test for:
 
     parameter="?genes=A1CF"
     endpoint="/one_to_one/find_by_mouse_genes"
