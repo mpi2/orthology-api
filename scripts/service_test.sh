@@ -101,11 +101,11 @@ run_test()
 
 find_one_to_one_by_mouse_genes_test()
 {
+Find by human genes test for:
 
-
-    parameter="?genes=A1bg"
+    parameter="?genes=A1CF"
     endpoint="/one_to_one/find_by_mouse_genes"
-    expected_result='[{"humanGeneSymbol":"A1BG","hgncAccId":"HGNC:5","humanSupportCountThreshold":5,"humanCategoryForThreshold":"one-to-one","humanOrthologsAboveThreshold":1,"category":"GOOD","supportCount":12,"isMaxHumanToMouse":"max","isMaxMouseToHuman":"max","mouseOrthologsAboveThreshold":1,"mouseCategoryForThreshold":"one-to-one","mouseSupportCountThreshold":5,"mgiGeneAccId":"MGI:2152878","mouseGeneSymbol":"A1bg"}]'
+    expected_result='[{"humanGeneSymbol":"A1CF","hgncAccId":"HGNC:24086","humanSupportCountThreshold":5,"humanCategoryForThreshold":"one-to-one","humanOrthologsAboveThreshold":1,"category":"GOOD","supportCount":10,"isMaxHumanToMouse":"max","isMaxMouseToHuman":"max","mouseOrthologsAboveThreshold":1,"mouseCategoryForThreshold":"one-to-one","mouseSupportCountThreshold":5,"mgiGeneAccId":"MGI:1917115","mouseGeneSymbol":"A1cf"}]'
 
     echo "Find by mouse genes test for: ${ENDPOINT}$endpoint$parameter"
     run_test  "$expected_result" "$endpoint" "$parameter"
