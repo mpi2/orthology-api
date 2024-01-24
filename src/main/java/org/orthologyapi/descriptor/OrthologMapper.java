@@ -1,6 +1,8 @@
 package org.orthologyapi.descriptor;
 
+import org.orthologyapi.dto.EnsemblUrlDto;
 import org.orthologyapi.dto.OrthologDto;
+import org.orthologyapi.projection.EnsemblUrlProjection;
 import org.orthologyapi.projection.OrthologProjection;
 
 public class OrthologMapper {
@@ -23,5 +25,15 @@ public class OrthologMapper {
         orthologDto.setMgiGeneAccId(orthologProjection.getMgiGeneAccId());
         orthologDto.setMouseGeneSymbol(orthologProjection.getMouseGeneSymbol());
         return orthologDto;
+    }
+
+
+    public static EnsemblUrlDto ensemblUrlToDto(
+        EnsemblUrlProjection ensemblUrlProjection) {
+        EnsemblUrlDto ensemblUrlDto = new EnsemblUrlDto();
+        ensemblUrlDto.setMgiGeneAccId(ensemblUrlProjection.getMgiGeneAccId());
+        ensemblUrlDto.setMouseGeneSymbol(ensemblUrlProjection.getMouseGeneSymbol());
+        ensemblUrlDto.setEnsemblGeneAccId(ensemblUrlProjection.getEnsemblGeneAccId());
+        return ensemblUrlDto;
     }
 }

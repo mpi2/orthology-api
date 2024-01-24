@@ -60,6 +60,8 @@ public class MouseGene {
 
     private String subtype;
 
+    private String ensemblGeneAccId;
+
   @ManyToMany()
   @JoinTable(
       name = "mouseGeneSynonymRelation",

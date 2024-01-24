@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReportService {
 
-    OrthologRepository orthologRepository;
+    private final OrthologRepository orthologRepository;
 
     public ReportService(OrthologRepository orthologRepository) {
         this.orthologRepository = orthologRepository;

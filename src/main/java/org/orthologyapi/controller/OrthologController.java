@@ -3,7 +3,8 @@ package org.orthologyapi.controller;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import javax.naming.SizeLimitExceededException;
+
+import org.orthologyapi.dto.EnsemblUrlDto;
 import org.orthologyapi.dto.OrthologDto;
 import org.orthologyapi.service.OrthologService;
 import org.orthologyapi.service.ReportService;
@@ -16,13 +17,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.naming.SizeLimitExceededException;
+
 @RestController
 @RequestMapping("api/ortholog")
 public class OrthologController {
 
     public static final int PARAMETER_SIZE = 651;
-    OrthologService orthologService;
-    ReportService reportService;
+    private final OrthologService orthologService;
+    private final ReportService reportService;
 
     public OrthologController(OrthologService orthologService,
                               ReportService reportService) {
@@ -96,5 +99,12 @@ public class OrthologController {
     public boolean exportOneToOneImpc(HttpServletResponse response) throws
         IOException {
         return reportService.writeReportForOneToOneImpcOrthologs(response);
+    }
+
+    @GetMapping("/find_all_ensembl_ids")
+    public List<EnsemblUrlDto> findOrthologsByMgiAccessionIds() {
+
+            return orthologService.findAllEnsemblIds();
+
     }
 }
