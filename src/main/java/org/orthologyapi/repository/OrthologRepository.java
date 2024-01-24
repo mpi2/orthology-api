@@ -241,7 +241,8 @@ public interface OrthologRepository extends PagingAndSortingRepository<Ortholog,
             "m.mgi_gene_acc_id as mgiGeneAccId, " +
             "m.symbol as mouseGeneSymbol, " +
             "m.ensembl_gene_acc_id as ensemblGeneAccId " +
-            "from mouse_gene m",
+            "from mouse_gene m " +
+            "where ensembl_gene_acc_id is not null",
             nativeQuery = true)
     List<EnsemblUrlProjection> findAllEnsemblIds();
 }
