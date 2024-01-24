@@ -1,4 +1,4 @@
-FROM maven:3-amazoncorretto-17 as build
+FROM maven:3.9.6-amazoncorretto-21 as build
 
 COPY pom.xml /usr/src/orthology-api/
 
@@ -10,7 +10,7 @@ RUN mvn -f /usr/src/orthology-api/pom.xml clean package
 
 
 # The final image should have a minimal number of layers
-FROM amazoncorretto:17
+FROM amazoncorretto:21-alpine
 
 VOLUME /tmp
 
