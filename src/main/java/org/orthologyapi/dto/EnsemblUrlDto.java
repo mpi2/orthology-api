@@ -5,9 +5,7 @@ import lombok.Data;
 @Data
 public class EnsemblUrlDto {
     
-    String mgiGeneAccId;
-    
-    String mouseGeneSymbol;
+    String mgiGeneAccessionId;
 
     String ensemblGeneAccId;
 }

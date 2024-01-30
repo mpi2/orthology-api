@@ -6,7 +6,7 @@ public interface EnsemblUrlProjection {
 
 
     @Value("#{target.mgiGeneAccId}")
-    String getMgiGeneAccId();
+    String getMgiGeneAccessionId();
 
     @Value("#{target.ensemblGeneAccId}")
     String getEnsemblGeneAccId();
