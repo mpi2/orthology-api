@@ -32,7 +32,6 @@ public class OrthologMapper {
         EnsemblUrlProjection ensemblUrlProjection) {
         EnsemblUrlDto ensemblUrlDto = new EnsemblUrlDto();
         ensemblUrlDto.setMgiGeneAccId(ensemblUrlProjection.getMgiGeneAccId());
-        ensemblUrlDto.setMouseGeneSymbol(ensemblUrlProjection.getMouseGeneSymbol());
         ensemblUrlDto.setEnsemblGeneAccId(ensemblUrlProjection.getEnsemblGeneAccId());
         return ensemblUrlDto;
     }

@@ -8,9 +8,6 @@ public interface EnsemblUrlProjection {
     @Value("#{target.mgiGeneAccId}")
     String getMgiGeneAccId();
 
-    @Value("#{target.mouseGeneSymbol}")
-    String getMouseGeneSymbol();
-
     @Value("#{target.ensemblGeneAccId}")
     String getEnsemblGeneAccId();
 }
