@@ -27,7 +27,7 @@ public class ReportService {
         List<OrthologDto> orthologDtos =
                 orthologRepository.findAllOrthologsForTsvFile().stream().map(
                         OrthologMapper::orthologToDto).toList();
-        printReport(response, orthologDtos);
+        printReport(response, orthologDtos, "Orthologs");
         return true;
     }
 
@@ -36,7 +36,7 @@ public class ReportService {
         List<OrthologDto> orthologDtos =
                 orthologRepository.findOneToOneAllOrthologsForTsvFile().stream().map(
                         OrthologMapper::orthologToDto).toList();
-        printReport(response, orthologDtos);
+        printReport(response, orthologDtos, "One To one orthologs");
         return true;
     }
 
@@ -44,19 +44,20 @@ public class ReportService {
         List<OrthologDto> orthologDtos =
                 orthologRepository.findOneToOneImpcOrthologsForTsvFile().stream().map(
                         OrthologMapper::orthologToDto).toList();
-        printReport(response, orthologDtos);
+        printReport(response, orthologDtos, "One To one orthologs");
         return true;
     }
 
 
     private void printReport(HttpServletResponse response,
-                             List<OrthologDto> orthologDtos) throws IOException {
+                             List<OrthologDto> orthologDtos,
+                             String filename) throws IOException {
 
         PrintWriter output = response.getWriter();
 
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Expires", "0");
-        response.setHeader("Content-disposition", "attachment; filename=One To one orthologs " +
+        response.setHeader("Content-disposition", "attachment; filename= " + filename +
                 LocalDate.now() + ".tsv");
 
         output.println(convertListToTsvFileFormat(orthologDtos));
