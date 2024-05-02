@@ -197,6 +197,34 @@ public interface OrthologRepository extends PagingAndSortingRepository<Ortholog,
             "from human_gene h, human_mapping_filter hmf, ortholog o, mouse_gene m, mouse_mapping_filter mmf " +
             "where h.id=hmf.human_gene_id and " +
             "hmf.support_count_threshold=5 and " +
+            "hmf.category_for_threshold='one-to-one' and " +
+            "h.id=o.human_gene_id and " +
+            "o.support_count>=5 and " +
+            "o.mouse_gene_id=m.id and " +
+            "m.id=mmf.mouse_gene_id and " +
+            "mmf.support_count_threshold=5 and " +
+            "mmf.category_for_threshold='one-to-one' " +
+            "order by " +
+            "h.symbol asc;",
+            nativeQuery = true)
+    List<OrthologProjection> findOneToOneAllOrthologsForTsvFile();
+
+
+    @Query(value = "select h.symbol as humanGeneSymbol, " +
+            "       h.hgnc_acc_id as hgncAccId, " +
+            "       hmf.support_count_threshold as humanSupportCountThreshold, " +
+            "       hmf.category_for_threshold as humanCategoryForThreshold, " +
+            "       hmf.orthologs_above_threshold as humanOrthologsAboveThreshold, " +
+            "       o.category, o.support_count as supportCount, " +
+            "       o.is_max_human_to_mouse as isMaxHumanToMouse, " +
+            "       o.is_max_mouse_to_human as isMaxMouseToHuman, " +
+            "       mmf.orthologs_above_threshold as mouseOrthologsAboveThreshold, " +
+            "       mmf.category_for_threshold as mouseCategoryForThreshold, " +
+            "       mmf.support_count_threshold as mouseSupportCountThreshold, " +
+            "       m.mgi_gene_acc_id as mgiGeneAccId, m.symbol as mouseGeneSymbol " +
+            "from human_gene h, human_mapping_filter hmf, ortholog o, mouse_gene m, mouse_mapping_filter mmf " +
+            "where h.id=hmf.human_gene_id and " +
+            "hmf.support_count_threshold=5 and " +
             "(m.subtype='protein coding gene' or m.subtype='miRNA gene') and " +
             "hmf.category_for_threshold='one-to-one' and " +
             "h.id=o.human_gene_id and " +

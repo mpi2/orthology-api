@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.17">
-<meta name="author" content="2024-01-30T10:10:40Z">
+<meta name="author" content="2024-05-02T13:26:35Z">
 <title>ORTHOLOGY REST API</title>
 <style>
 /* Derived from the Riak documentation theme developed by Basho Technologies, Inc. | CC BY 3.0 License | http://docs.basho.org */
@@ -2109,7 +2109,7 @@ table.tableblock.grid-all {
 <div id="header">
 <h1>ORTHOLOGY REST API</h1>
 <div class="details">
-<span id="author" class="author">2024-01-30T10:10:40Z</span><br>
+<span id="author" class="author">2024-05-02T13:26:35Z</span><br>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -2136,13 +2136,13 @@ table.tableblock.grid-all {
 <li><a href="#_example_response_2">Example Response</a></li>
 </ul>
 </li>
-<li><a href="#_get_one_to_one_orthologs_by_mgi_accession_ids">3.3. GET One To One Orthologs By Mgi Accession Ids</a>
+<li><a href="#_get_one_to_one_orthologs_by_mgi_accession_ids">3.3. GET One To One Orthologs By MGI Accession Ids</a>
 <ul class="sectlevel4">
 <li><a href="#_example_request_3">Example Request</a></li>
 <li><a href="#_example_response_3">Example Response</a></li>
 </ul>
 </li>
-<li><a href="#_get_one_to_one_orthologs_by_hgnc_accession_id">3.4. GET One To One Orthologs By Hgnc Accession Id</a>
+<li><a href="#_get_one_to_one_orthologs_by_hgnc_accession_id">3.4. GET One To One Orthologs By HGNC Accession Id</a>
 <ul class="sectlevel4">
 <li><a href="#_example_request_4">Example Request</a></li>
 <li><a href="#_example_response_4">Example Response</a></li>
@@ -2154,18 +2154,18 @@ table.tableblock.grid-all {
 <li><a href="#_example_response_5">Example Response</a></li>
 </ul>
 </li>
-<li><a href="#_get_all_orthologs_by_mgi_ids">3.6. GET All Orthologs By Mgi Ids</a>
+<li><a href="#_get_all_orthologs_by_mgi_ids">3.6. GET All Orthologs By MGI Ids</a>
 <ul class="sectlevel4">
 <li><a href="#_example_request_6">Example Request</a></li>
 <li><a href="#_example_response_6">Example Response</a></li>
 </ul>
 </li>
-<li><a href="#_get_all_orthologs_as_tsv_file">3.7. GET All Orthologs As Tsv File</a>
+<li><a href="#_get_all_orthologs_as_tsv_file">3.7. GET All Orthologs As TSV File</a>
 <ul class="sectlevel4">
 <li><a href="#_example_request_7">Example Request</a></li>
 </ul>
 </li>
-<li><a href="#_get_all_one_to_one_impc_orthologs_as_tsv_file">3.8. GET All One To One Impc Orthologs As Tsv File</a>
+<li><a href="#_get_all_one_to_one_impc_orthologs_as_tsv_file">3.8. GET All One To One IMPC Orthologs As TSV File</a>
 <ul class="sectlevel4">
 <li><a href="#_example_request_8">Example Request</a></li>
 </ul>
@@ -2414,9 +2414,9 @@ Content-Length: 405
 </div>
 </div>
 <div class="sect2">
-<h3 id="_get_one_to_one_orthologs_by_mgi_accession_ids"><a class="link" href="#_get_one_to_one_orthologs_by_mgi_accession_ids">3.3. GET One To One Orthologs By Mgi Accession Ids</a></h3>
+<h3 id="_get_one_to_one_orthologs_by_mgi_accession_ids"><a class="link" href="#_get_one_to_one_orthologs_by_mgi_accession_ids">3.3. GET One To One Orthologs By MGI Accession Ids</a></h3>
 <div class="paragraph">
-<p>Get All the one-to-one orthologs mapping by mgi accession id or mgi accession id list. The mgi accession id list should be entered with , separated in the endpoint.
+<p>Get All the one-to-one orthologs mapping by MGI accession id or MGI accession id list. The MGI accession id list should be entered with , separated in the endpoint.
 Note:Parameter size can not be bigger than 600.</p>
 </div>
 <div class="sect4">
@@ -2439,9 +2439,9 @@ Note:Parameter size can not be bigger than 600.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_get_one_to_one_orthologs_by_hgnc_accession_id"><a class="link" href="#_get_one_to_one_orthologs_by_hgnc_accession_id">3.4. GET One To One Orthologs By Hgnc Accession Id</a></h3>
+<h3 id="_get_one_to_one_orthologs_by_hgnc_accession_id"><a class="link" href="#_get_one_to_one_orthologs_by_hgnc_accession_id">3.4. GET One To One Orthologs By HGNC Accession Id</a></h3>
 <div class="paragraph">
-<p>Get All the one-to-one orthologs mapping by hgnc accession id or hgnc accession id list. The hgnc accession id list should be entered with , separated in the endpoint</p>
+<p>Get All the one-to-one orthologs mapping by HGNC accession id or HGNC accession id list. The HGNC accession id list should be entered with , separated in the endpoint</p>
 </div>
 <div class="sect4">
 <h5 id="_example_request_4"><a class="link" href="#_example_request_4">Example Request</a></h5>
@@ -2493,9 +2493,9 @@ Content-Length: 590
 </div>
 </div>
 <div class="sect2">
-<h3 id="_get_all_orthologs_by_mgi_ids"><a class="link" href="#_get_all_orthologs_by_mgi_ids">3.6. GET All Orthologs By Mgi Ids</a></h3>
+<h3 id="_get_all_orthologs_by_mgi_ids"><a class="link" href="#_get_all_orthologs_by_mgi_ids">3.6. GET All Orthologs By MGI Ids</a></h3>
 <div class="paragraph">
-<p>Get All the one-to-many orthologs mapping by mgi accession id or mgi accession id list. The mgi accession id list should be entered with , separated in the endpoint.
+<p>Get All the one-to-many orthologs mapping by MGI accession id or MGI accession id list. The MGI accession id list should be entered with , separated in the endpoint.
 Note:Parameter size can not be bigger than 600.</p>
 </div>
 <div class="sect4">
@@ -2524,9 +2524,9 @@ Content-Length: 405
 </div>
 </div>
 <div class="sect2">
-<h3 id="_get_all_orthologs_as_tsv_file"><a class="link" href="#_get_all_orthologs_as_tsv_file">3.7. GET All Orthologs As Tsv File</a></h3>
+<h3 id="_get_all_orthologs_as_tsv_file"><a class="link" href="#_get_all_orthologs_as_tsv_file">3.7. GET All Orthologs As TSV File</a></h3>
 <div class="paragraph">
-<p>Get All the orthologs as tsv file</p>
+<p>Get All the orthologs as TSV file</p>
 </div>
 <div class="sect4">
 <h5 id="_example_request_7"><a class="link" href="#_example_request_7">Example Request</a></h5>
@@ -2535,12 +2535,28 @@ Content-Length: 405
 <pre>/api/ortholog/write_to_tsv_file</pre>
 </div>
 </div>
+<div class="literalblock">
+<div class="content">
+<pre>=== GET All One To One All Orthologs As TSV File
+Get All the one-to-one All orthologs as TSV file</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>===== Example Request</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>/api/ortholog/one_to_one/all/write_to_tsv_file</pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_get_all_one_to_one_impc_orthologs_as_tsv_file"><a class="link" href="#_get_all_one_to_one_impc_orthologs_as_tsv_file">3.8. GET All One To One Impc Orthologs As Tsv File</a></h3>
+<h3 id="_get_all_one_to_one_impc_orthologs_as_tsv_file"><a class="link" href="#_get_all_one_to_one_impc_orthologs_as_tsv_file">3.8. GET All One To One IMPC Orthologs As TSV File</a></h3>
 <div class="paragraph">
-<p>Get All the one-to-one Impc orthologs as tsv file</p>
+<p>Get All the one-to-one IMPC (selects protein coding and miRNA genes) orthologs as TSV file</p>
 </div>
 <div class="sect4">
 <h5 id="_example_request_8"><a class="link" href="#_example_request_8">Example Request</a></h5>
@@ -2559,6 +2575,9 @@ Content-Length: 405
 <div class="ulist">
 <ul>
 <li>
+<p>2024-05-02: - one_to_one/all/write_to_tsv_file endpoint added.</p>
+</li>
+<li>
 <p>2022-06-29: - one_to_one/impc/write_to_tsv_file endpoint added.</p>
 </li>
 <li>
@@ -2571,7 +2590,7 @@ Content-Length: 405
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-01-23 15:37:02 UTC
+Last updated 2024-05-02 14:26:34 +0100
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

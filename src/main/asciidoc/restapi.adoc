@@ -86,9 +86,9 @@ include::{snippets}/one-to-one-by-human-genes/curl-request.adoc[]
 
 include::{snippets}/one-to-one-by-human-genes/http-response.adoc[]
 
-=== GET One To One Orthologs By Mgi Accession Ids
+=== GET One To One Orthologs By MGI Accession Ids
 
-Get All the one-to-one orthologs mapping by mgi accession id or mgi accession id list. The mgi accession id list should be entered with , separated in the endpoint.
+Get All the one-to-one orthologs mapping by MGI accession id or MGI accession id list. The MGI accession id list should be entered with , separated in the endpoint.
 Note:Parameter size can not be bigger than 600.
 
 ===== Example Request
@@ -100,9 +100,9 @@ include::{snippets}/one-to-one-by-mgi-accession-id/curl-request.adoc[]
 
 include::{snippets}/one-to-one-by-mgi-accession-ids/http-response.adoc[]
 
-=== GET One To One Orthologs By Hgnc Accession Id
+=== GET One To One Orthologs By HGNC Accession Id
 
-Get All the one-to-one orthologs mapping by hgnc accession id or hgnc accession id list. The hgnc accession id list should be entered with , separated in the endpoint
+Get All the one-to-one orthologs mapping by HGNC accession id or HGNC accession id list. The HGNC accession id list should be entered with , separated in the endpoint
 
 ===== Example Request
 
@@ -127,9 +127,9 @@ include::{snippets}/find-all-orthologs/curl-request.adoc[]
 include::{snippets}/find-all-orthologs/http-response.adoc[]
 
 
-=== GET All Orthologs By Mgi Ids
+=== GET All Orthologs By MGI Ids
 
-Get All the one-to-many orthologs mapping by mgi accession id or mgi accession id list. The mgi accession id list should be entered with , separated in the endpoint.
+Get All the one-to-many orthologs mapping by MGI accession id or MGI accession id list. The MGI accession id list should be entered with , separated in the endpoint.
 Note:Parameter size can not be bigger than 600.
 
 ===== Example Request
@@ -142,18 +142,26 @@ include::{snippets}/all-by-mgi-accession-id/curl-request.adoc[]
 include::{snippets}/all-by-mgi-accession-id/http-response.adoc[]
 
 
-=== GET All Orthologs As Tsv File
+=== GET All Orthologs As TSV File
 
-Get All the orthologs as tsv file
+Get All the orthologs as TSV file
 
 ===== Example Request
 
  /api/ortholog/write_to_tsv_file
 
 
-=== GET All One To One Impc Orthologs As Tsv File
+ === GET All One To One All Orthologs As TSV File
+ Get All the one-to-one All orthologs as TSV file
 
-Get All the one-to-one Impc orthologs as tsv file
+ ===== Example Request
+
+  /api/ortholog/one_to_one/all/write_to_tsv_file
+
+
+=== GET All One To One IMPC Orthologs As TSV File
+
+Get All the one-to-one IMPC (selects protein coding and miRNA genes) orthologs as TSV file
 
 ===== Example Request
 
@@ -161,8 +169,10 @@ Get All the one-to-one Impc orthologs as tsv file
 
 
 
+
 == Lastest updates
 
+* 2024-05-02: - one_to_one/all/write_to_tsv_file endpoint added.
 * 2022-06-29: - one_to_one/impc/write_to_tsv_file endpoint added.
 * 2022-06-15: - find_all_by_mgi_ids added.
 

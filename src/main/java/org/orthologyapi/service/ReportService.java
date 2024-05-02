@@ -1,12 +1,14 @@
 package org.orthologyapi.service;
 
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import org.orthologyapi.descriptor.OrthologMapper;
 import org.orthologyapi.dto.OrthologDto;
 import org.orthologyapi.repository.OrthologRepository;
@@ -23,16 +25,25 @@ public class ReportService {
 
     public boolean writeReportForAllOthologs(HttpServletResponse response) throws IOException {
         List<OrthologDto> orthologDtos =
-            orthologRepository.findAllOrthologsForTsvFile().stream().map(
-                OrthologMapper::orthologToDto).toList();
+                orthologRepository.findAllOrthologsForTsvFile().stream().map(
+                        OrthologMapper::orthologToDto).toList();
+        printReport(response, orthologDtos);
+        return true;
+    }
+
+
+    public boolean writeReportForOneToOneAllOrthologs(HttpServletResponse response) throws IOException {
+        List<OrthologDto> orthologDtos =
+                orthologRepository.findOneToOneAllOrthologsForTsvFile().stream().map(
+                        OrthologMapper::orthologToDto).toList();
         printReport(response, orthologDtos);
         return true;
     }
 
     public boolean writeReportForOneToOneImpcOrthologs(HttpServletResponse response) throws IOException {
         List<OrthologDto> orthologDtos =
-            orthologRepository.findOneToOneImpcOrthologsForTsvFile().stream().map(
-                OrthologMapper::orthologToDto).toList();
+                orthologRepository.findOneToOneImpcOrthologsForTsvFile().stream().map(
+                        OrthologMapper::orthologToDto).toList();
         printReport(response, orthologDtos);
         return true;
     }
@@ -46,7 +57,7 @@ public class ReportService {
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Expires", "0");
         response.setHeader("Content-disposition", "attachment; filename=One To one orthologs " +
-            LocalDate.now() + ".tsv");
+                LocalDate.now() + ".tsv");
 
         output.println(convertListToTsvFileFormat(orthologDtos));
         output.flush();
@@ -73,20 +84,20 @@ public class ReportService {
 
     private String generateReportHeaders() {
         List<String> headers = Arrays.asList(
-            "Human Gene Symbol",
-            "Hgnc Acc Id",
-            "Human Support Count Threshold",
-            "Human Category For Threshold",
-            "Human Orthologs Above Threshold",
-            "Category",
-            "Support Count",
-            "Is Max Human To Mouse",
-            "Is Max Mouse To Human",
-            "Mouse Orthologs AboveT hreshold",
-            "Mouse Category For Threshold",
-            "Mouse Support Count Threshold",
-            "Mgi Gene Acc Id",
-            "Mouse Gene Symbol"
+                "Human Gene Symbol",
+                "Hgnc Acc Id",
+                "Human Support Count Threshold",
+                "Human Category For Threshold",
+                "Human Orthologs Above Threshold",
+                "Category",
+                "Support Count",
+                "Is Max Human To Mouse",
+                "Is Max Mouse To Human",
+                "Mouse Orthologs AboveT hreshold",
+                "Mouse Category For Threshold",
+                "Mouse Support Count Threshold",
+                "Mgi Gene Acc Id",
+                "Mouse Gene Symbol"
 
         );
 
