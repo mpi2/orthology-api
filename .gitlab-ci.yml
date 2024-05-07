@@ -76,10 +76,6 @@ build_image:
     services:
       - name: $CI_REGISTRY/mouse-informatics/dind:latest
         alias: docker
-    except:
-        - schedules
-        - triggers
-        - pipelines
     script:
         # - docker info
         - mkdir -p "$MOUNT_POINT"
