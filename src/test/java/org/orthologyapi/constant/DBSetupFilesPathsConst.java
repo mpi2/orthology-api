@@ -8,6 +8,5 @@ public class DBSetupFilesPathsConst {
         "expectedOrthologs.json";
     public static final String EXPECTED_All_ORTHOLOGS_PAGEABLE_JSON =
         "expectedAllOrthologsPageable.json";
-
     public static final String INTEGRATION_TESTS_RESOURCE_PATH = "/integrationtests/";
 }
