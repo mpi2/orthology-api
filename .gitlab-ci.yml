@@ -78,7 +78,6 @@ build_image:
         alias: docker
     except:
         - schedules
-        - triggers
         - pipelines
     script:
         # - docker info
