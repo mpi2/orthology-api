@@ -9,8 +9,7 @@ import java.time.LocalDate;
 import lombok.Data;
 
 
-
-@Entity
+@Entity(name = "hgnc_gene")
 @Data
 public class HGNCGene {
 
@@ -111,7 +110,7 @@ public class HGNCGene {
 
     private String rgdAccId;
 
-    private String rnaCentralAccIds;
+    private String rnaCentralId;
 
     private String snornabase;
 

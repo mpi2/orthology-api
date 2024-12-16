@@ -20,8 +20,6 @@ public class MouseGene {
 
     private String ensemblChromosome;
 
-    private String ensemblGeneGccId;
-
     private Long ensemblStart;
 
     private Long ensemblStop;
