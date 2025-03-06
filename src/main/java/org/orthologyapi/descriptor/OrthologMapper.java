@@ -42,8 +42,8 @@ public class OrthologMapper {
             CoordinatesProjection coordinatesProjection) {
         CoordinatesDto coordinatesDto = new CoordinatesDto();
         coordinatesDto.setChromosome(coordinatesProjection.getChromosome());
-        coordinatesDto.setStart(coordinatesProjection.getStart());
-        coordinatesDto.setStop(coordinatesProjection.getStop());
+        coordinatesDto.setStart(Integer.parseInt(coordinatesProjection.getStart()));
+        coordinatesDto.setStop(Integer.parseInt(coordinatesProjection.getStop()));
         return coordinatesDto;
     }
 }

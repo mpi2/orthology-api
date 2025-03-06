@@ -6,6 +6,6 @@ import lombok.Data;
 public class CoordinatesDto {
 
     private String chromosome;
-    private String start;
-    private String stop;
+    private Integer start;
+    private Integer stop;
 }
