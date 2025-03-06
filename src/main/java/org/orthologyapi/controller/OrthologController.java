@@ -1,9 +1,12 @@
 package org.orthologyapi.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.util.List;
 
+import org.orthologyapi.dto.CoordinatesDto;
+import org.orthologyapi.dto.CoordinatesResponseDto;
 import org.orthologyapi.dto.EnsemblUrlDto;
 import org.orthologyapi.dto.OrthologDto;
 import org.orthologyapi.service.OrthologService;
@@ -35,61 +38,61 @@ public class OrthologController {
 
     @GetMapping("/one_to_one/find_by_mouse_genes")
     public List<OrthologDto> findAllOneToOneOrthologsByMouseGenes(
-        @RequestParam(value = "genes") List<String> genes) throws SizeLimitExceededException {
+            @RequestParam(value = "genes") List<String> genes) throws SizeLimitExceededException {
 
         if (genes.size() < PARAMETER_SIZE) {
             return orthologService.findAllOneToOneOrthologsByMouseGenes(genes);
         }
-        throw new SizeLimitExceededException("Mouse genes parameters number can not be more than "+ PARAMETER_SIZE);
+        throw new SizeLimitExceededException("Mouse genes parameters number can not be more than " + PARAMETER_SIZE);
     }
 
     @GetMapping("/one_to_one/find_by_human_genes")
     public List<OrthologDto> findAllOneToOneOrthologsByHumanGenes(
-        @RequestParam(value = "genes") List<String> genes) throws SizeLimitExceededException {
+            @RequestParam(value = "genes") List<String> genes) throws SizeLimitExceededException {
         if (genes.size() < PARAMETER_SIZE) {
             return orthologService.findAllOneToOneOrthologsByHumanGenes(genes);
         }
-        throw new SizeLimitExceededException("Human genes parameters number can not be more than "+ PARAMETER_SIZE);
+        throw new SizeLimitExceededException("Human genes parameters number can not be more than " + PARAMETER_SIZE);
     }
 
     @GetMapping("/one_to_one/find_by_mgi_ids")
     public List<OrthologDto> findAllOneToOneOrthologsByMgiAccessionIds(
-        @RequestParam(value = "mgiIds") List<String> mgiIds) throws SizeLimitExceededException {
+            @RequestParam(value = "mgiIds") List<String> mgiIds) throws SizeLimitExceededException {
         if (mgiIds.size() < PARAMETER_SIZE) {
             return orthologService.findAllOneToOneOrthologsByMgiAccessionIds(mgiIds);
         }
-        throw new SizeLimitExceededException("Mgi accession ids Parameter number can not be more than "+ PARAMETER_SIZE);
+        throw new SizeLimitExceededException("Mgi accession ids Parameter number can not be more than " + PARAMETER_SIZE);
     }
 
     @GetMapping("/find_all_by_mgi_ids")
     public List<OrthologDto> findOrthologsByMgiAccessionIds(
-        @RequestParam(value = "mgiIds") List<String> mgiIds) throws SizeLimitExceededException {
+            @RequestParam(value = "mgiIds") List<String> mgiIds) throws SizeLimitExceededException {
         if (mgiIds.size() < PARAMETER_SIZE) {
             return orthologService.findAllOneToManyOrthologsByMgiAccessionIds(mgiIds);
         }
-        throw new SizeLimitExceededException("Mgi accession ids Parameter number can not be more than "+ PARAMETER_SIZE);
+        throw new SizeLimitExceededException("Mgi accession ids Parameter number can not be more than " + PARAMETER_SIZE);
     }
 
     @GetMapping("/one_to_one/find_by_hgnc_ids")
     public List<OrthologDto> findAllOneToOneOrthologsByHgncAccessionIds(
-        @RequestParam(value = "hgncIds") List<String> hgncIds) throws SizeLimitExceededException {
+            @RequestParam(value = "hgncIds") List<String> hgncIds) throws SizeLimitExceededException {
         if (hgncIds.size() < PARAMETER_SIZE) {
             return orthologService.findAllOneToOneOrthologsByHgncAccessionIds(hgncIds);
         }
-        throw new SizeLimitExceededException("Hgnc accession ids number can not be more than "+PARAMETER_SIZE);
+        throw new SizeLimitExceededException("Hgnc accession ids number can not be more than " + PARAMETER_SIZE);
     }
 
     @GetMapping(value = {"/find_all"})
     public ResponseEntity findAllOrthologsPageable(
-        final Pageable orthologPageable,
-        final PagedResourcesAssembler orthologAssembler) {
-        return orthologService.findAllOrthologsPageable(orthologPageable,orthologAssembler);
+            final Pageable orthologPageable,
+            final PagedResourcesAssembler orthologAssembler) {
+        return orthologService.findAllOrthologsPageable(orthologPageable, orthologAssembler);
     }
 
     @GetMapping(value = {"/write_to_tsv_file"})
     @Transactional(readOnly = true)
     public boolean exportAll(HttpServletResponse response) throws
-        IOException {
+            IOException {
         return reportService.writeReportForAllOthologs(response);
     }
 
@@ -104,14 +107,24 @@ public class OrthologController {
     @GetMapping(value = {"/one_to_one/impc/write_to_tsv_file"})
     @Transactional(readOnly = true)
     public boolean exportOneToOneImpc(HttpServletResponse response) throws
-        IOException {
+            IOException {
         return reportService.writeReportForOneToOneImpcOrthologs(response);
     }
 
     @GetMapping("/find_all_ensembl_ids")
     public List<EnsemblUrlDto> findOrthologsByMgiAccessionIds() {
+        return orthologService.findAllEnsemblIds();
 
-            return orthologService.findAllEnsemblIds();
+    }
+
+    @GetMapping("/symbol-search")
+    public CoordinatesResponseDto findOrthologsByMgiAccessionIds(
+            @RequestParam(value = "symbol") String symbol) {
+
+        List<CoordinatesDto> coordinates = orthologService.getCoordinatesBySymbol(symbol);
+        CoordinatesResponseDto coordinatesResponseDto = new CoordinatesResponseDto();
+        coordinatesResponseDto.setResults(coordinates);
+        return coordinatesResponseDto;
 
     }
 }

@@ -3,8 +3,10 @@ package org.orthologyapi.service;
 import java.util.List;
 
 import org.orthologyapi.descriptor.OrthologMapper;
+import org.orthologyapi.dto.CoordinatesDto;
 import org.orthologyapi.dto.OrthologDto;
 import org.orthologyapi.dto.EnsemblUrlDto;
+import org.orthologyapi.projection.CoordinatesProjection;
 import org.orthologyapi.projection.OrthologProjection;
 import org.orthologyapi.projection.EnsemblUrlProjection;
 import org.orthologyapi.repository.OrthologRepository;
@@ -77,6 +79,13 @@ public class OrthologService {
 
         return
                 ensemblUrlProjection.stream().map(OrthologMapper::ensemblUrlToDto).toList();
+    }
+
+    public List<CoordinatesDto> getCoordinatesBySymbol(String symbol) {
+
+        List<CoordinatesProjection> coordinatesProjections = orthologRepository.findCoordinatesBySymbol(symbol);
+
+       return coordinatesProjections.stream().map(OrthologMapper::coordinatesDto).toList();
 
 
     }

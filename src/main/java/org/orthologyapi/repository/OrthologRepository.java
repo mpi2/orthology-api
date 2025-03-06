@@ -3,6 +3,7 @@ package org.orthologyapi.repository;
 import java.util.List;
 
 import org.orthologyapi.entity.Ortholog;
+import org.orthologyapi.projection.CoordinatesProjection;
 import org.orthologyapi.projection.OrthologProjection;
 import org.orthologyapi.projection.EnsemblUrlProjection;
 import org.springframework.data.domain.Page;
@@ -273,4 +274,9 @@ public interface OrthologRepository extends PagingAndSortingRepository<Ortholog,
             "and mgi_gene_acc_id is not null",
             nativeQuery = true)
     List<EnsemblUrlProjection> findAllEnsemblIds();
+
+    @Query(value = "select CONCAT('chr', mgi_chromosome) as chromosome,mgi_start as start ,mgi_stop as stop from mouse_gene where upper(symbol) = upper(:symbol)",
+            nativeQuery = true)
+    List<CoordinatesProjection> findCoordinatesBySymbol(
+            @Param("symbol") String symbol);
 }
