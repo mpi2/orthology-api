@@ -3,6 +3,7 @@ package org.orthologyapi.controller;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.orthologyapi.dto.CoordinatesDto;
@@ -115,11 +116,15 @@ public class OrthologController {
     }
 
     @CrossOrigin
-    @GetMapping("/symbol-search")
-    public CoordinatesResponseDto findOrthologsByMgiAccessionIds(
-            @RequestParam(value = "symbol") String symbol) {
-
-        List<CoordinatesDto> coordinates = orthologService.getCoordinatesBySymbol(symbol);
+    @GetMapping("/get-coordinates/search")
+    public CoordinatesResponseDto findCoordinatesByGeneQuery(
+            @RequestParam(value = "geneQuery") String geneQuery) {
+        List<CoordinatesDto> coordinates;
+        if (geneQuery.toUpperCase().contains("MGI:")) {
+            coordinates = orthologService.getCoordinatesByMgi(geneQuery);
+        } else {
+            coordinates = orthologService.getCoordinatesBySymbol(geneQuery);
+        }
         CoordinatesResponseDto coordinatesResponseDto = new CoordinatesResponseDto();
         coordinatesResponseDto.setResults(coordinates);
         return coordinatesResponseDto;

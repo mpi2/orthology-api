@@ -89,4 +89,12 @@ public class OrthologService {
 
 
     }
+
+    public List<CoordinatesDto> getCoordinatesByMgi(String mgi) {
+        List<CoordinatesProjection> coordinatesProjections = orthologRepository.findCoordinatesByMgi(mgi);
+
+        return coordinatesProjections.stream().map(OrthologMapper::coordinatesDto).toList();
+
+
+    }
 }

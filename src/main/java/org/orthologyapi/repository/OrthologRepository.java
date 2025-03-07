@@ -279,4 +279,8 @@ public interface OrthologRepository extends PagingAndSortingRepository<Ortholog,
             nativeQuery = true)
     List<CoordinatesProjection> findCoordinatesBySymbol(
             @Param("symbol") String symbol);
+
+    @Query(value = "select CONCAT('chr', mgi_chromosome) as chromosome,mgi_start as start ,mgi_stop as stop from mouse_gene where upper(mgi_gene_acc_id) = upper(:mgi)",
+            nativeQuery = true)
+    List<CoordinatesProjection> findCoordinatesByMgi(String mgi);
 }
