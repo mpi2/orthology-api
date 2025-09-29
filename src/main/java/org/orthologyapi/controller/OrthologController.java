@@ -3,7 +3,6 @@ package org.orthologyapi.controller;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.orthologyapi.dto.CoordinatesDto;
@@ -125,9 +124,7 @@ public class OrthologController {
         } else {
             coordinates = orthologService.getCoordinatesBySymbol(geneQuery);
         }
-        CoordinatesResponseDto coordinatesResponseDto = new CoordinatesResponseDto();
-        coordinatesResponseDto.setResults(coordinates);
-        return coordinatesResponseDto;
+        return new CoordinatesResponseDto(coordinates);
 
     }
 }

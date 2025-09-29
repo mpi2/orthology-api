@@ -108,20 +108,20 @@ public class ReportService {
 
     private String mapOrthologToString(OrthologDto orthologDto) {
         String orthologDtoString = "";
-        orthologDtoString += orthologDto.getHumanGeneSymbol() + "\t";
-        orthologDtoString += orthologDto.getHgncAccId() + "\t";
-        orthologDtoString += orthologDto.getHumanSupportCountThreshold() + "\t";
-        orthologDtoString += orthologDto.getHumanCategoryForThreshold() + "\t";
-        orthologDtoString += orthologDto.getHumanOrthologsAboveThreshold() + "\t";
-        orthologDtoString += orthologDto.getCategory() + "\t";
-        orthologDtoString += orthologDto.getSupportCount() + "\t";
-        orthologDtoString += orthologDto.getIsMaxHumanToMouse() + "\t";
-        orthologDtoString += orthologDto.getIsMaxMouseToHuman() + "\t";
-        orthologDtoString += orthologDto.getMouseOrthologsAboveThreshold() + "\t";
-        orthologDtoString += orthologDto.getMouseCategoryForThreshold() + "\t";
-        orthologDtoString += orthologDto.getMouseSupportCountThreshold() + "\t";
-        orthologDtoString += orthologDto.getMgiGeneAccId() + "\t";
-        orthologDtoString += orthologDto.getMouseGeneSymbol() + "\t";
+        orthologDtoString += orthologDto.humanGeneSymbol() + "\t";
+        orthologDtoString += orthologDto.hgncAccId() + "\t";
+        orthologDtoString += orthologDto.humanSupportCountThreshold() + "\t";
+        orthologDtoString += orthologDto.humanCategoryForThreshold() + "\t";
+        orthologDtoString += orthologDto.humanOrthologsAboveThreshold() + "\t";
+        orthologDtoString += orthologDto.category() + "\t";
+        orthologDtoString += orthologDto.supportCount() + "\t";
+        orthologDtoString += orthologDto.isMaxHumanToMouse() + "\t";
+        orthologDtoString += orthologDto.isMaxMouseToHuman() + "\t";
+        orthologDtoString += orthologDto.mouseOrthologsAboveThreshold() + "\t";
+        orthologDtoString += orthologDto.mouseCategoryForThreshold() + "\t";
+        orthologDtoString += orthologDto.mouseSupportCountThreshold() + "\t";
+        orthologDtoString += orthologDto.mgiGeneAccId() + "\t";
+        orthologDtoString += orthologDto.mouseGeneSymbol() + "\t";
 
         return orthologDtoString;
     }
