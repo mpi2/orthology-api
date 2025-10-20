@@ -40,17 +40,14 @@ variables:
    # see: https://gitlab.com/gitlab-com/gl-infra/production/issues/982
    DOCKER_TLS_CERTDIR: ""
    SCAN_KUBERNETES_MANIFESTS: "true"
-
-
-  # Use this command to look at your docker environment
-  # Note: This step can be overwritten by before_script sections in specific jobs.
-  #
-  #before_script:
-  #   - docker info
+   GITLAB_ADVANCED_SAST_ENABLED: 'true'
 
 include:
   - template: Security/SAST.gitlab-ci.yml
-  - template: Security/Secret-Detection.gitlab-ci.yml
+  - template: Jobs/Secret-Detection.gitlab-ci.yml
+
+sast:
+  stage: test
 
 
 
@@ -108,25 +105,6 @@ build_image:
         paths:
             - "$MOUNT_POINT/"
 
-
-sast:
-  stage: test
-  script:
-    - echo "Running SAST scan ..."
-
-  artifacts:
-    reports:
-      container_scanning: gl-sast-report.json
-
-
-secret_detection:
-  stage: test
-  script:
-    - echo "Running secret detection scan ..."
-
-  artifacts:
-    reports:
-      container_scanning: gl-secret-detection-report.json
 
 
 
