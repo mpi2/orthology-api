@@ -6,12 +6,12 @@ if [ -z "${REFERENCE_SERVICE}" ]; then
 
   if [ -z "${EBI_PROXY}" ]; then
 
-    java -Djava.security.egd=file:/dev/./urandom -jar app.jar \
+    java -XX:+UseCompactObjectHeaders  -Djava.security.egd=file:/dev/./urandom -jar app.jar \
       --server.port="${port}" --spring.profiles.active=docker
 
   else
 
-    java -Djava.security.egd=file:/dev/./urandom \
+    java -XX:+UseCompactObjectHeaders -Djava.security.egd=file:/dev/./urandom \
       -Dhttps.proxyHost=hx-wwwcache.ebi.ac.uk \
       -Dhttps.proxyPort=3128 \
       -Dhttp.proxyHost=hx-wwwcache.ebi.ac.uk \
@@ -29,12 +29,12 @@ else
 
   if [ -z "${EBI_PROXY}" ]; then
 
-    java -Djava.security.egd=file:/dev/./urandom -jar app.jar \
+    java -XX:+UseCompactObjectHeaders  -Djava.security.egd=file:/dev/./urandom -jar app.jar \
       --server.port="${port}" --spring.profiles.active=dockerreference
 
   else
 
-    java -Djava.security.egd=file:/dev/./urandom \
+    java -XX:+UseCompactObjectHeaders  -Djava.security.egd=file:/dev/./urandom \
       -Dhttps.proxyHost=hx-wwwcache.ebi.ac.uk \
       -Dhttps.proxyPort=3128 \
       -Dhttp.proxyHost=hx-wwwcache.ebi.ac.uk \

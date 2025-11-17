@@ -1,12 +1,14 @@
 package org.orthologyapi.service;
 
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.servlet.http.HttpServletResponse;
+
 import org.orthologyapi.descriptor.OrthologMapper;
 import org.orthologyapi.dto.OrthologDto;
 import org.orthologyapi.repository.OrthologRepository;
@@ -15,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReportService {
 
-    OrthologRepository orthologRepository;
+    private final OrthologRepository orthologRepository;
 
     public ReportService(OrthologRepository orthologRepository) {
         this.orthologRepository = orthologRepository;
@@ -23,30 +25,40 @@ public class ReportService {
 
     public boolean writeReportForAllOthologs(HttpServletResponse response) throws IOException {
         List<OrthologDto> orthologDtos =
-            orthologRepository.findAllOrthologsForTsvFile().stream().map(
-                OrthologMapper::orthologToDto).toList();
-        printReport(response, orthologDtos);
+                orthologRepository.findAllOrthologsForTsvFile().stream().map(
+                        OrthologMapper::orthologToDto).toList();
+        printReport(response, orthologDtos, "Orthologs");
+        return true;
+    }
+
+
+    public boolean writeReportForOneToOneAllOrthologs(HttpServletResponse response) throws IOException {
+        List<OrthologDto> orthologDtos =
+                orthologRepository.findOneToOneAllOrthologsForTsvFile().stream().map(
+                        OrthologMapper::orthologToDto).toList();
+        printReport(response, orthologDtos, "One To one orthologs");
         return true;
     }
 
     public boolean writeReportForOneToOneImpcOrthologs(HttpServletResponse response) throws IOException {
         List<OrthologDto> orthologDtos =
-            orthologRepository.findOneToOneImpcOrthologsForTsvFile().stream().map(
-                OrthologMapper::orthologToDto).toList();
-        printReport(response, orthologDtos);
+                orthologRepository.findOneToOneImpcOrthologsForTsvFile().stream().map(
+                        OrthologMapper::orthologToDto).toList();
+        printReport(response, orthologDtos, "One To one orthologs");
         return true;
     }
 
 
     private void printReport(HttpServletResponse response,
-                             List<OrthologDto> orthologDtos) throws IOException {
+                             List<OrthologDto> orthologDtos,
+                             String filename) throws IOException {
 
         PrintWriter output = response.getWriter();
 
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Expires", "0");
-        response.setHeader("Content-disposition", "attachment; filename=One To one orthologs " +
-            LocalDate.now() + ".tsv");
+        response.setHeader("Content-disposition", "attachment; filename= " + filename +
+                LocalDate.now() + ".tsv");
 
         output.println(convertListToTsvFileFormat(orthologDtos));
         output.flush();
@@ -73,20 +85,20 @@ public class ReportService {
 
     private String generateReportHeaders() {
         List<String> headers = Arrays.asList(
-            "Human Gene Symbol",
-            "Hgnc Acc Id",
-            "Human Support Count Threshold",
-            "Human Category For Threshold",
-            "Human Orthologs Above Threshold",
-            "Category",
-            "Support Count",
-            "Is Max Human To Mouse",
-            "Is Max Mouse To Human",
-            "Mouse Orthologs AboveT hreshold",
-            "Mouse Category For Threshold",
-            "Mouse Support Count Threshold",
-            "Mgi Gene Acc Id",
-            "Mouse Gene Symbol"
+                "Human Gene Symbol",
+                "Hgnc Acc Id",
+                "Human Support Count Threshold",
+                "Human Category For Threshold",
+                "Human Orthologs Above Threshold",
+                "Category",
+                "Support Count",
+                "Is Max Human To Mouse",
+                "Is Max Mouse To Human",
+                "Mouse Orthologs AboveT hreshold",
+                "Mouse Category For Threshold",
+                "Mouse Support Count Threshold",
+                "Mgi Gene Acc Id",
+                "Mouse Gene Symbol"
 
         );
 
@@ -96,20 +108,20 @@ public class ReportService {
 
     private String mapOrthologToString(OrthologDto orthologDto) {
         String orthologDtoString = "";
-        orthologDtoString += orthologDto.getHumanGeneSymbol() + "\t";
-        orthologDtoString += orthologDto.getHgncAccId() + "\t";
-        orthologDtoString += orthologDto.getHumanSupportCountThreshold() + "\t";
-        orthologDtoString += orthologDto.getHumanCategoryForThreshold() + "\t";
-        orthologDtoString += orthologDto.getHumanOrthologsAboveThreshold() + "\t";
-        orthologDtoString += orthologDto.getCategory() + "\t";
-        orthologDtoString += orthologDto.getSupportCount() + "\t";
-        orthologDtoString += orthologDto.getIsMaxHumanToMouse() + "\t";
-        orthologDtoString += orthologDto.getIsMaxMouseToHuman() + "\t";
-        orthologDtoString += orthologDto.getMouseOrthologsAboveThreshold() + "\t";
-        orthologDtoString += orthologDto.getMouseCategoryForThreshold() + "\t";
-        orthologDtoString += orthologDto.getMouseSupportCountThreshold() + "\t";
-        orthologDtoString += orthologDto.getMgiGeneAccId() + "\t";
-        orthologDtoString += orthologDto.getMouseGeneSymbol() + "\t";
+        orthologDtoString += orthologDto.humanGeneSymbol() + "\t";
+        orthologDtoString += orthologDto.hgncAccId() + "\t";
+        orthologDtoString += orthologDto.humanSupportCountThreshold() + "\t";
+        orthologDtoString += orthologDto.humanCategoryForThreshold() + "\t";
+        orthologDtoString += orthologDto.humanOrthologsAboveThreshold() + "\t";
+        orthologDtoString += orthologDto.category() + "\t";
+        orthologDtoString += orthologDto.supportCount() + "\t";
+        orthologDtoString += orthologDto.isMaxHumanToMouse() + "\t";
+        orthologDtoString += orthologDto.isMaxMouseToHuman() + "\t";
+        orthologDtoString += orthologDto.mouseOrthologsAboveThreshold() + "\t";
+        orthologDtoString += orthologDto.mouseCategoryForThreshold() + "\t";
+        orthologDtoString += orthologDto.mouseSupportCountThreshold() + "\t";
+        orthologDtoString += orthologDto.mgiGeneAccId() + "\t";
+        orthologDtoString += orthologDto.mouseGeneSymbol() + "\t";
 
         return orthologDtoString;
     }

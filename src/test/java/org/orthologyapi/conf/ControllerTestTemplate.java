@@ -24,8 +24,7 @@ public class ControllerTestTemplate extends IntegrationTestTemplate {
     private WebApplicationContext applicationContext;
 
     @BeforeEach
-    public void setup(RestDocumentationContextProvider restDocumentation) throws Exception
-    {
+    public void setup(RestDocumentationContextProvider restDocumentation) {
         MockitoAnnotations.initMocks(this);
         mvc =
             MockMvcBuilders.webAppContextSetup(applicationContext)

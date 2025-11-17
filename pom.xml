@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.7</version>
+        <version>3.5.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org</groupId>
@@ -14,7 +14,7 @@
     <name>orthology-api</name>
     <description>API service for the orthology database</description>
     <properties>
-        <java.version>17</java.version>
+        <java.version>25</java.version>
     </properties>
 
     <profiles>
@@ -58,10 +58,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
+            <artifactId>spring-security-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.restdocs</groupId>
@@ -102,12 +102,8 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
+            <version>42.7.8</version>
             <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -123,18 +119,16 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
                     </excludes>
-                        <mainClass>org.orthologyapi.OrthologyApiApplication</mainClass>
+                    <mainClass>org.orthologyapi.OrthologyApiApplication</mainClass>
                 </configuration>
             </plugin>
+
+
             <plugin>
                 <groupId>org.asciidoctor</groupId>
                 <artifactId>asciidoctor-maven-plugin</artifactId>
-                <version>1.5.6</version>
+                <version>2.2.2</version>
                 <executions>
                     <execution>
                         <id>generate-docs</id>
@@ -143,7 +137,10 @@
                             <goal>process-asciidoc</goal>
                         </goals>
                         <configuration>
+                            <sourceDirectory>src/main/asciidoc</sourceDirectory>
                             <sourceDocumentName>restapi.adoc</sourceDocumentName>
+                            <outputDirectory>src/main/resources/static</outputDirectory>
+                            <outputFile>docs.html</outputFile>
                             <backend>html</backend>
                             <attributes>
                                 <snippets>${project.build.directory}/generated-snippets</snippets>
@@ -158,7 +155,7 @@
                     <dependency>
                         <groupId>org.springframework.restdocs</groupId>
                         <artifactId>spring-restdocs-asciidoctor</artifactId>
-                        <version>1.2.6.RELEASE</version>
+                        <version>2.0.6.RELEASE</version>
                     </dependency>
                 </dependencies>
             </plugin>

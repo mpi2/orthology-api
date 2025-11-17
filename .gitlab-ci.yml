@@ -40,17 +40,11 @@ variables:
    # see: https://gitlab.com/gitlab-com/gl-infra/production/issues/982
    DOCKER_TLS_CERTDIR: ""
    SCAN_KUBERNETES_MANIFESTS: "true"
-
-
-  # Use this command to look at your docker environment
-  # Note: This step can be overwritten by before_script sections in specific jobs.
-  #
-  #before_script:
-  #   - docker info
+   GITLAB_ADVANCED_SAST_ENABLED: 'true'
 
 include:
   - template: Security/SAST.gitlab-ci.yml
-  - template: Security/Secret-Detection.gitlab-ci.yml
+  - template: Jobs/Secret-Detection.gitlab-ci.yml
 
 
 
@@ -78,7 +72,6 @@ build_image:
         alias: docker
     except:
         - schedules
-        - triggers
         - pipelines
     script:
         # - docker info
@@ -109,63 +102,54 @@ build_image:
         paths:
             - "$MOUNT_POINT/"
 
-
 sast:
   stage: test
-  script:
-    - echo "Running SAST scan ..."
-
-  artifacts:
-    reports:
-      container_scanning: gl-sast-report.json
-
-
-secret_detection:
-  stage: test
-  script:
-    - echo "Running secret detection scan ..."
-
-  artifacts:
-    reports:
-      container_scanning: gl-secret-detection-report.json
-
 
 
 trivy_container_scanning:
   stage: test
-
-  services:
-    - name: $CI_REGISTRY/mouse-informatics/dind:latest
-      alias: docker
-
+  image:
+    name: $CI_REGISTRY/mouse-informatics/trivy:latest
+    entrypoint: [""]
+  variables:
+    # No need to clone the repo, we exclusively work on artifacts.  See
+    # https://docs.gitlab.com/ee/ci/runners/README.html#git-strategy
+    GIT_STRATEGY: none
+    TRIVY_USERNAME: "$CI_REGISTRY_USER"
+    TRIVY_PASSWORD: "$CI_REGISTRY_PASSWORD"
+    TRIVY_AUTH_URL: "$CI_REGISTRY"
+    TRIVY_NO_PROGRESS: "true"
+    TRIVY_CACHE_DIR: ".trivycache/"
+    # FULL_IMAGE_NAME: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
   rules:
-    - if: '$CI_BUILD_REF_NAME == "main"'
+    - if: '$CI_COMMIT_REF_NAME == "main"'
       when: on_success
       allow_failure: true
-
-  before_script:
-    - export TRIVY_VERSION=$(wget -qO - "https://api.github.com/repos/aquasecurity/trivy/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
-    - echo $TRIVY_VERSION
-    - wget --no-verbose https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz -O - | tar -zxvf -
-    - echo "${CI_REGISTRY_PASSWORD}" | docker login -u "${CI_REGISTRY_USER}" --password-stdin  ${CI_REGISTRY}
-
   script:
-    # Build report
-    - ./trivy --cache-dir .trivycache/ image --exit-code 0 --no-progress --format template --template "@contrib/gitlab.tpl" -o gl-container-scanning-report.json "${CI_REGISTRY_IMAGE}":"${CI_COMMIT_SHA:0:12}"
-    # Print report
-    - ./trivy --cache-dir .trivycache/ image --exit-code 0 --no-progress --severity HIGH "${CI_REGISTRY_IMAGE}":"${CI_COMMIT_SHA:0:12}"
-    # Fail on critical vulnerability
-    - ./trivy --cache-dir .trivycache/ image --exit-code 1 --severity CRITICAL --no-progress "${CI_REGISTRY_IMAGE}":"${CI_COMMIT_SHA:0:12}"
-
-    - docker logout ${CI_REGISTRY}
-
+    - trivy --version
+    # cache cleanup is needed when scanning images with the same tags, it does not remove the database
+    - time trivy  clean --scan-cache
+    # update vulnerabilities db
+    - time trivy image --download-db-only
+    # Builds report and puts it in the default workdir $CI_PROJECT_DIR, so `artifacts:` can take it from there
+    - time trivy image --exit-code 0 --format template --template "@/contrib/gitlab.tpl"
+        --output "$CI_PROJECT_DIR/gl-container-scanning-report.json" "${CI_REGISTRY_IMAGE}":"${CI_COMMIT_SHA:0:12}"
+    # Prints full report
+    - time trivy image --exit-code 0 --severity HIGH "${CI_REGISTRY_IMAGE}":"${CI_COMMIT_SHA:0:12}"
+    # Fail on critical vulnerabilities
+    - time trivy image --exit-code 1 --severity CRITICAL "${CI_REGISTRY_IMAGE}":"${CI_COMMIT_SHA:0:12}"
   cache:
     paths:
       - .trivycache/
-
+  # Enables https://docs.gitlab.com/ee/user/application_security/container_scanning/ 
+  # (Container Scanning report is available on GitLab EE Ultimate or GitLab.com Gold)
   artifacts:
+    when:                          always
     reports:
-      container_scanning: gl-container-scanning-report.json
+      container_scanning:          gl-container-scanning-report.json
+
+
+
 
 hh-dev:
   stage: dev-deploy
@@ -174,7 +158,7 @@ hh-dev:
       alias: docker
   image: $CI_REGISTRY/mouse-informatics/helm-kubectl-alpine:latest
   rules:
-    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
+    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_COMMIT_REF_NAME == "main"'
   script:
     # Only deploy from the MPI2 impc-production-tracker repository rather than repository forks
     - |
@@ -240,7 +224,7 @@ hx-dev:
       alias: docker
   image: $CI_REGISTRY/mouse-informatics/helm-kubectl-alpine:latest
   rules:
-    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
+    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_COMMIT_REF_NAME == "main"'
   script:
     # Only deploy from the MPI2 impc-production-tracker repository rather than repository forks
     - |
@@ -302,7 +286,7 @@ hx-dev:
 hh-dev-test:
   image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
   rules:
-    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
+    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_COMMIT_REF_NAME == "main"'
   stage: dev-test
   before_script:
     - apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -322,7 +306,7 @@ hh-dev-test:
 hx-dev-test:
   image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
   rules:
-    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
+    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_COMMIT_REF_NAME == "main"'
   stage: dev-test
   before_script:
     - apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -343,7 +327,7 @@ hh-production:
   stage: production-deploy
   image: $CI_REGISTRY/mouse-informatics/helm-kubectl-alpine:latest
   rules:
-    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
+    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_COMMIT_REF_NAME == "main"'
   script:
     # Only deploy from the MPI2 impc-production-tracker repository rather than repository forks
     - |
@@ -381,7 +365,7 @@ hx-production:
   stage: production-deploy
   image: $CI_REGISTRY/mouse-informatics/helm-kubectl-alpine:latest
   rules:
-    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
+    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_COMMIT_REF_NAME == "main"'
   script:
     # Only deploy from the MPI2 impc-production-tracker repository rather than repository forks
     - |
@@ -418,7 +402,7 @@ hx-production:
 hh-production-test:
   image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
   rules:
-    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
+    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_COMMIT_REF_NAME == "main"'
   stage: production-test
   before_script:
     - apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -438,7 +422,7 @@ hh-production-test:
 hx-production-test:
   image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
   rules:
-    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
+    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_COMMIT_REF_NAME == "main"'
   stage: production-test
   before_script:
     - apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -461,7 +445,7 @@ hh-reference-deploy:
   # rancher/hyperkube:v1.15.3-rancher1 installed on the hh cluster
   image: $CI_REGISTRY/mouse-informatics/helm-kubectl-alpine:latest
   rules:
-    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
+    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_COMMIT_REF_NAME == "main"'
   script:
     #
     - kubectl config set-cluster local --server="${HH_KUBERNETES_ENDPOINT}"
@@ -494,7 +478,7 @@ hx-reference-deploy:
   # rancher/hyperkube:v1.15.3-rancher1 installed on the hh cluster
   image: $CI_REGISTRY/mouse-informatics/helm-kubectl-alpine:latest
   rules:
-    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
+    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_COMMIT_REF_NAME == "main"'
   script:
     #
     - kubectl config set-cluster local --server="${HX_KUBERNETES_ENDPOINT}"
@@ -522,7 +506,7 @@ hx-reference-deploy:
 reference-test:
   image: $CI_REGISTRY/mouse-informatics/ubuntu:latest
   rules:
-    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_BUILD_REF_NAME == "main"'
+    - if: '$CI_PROJECT_NAMESPACE == "mouse-informatics" && $CI_COMMIT_REF_NAME == "main"'
   stage: reference-test
   before_script:
     - apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -536,7 +520,5 @@ reference-test:
   artifacts:
     paths:
       - "$MOUNT_POINT/"
-
-
 
 

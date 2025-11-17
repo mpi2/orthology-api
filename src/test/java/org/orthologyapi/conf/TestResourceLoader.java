@@ -23,7 +23,7 @@ public class TestResourceLoader {
 
 
     public static String loadJsonFromResource(String resourcePath) throws IOException {
-        String result = null;
+        String result;
         try (InputStream in = TestResourceLoader.class.getResourceAsStream(resourcePath)) {
             JsonNode jsonNode = objectMapper.readValue(in, JsonNode.class);
             result = objectMapper.writeValueAsString(jsonNode);
