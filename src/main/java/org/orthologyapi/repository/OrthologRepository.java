@@ -122,7 +122,7 @@ public interface OrthologRepository extends PagingAndSortingRepository<Ortholog,
             "o.mouse_gene_id=m.id and " +
             "m.id=mmf.mouse_gene_id and " +
             "m.mgi_gene_acc_id IN :accessionIds and " +
-            "mmf.support_count_threshold=5" +
+            "mmf.support_count_threshold=5 " +
             "order by " +
             "h.symbol asc;",
             nativeQuery = true)
