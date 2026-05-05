@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.orthologyapi.descriptor.OrthologMapper;
 import org.orthologyapi.dto.CoordinatesDto;
+import org.orthologyapi.dto.MouseGeneInfoDto;
 import org.orthologyapi.dto.OrthologDto;
 import org.orthologyapi.dto.EnsemblUrlDto;
 import org.orthologyapi.projection.CoordinatesProjection;
@@ -96,5 +97,10 @@ public class OrthologService {
         return coordinatesProjections.stream().map(OrthologMapper::coordinatesDto).toList();
 
 
+    }
+
+    public List<MouseGeneInfoDto> findMouseGenesByMgiAccessionIds(List<String> mgiIds) {
+        return orthologRepository.findMouseGenesByMgiAccessionIds(mgiIds).stream()
+                .map(OrthologMapper::mouseGeneInfoToDto).toList();
     }
 }

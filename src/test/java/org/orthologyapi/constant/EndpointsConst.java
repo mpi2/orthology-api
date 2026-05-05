@@ -14,5 +14,9 @@ public class EndpointsConst {
         "http://localhost:8080/api/ortholog/one_to_one/find_by_hgnc_ids?hgncIds=HGNC:24086";
     public static final String FIND_ALL_ORTHOLOGS_LINK =
         "http://localhost:8080/api/ortholog/find_all";
+    public static final String FIND_MOUSE_GENES_BY_MGI_IDS_LINK =
+        "http://localhost:8080/api/ortholog/mouse_genes/find_by_mgi_ids?mgiIds=MGI:1917115";
+    public static final String FIND_MOUSE_GENES_BY_MGI_IDS_POST_LINK =
+        "http://localhost:8080/api/ortholog/mouse_genes/find_by_mgi_ids";
 
 }

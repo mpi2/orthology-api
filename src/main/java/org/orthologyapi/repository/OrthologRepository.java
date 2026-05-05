@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.orthologyapi.entity.Ortholog;
 import org.orthologyapi.projection.CoordinatesProjection;
+import org.orthologyapi.projection.MouseGeneInfoProjection;
 import org.orthologyapi.projection.OrthologProjection;
 import org.orthologyapi.projection.EnsemblUrlProjection;
 import org.springframework.data.domain.Page;
@@ -283,4 +284,19 @@ public interface OrthologRepository extends PagingAndSortingRepository<Ortholog,
     @Query(value = "select CONCAT('chr', mgi_chromosome) as chromosome,mgi_start as start ,mgi_stop as stop from mouse_gene where upper(mgi_gene_acc_id) = upper(:mgi)",
             nativeQuery = true)
     List<CoordinatesProjection> findCoordinatesByMgi(String mgi);
+
+    @Query(value = "select " +
+            "m.ensembl_chromosome as ensemblChromosome, " +
+            "m.ensembl_gene_acc_id as ensemblGeneAccId, " +
+            "m.ensembl_start as ensemblStart, " +
+            "m.ensembl_stop as ensemblStop, " +
+            "m.ensembl_strand as ensemblStrand, " +
+            "m.mgi_gene_acc_id as mgiGeneAccId, " +
+            "m.symbol as symbol " +
+            "from mouse_gene m " +
+            "where m.mgi_gene_acc_id IN :mgiIds " +
+            "order by m.symbol asc",
+            nativeQuery = true)
+    List<MouseGeneInfoProjection> findMouseGenesByMgiAccessionIds(
+            @Param("mgiIds") List<String> mgiIds);
 }

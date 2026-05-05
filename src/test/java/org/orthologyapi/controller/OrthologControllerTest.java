@@ -2,14 +2,19 @@ package org.orthologyapi.controller;
 
 import static org.orthologyapi.constant.DBSetupFilesPathsConst.DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML;
 import static org.orthologyapi.constant.DBSetupFilesPathsConst.EXPECTED_All_ORTHOLOGS_PAGEABLE_JSON;
+import static org.orthologyapi.constant.DBSetupFilesPathsConst.EXPECTED_MOUSE_GENES_BY_MGI_IDS_JSON;
 import static org.orthologyapi.constant.DBSetupFilesPathsConst.EXPECTED_ORTHOLOGS_JSON;
 import static org.orthologyapi.constant.DBSetupFilesPathsConst.INTEGRATION_TESTS_RESOURCE_PATH;
 import static org.orthologyapi.constant.EndpointsConst.FIND_ALL_ORTHOLOGS_LINK;
+import static org.orthologyapi.constant.EndpointsConst.FIND_MOUSE_GENES_BY_MGI_IDS_LINK;
+import static org.orthologyapi.constant.EndpointsConst.FIND_MOUSE_GENES_BY_MGI_IDS_POST_LINK;
 import static org.orthologyapi.constant.EndpointsConst.FIND_ONE_TO_ONE_BY_HGNC_IDS_LINK;
 import static org.orthologyapi.constant.EndpointsConst.FIND_ONE_TO_ONE_BY_HUMAN_GENES_LINK;
 import static org.orthologyapi.constant.EndpointsConst.FIND_ONE_ONE_BY_MGI_IDS_LINK;
 import static org.orthologyapi.constant.EndpointsConst.FIND_ONE_TO_ONE_BY_MOUSE_GENES_LINK;
 import static org.orthologyapi.constant.EndpointsConst.FIND_BY_MGI_IDS_LINK;
+import static org.orthologyapi.constant.FolderNamesConst.MOUSE_GENES_BY_MGI_ACCESSION_ID;
+import static org.orthologyapi.constant.FolderNamesConst.MOUSE_GENES_BY_MGI_ACCESSION_ID_POST;
 import static org.orthologyapi.constant.FolderNamesConst.ONE_TO_ONE_BY_HGNC_ACCESSION_ID;
 import static org.orthologyapi.constant.FolderNamesConst.ONE_TO_ONE_BY_HUMAN_GENES;
 import static org.orthologyapi.constant.FolderNamesConst.ONE_TO_ONE_BY_MGI_ACCESSION_ID;
@@ -30,6 +35,7 @@ import org.junit.jupiter.api.Test;
 import org.orthologyapi.conf.ControllerTestTemplate;
 import org.orthologyapi.conf.RestCaller;
 import org.orthologyapi.conf.TestResourceLoader;
+import org.orthologyapi.descriptor.MouseGeneInfoFieldsDescriptors;
 import org.orthologyapi.descriptor.OrthologyFieldsDescriptors;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
@@ -101,6 +107,37 @@ class OrthologControllerTest extends ControllerTestTemplate {
     @Test
     @DatabaseSetup(DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
     @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
+    @DisplayName("Test Mouse Genes By Mgi Accession Id List")
+    void findMouseGenesByMgiAccessionIdList() throws Exception {
+        String contentAsString =
+            restCaller.executeGetAndDocument(FIND_MOUSE_GENES_BY_MGI_IDS_LINK,
+                documentMouseGeneInfoEndpoint(MOUSE_GENES_BY_MGI_ACCESSION_ID));
+
+        String expectedOutputAsString =
+            loadExpectedResponseFromResource(EXPECTED_MOUSE_GENES_BY_MGI_IDS_JSON);
+
+        JSONAssert.assertEquals(expectedOutputAsString, contentAsString, JSONCompareMode.STRICT);
+    }
+
+    @Test
+    @DatabaseSetup(DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
+    @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
+    @DisplayName("Test Mouse Genes By Mgi Accession Id List (POST body)")
+    void findMouseGenesByMgiAccessionIdListPost() throws Exception {
+        String contentAsString =
+            restCaller.executePostJsonAndDocument(FIND_MOUSE_GENES_BY_MGI_IDS_POST_LINK,
+                "[\"MGI:1917115\"]",
+                documentMouseGeneInfoEndpoint(MOUSE_GENES_BY_MGI_ACCESSION_ID_POST));
+
+        String expectedOutputAsString =
+            loadExpectedResponseFromResource(EXPECTED_MOUSE_GENES_BY_MGI_IDS_JSON);
+
+        JSONAssert.assertEquals(expectedOutputAsString, contentAsString, JSONCompareMode.STRICT);
+    }
+
+    @Test
+    @DatabaseSetup(DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
+    @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
     @DisplayName("Test All Orthologs Pageable")
     void findAllOrthologsPageable() throws Exception {
         String contentAsString =
@@ -130,6 +167,12 @@ class OrthologControllerTest extends ControllerTestTemplate {
         List<FieldDescriptor> orthologyFieldsDescriptions =
             OrthologyFieldsDescriptors.getOrthologyFieldsDescriptions(prefix);
         return document(endpoint, responseFields(orthologyFieldsDescriptions));
+    }
+
+    private ResultHandler documentMouseGeneInfoEndpoint(String endpoint) {
+        List<FieldDescriptor> fields =
+            MouseGeneInfoFieldsDescriptors.getMouseGeneInfoFieldsDescriptions();
+        return document(endpoint, responseFields(fields));
     }
 
     private String loadExpectedResponseFromResource(String resourceName)

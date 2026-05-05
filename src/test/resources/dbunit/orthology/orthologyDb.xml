@@ -8,7 +8,12 @@
 
     <MOUSE_GENE ID="49957"
                 MGI_GENE_ACC_ID="MGI:1917115"
-                SYMBOL="A1cf"/>
+                SYMBOL="A1cf"
+                ENSEMBL_CHROMOSOME="19"
+                ENSEMBL_GENE_ACC_ID="ENSMUSG00000052595"
+                ENSEMBL_START="31905847"
+                ENSEMBL_STOP="31986141"
+                ENSEMBL_STRAND="-"/>
 
     <HUMAN_MAPPING_FILTER ID="174725"
                           HUMAN_GENE_ID="3"

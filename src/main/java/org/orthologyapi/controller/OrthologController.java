@@ -8,6 +8,7 @@ import java.util.List;
 import org.orthologyapi.dto.CoordinatesDto;
 import org.orthologyapi.dto.CoordinatesResponseDto;
 import org.orthologyapi.dto.EnsemblUrlDto;
+import org.orthologyapi.dto.MouseGeneInfoDto;
 import org.orthologyapi.dto.OrthologDto;
 import org.orthologyapi.service.OrthologService;
 import org.orthologyapi.service.ReportService;
@@ -112,6 +113,24 @@ public class OrthologController {
     public List<EnsemblUrlDto> findOrthologsByMgiAccessionIds() {
         return orthologService.findAllEnsemblIds();
 
+    }
+
+    @GetMapping("/mouse_genes/find_by_mgi_ids")
+    public List<MouseGeneInfoDto> findMouseGenesByMgiAccessionIds(
+            @RequestParam(value = "mgiIds") List<String> mgiIds) throws SizeLimitExceededException {
+        if (mgiIds.size() < PARAMETER_SIZE) {
+            return orthologService.findMouseGenesByMgiAccessionIds(mgiIds);
+        }
+        throw new SizeLimitExceededException("Mgi accession ids Parameter number can not be more than " + PARAMETER_SIZE);
+    }
+
+    @PostMapping("/mouse_genes/find_by_mgi_ids")
+    public List<MouseGeneInfoDto> findMouseGenesByMgiAccessionIdsBody(
+            @RequestBody List<String> mgiIds) throws SizeLimitExceededException {
+        if (mgiIds.size() < PARAMETER_SIZE) {
+            return orthologService.findMouseGenesByMgiAccessionIds(mgiIds);
+        }
+        throw new SizeLimitExceededException("Mgi accession ids Parameter number can not be more than " + PARAMETER_SIZE);
     }
 
     @CrossOrigin

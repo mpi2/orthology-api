@@ -19,8 +19,11 @@ public class CustomSecurityConfig {
         http.authorizeHttpRequests(authorize -> authorize
             .requestMatchers(HttpMethod.GET, "/api/ortholog/**")
             .permitAll()
+            .requestMatchers(HttpMethod.POST, "/api/ortholog/**")
+            .permitAll()
             .requestMatchers(HttpMethod.GET, "/docs.html").permitAll());
 
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/api/ortholog/**"));
 
         http.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
         return http.build();

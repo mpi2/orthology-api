@@ -2,9 +2,11 @@ package org.orthologyapi.descriptor;
 
 import org.orthologyapi.dto.CoordinatesDto;
 import org.orthologyapi.dto.EnsemblUrlDto;
+import org.orthologyapi.dto.MouseGeneInfoDto;
 import org.orthologyapi.dto.OrthologDto;
 import org.orthologyapi.projection.CoordinatesProjection;
 import org.orthologyapi.projection.EnsemblUrlProjection;
+import org.orthologyapi.projection.MouseGeneInfoProjection;
 import org.orthologyapi.projection.OrthologProjection;
 
 public class OrthologMapper {
@@ -44,6 +46,19 @@ public class OrthologMapper {
             coordinatesProjection.getChromosome(),
             Integer.parseInt(coordinatesProjection.getStart()),
             Integer.parseInt(coordinatesProjection.getStop())
+        );
+    }
+
+    public static MouseGeneInfoDto mouseGeneInfoToDto(
+            MouseGeneInfoProjection projection) {
+        return new MouseGeneInfoDto(
+            projection.getEnsemblChromosome(),
+            projection.getEnsemblGeneAccId(),
+            projection.getEnsemblStart(),
+            projection.getEnsemblStop(),
+            projection.getEnsemblStrand(),
+            projection.getMgiGeneAccId(),
+            projection.getSymbol()
         );
     }
 }

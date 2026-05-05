@@ -2,6 +2,7 @@ package org.orthologyapi.conf;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
@@ -22,6 +23,19 @@ public class RestCaller {
         ResultActions resultActions = mvc.perform(MockMvcRequestBuilders
             .get(url)
             .header(HEADER_AUTHORIZATION, "None"))
+            .andExpect(status().isOk())
+            .andDo(documentMethod);
+        MvcResult obtained = resultActions.andReturn();
+        return obtained.getResponse().getContentAsString();
+    }
+
+    public String executePostJsonAndDocument(String url, String jsonBody, ResultHandler documentMethod) throws Exception
+    {
+        ResultActions resultActions = mvc.perform(MockMvcRequestBuilders
+            .post(url)
+            .header(HEADER_AUTHORIZATION, "None")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(jsonBody))
             .andExpect(status().isOk())
             .andDo(documentMethod);
         MvcResult obtained = resultActions.andReturn();
