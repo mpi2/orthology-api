@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.orthologyapi.entity.Ortholog;
 import org.orthologyapi.projection.CoordinatesProjection;
+import org.orthologyapi.projection.MouseGeneFullProjection;
 import org.orthologyapi.projection.MouseGeneInfoProjection;
 import org.orthologyapi.projection.OrthologProjection;
 import org.orthologyapi.projection.EnsemblUrlProjection;
@@ -299,4 +300,63 @@ public interface OrthologRepository extends PagingAndSortingRepository<Ortholog,
             nativeQuery = true)
     List<MouseGeneInfoProjection> findMouseGenesByMgiAccessionIds(
             @Param("mgiIds") List<String> mgiIds);
+
+    String FULL_MOUSE_GENE_COLUMNS =
+            "m.ensembl_chromosome as ensemblChromosome, " +
+            "m.ensembl_gene_acc_id as ensemblGeneAccId, " +
+            "m.ensembl_start as ensemblStart, " +
+            "m.ensembl_stop as ensemblStop, " +
+            "m.ensembl_strand as ensemblStrand, " +
+            "m.entrez_gene_acc_id as entrezGeneAccId, " +
+            "m.genome_build as genomeBuild, " +
+            "m.mgi_chromosome as mgiChromosome, " +
+            "m.mgi_cm as mgiCm, " +
+            "m.mgi_gene_acc_id as mgiGeneAccId, " +
+            "m.mgi_start as mgiStart, " +
+            "m.mgi_stop as mgiStop, " +
+            "m.mgi_strand as mgiStrand, " +
+            "m.name as name, " +
+            "m.ncbi_chromosome as ncbiChromosome, " +
+            "m.ncbi_start as ncbiStart, " +
+            "m.ncbi_stop as ncbiStop, " +
+            "m.ncbi_strand as ncbiStrand, " +
+            "m.subtype as subtype, " +
+            "m.symbol as symbol, " +
+            "m.type as type ";
+
+    @Query(value = "select " + FULL_MOUSE_GENE_COLUMNS +
+            "from mouse_gene m " +
+            "where m.mgi_gene_acc_id IN :mgiIds " +
+            "order by m.symbol asc",
+            nativeQuery = true)
+    List<MouseGeneFullProjection> findFullMouseGenesByMgiAccessionIds(
+            @Param("mgiIds") List<String> mgiIds);
+
+    @Query(value = "select " + FULL_MOUSE_GENE_COLUMNS +
+            "from mouse_gene m " +
+            "where m.symbol IN :inputs " +
+            "   or m.mgi_gene_acc_id IN :inputs " +
+            "order by m.symbol asc",
+            nativeQuery = true)
+    List<MouseGeneFullProjection> findFullMouseGenesBySymbolsOrAccIds(
+            @Param("inputs") List<String> inputs);
+
+    @Query(value = "select " + FULL_MOUSE_GENE_COLUMNS +
+            "from mouse_gene m " +
+            "where LOWER(m.symbol) = LOWER(:input) " +
+            "   or LOWER(m.mgi_gene_acc_id) = LOWER(:input) " +
+            "order by m.symbol asc",
+            nativeQuery = true)
+    List<MouseGeneFullProjection> findFullMouseGenesBySymbolOrAccId(
+            @Param("input") String input);
+
+    @Query(value = "select distinct " + FULL_MOUSE_GENE_COLUMNS +
+            "from mouse_gene m " +
+            "join mouse_gene_synonym_relation r on r.mouse_gene_id = m.id " +
+            "join mouse_gene_synonym s on s.id = r.mouse_gene_synonym_id " +
+            "where LOWER(s.synonym) = LOWER(:synonym) " +
+            "order by m.symbol asc",
+            nativeQuery = true)
+    List<MouseGeneFullProjection> findFullMouseGenesBySynonym(
+            @Param("synonym") String synonym);
 }

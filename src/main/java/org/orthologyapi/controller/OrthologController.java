@@ -8,6 +8,7 @@ import java.util.List;
 import org.orthologyapi.dto.CoordinatesDto;
 import org.orthologyapi.dto.CoordinatesResponseDto;
 import org.orthologyapi.dto.EnsemblUrlDto;
+import org.orthologyapi.dto.MouseGeneFullDto;
 import org.orthologyapi.dto.MouseGeneInfoDto;
 import org.orthologyapi.dto.OrthologDto;
 import org.orthologyapi.service.OrthologService;
@@ -131,6 +132,45 @@ public class OrthologController {
             return orthologService.findMouseGenesByMgiAccessionIds(mgiIds);
         }
         throw new SizeLimitExceededException("Mgi accession ids Parameter number can not be more than " + PARAMETER_SIZE);
+    }
+
+    @GetMapping("/mouse_genes/find_full_by_mgi_ids")
+    public List<MouseGeneFullDto> findFullMouseGenesByMgiAccessionIds(
+            @RequestParam(value = "mgiIds") List<String> mgiIds) throws SizeLimitExceededException {
+        if (mgiIds.size() < PARAMETER_SIZE) {
+            return orthologService.findFullMouseGenesByMgiAccessionIds(mgiIds);
+        }
+        throw new SizeLimitExceededException("Mgi accession ids Parameter number can not be more than " + PARAMETER_SIZE);
+    }
+
+    @PostMapping("/mouse_genes/find_full_by_mgi_ids")
+    public List<MouseGeneFullDto> findFullMouseGenesByMgiAccessionIdsBody(
+            @RequestBody List<String> mgiIds) throws SizeLimitExceededException {
+        if (mgiIds.size() < PARAMETER_SIZE) {
+            return orthologService.findFullMouseGenesByMgiAccessionIds(mgiIds);
+        }
+        throw new SizeLimitExceededException("Mgi accession ids Parameter number can not be more than " + PARAMETER_SIZE);
+    }
+
+    @PostMapping("/mouse_genes/find_by_symbols_or_acc_ids")
+    public List<MouseGeneFullDto> findFullMouseGenesBySymbolsOrAccIds(
+            @RequestBody List<String> inputs) throws SizeLimitExceededException {
+        if (inputs.size() < PARAMETER_SIZE) {
+            return orthologService.findFullMouseGenesBySymbolsOrAccIds(inputs);
+        }
+        throw new SizeLimitExceededException("Inputs parameter number can not be more than " + PARAMETER_SIZE);
+    }
+
+    @GetMapping("/mouse_genes/find_by_symbol_or_acc_id")
+    public List<MouseGeneFullDto> findFullMouseGenesBySymbolOrAccId(
+            @RequestParam(value = "input") String input) {
+        return orthologService.findFullMouseGenesBySymbolOrAccId(input);
+    }
+
+    @GetMapping("/mouse_genes/find_by_synonym")
+    public List<MouseGeneFullDto> findFullMouseGenesBySynonym(
+            @RequestParam(value = "synonym") String synonym) {
+        return orthologService.findFullMouseGenesBySynonym(synonym);
     }
 
     @CrossOrigin

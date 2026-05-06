@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.orthologyapi.descriptor.OrthologMapper;
 import org.orthologyapi.dto.CoordinatesDto;
+import org.orthologyapi.dto.MouseGeneFullDto;
 import org.orthologyapi.dto.MouseGeneInfoDto;
 import org.orthologyapi.dto.OrthologDto;
 import org.orthologyapi.dto.EnsemblUrlDto;
@@ -102,5 +103,25 @@ public class OrthologService {
     public List<MouseGeneInfoDto> findMouseGenesByMgiAccessionIds(List<String> mgiIds) {
         return orthologRepository.findMouseGenesByMgiAccessionIds(mgiIds).stream()
                 .map(OrthologMapper::mouseGeneInfoToDto).toList();
+    }
+
+    public List<MouseGeneFullDto> findFullMouseGenesByMgiAccessionIds(List<String> mgiIds) {
+        return orthologRepository.findFullMouseGenesByMgiAccessionIds(mgiIds).stream()
+                .map(OrthologMapper::mouseGeneFullToDto).toList();
+    }
+
+    public List<MouseGeneFullDto> findFullMouseGenesBySymbolsOrAccIds(List<String> inputs) {
+        return orthologRepository.findFullMouseGenesBySymbolsOrAccIds(inputs).stream()
+                .map(OrthologMapper::mouseGeneFullToDto).toList();
+    }
+
+    public List<MouseGeneFullDto> findFullMouseGenesBySymbolOrAccId(String input) {
+        return orthologRepository.findFullMouseGenesBySymbolOrAccId(input).stream()
+                .map(OrthologMapper::mouseGeneFullToDto).toList();
+    }
+
+    public List<MouseGeneFullDto> findFullMouseGenesBySynonym(String synonym) {
+        return orthologRepository.findFullMouseGenesBySynonym(synonym).stream()
+                .map(OrthologMapper::mouseGeneFullToDto).toList();
     }
 }

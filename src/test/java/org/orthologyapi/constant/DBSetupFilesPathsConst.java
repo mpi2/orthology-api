@@ -10,5 +10,9 @@ public class DBSetupFilesPathsConst {
         "expectedAllOrthologsPageable.json";
     public static final String EXPECTED_MOUSE_GENES_BY_MGI_IDS_JSON =
         "expectedMouseGenesByMgiIds.json";
+    public static final String EXPECTED_FULL_MOUSE_GENES_ALL_JSON =
+        "expectedFullMouseGenesAll.json";
+    public static final String EXPECTED_FULL_MOUSE_GENE_A1CF_JSON =
+        "expectedFullMouseGeneA1cf.json";
     public static final String INTEGRATION_TESTS_RESOURCE_PATH = "/integrationtests/";
 }

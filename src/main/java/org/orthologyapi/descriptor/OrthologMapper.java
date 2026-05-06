@@ -2,10 +2,12 @@ package org.orthologyapi.descriptor;
 
 import org.orthologyapi.dto.CoordinatesDto;
 import org.orthologyapi.dto.EnsemblUrlDto;
+import org.orthologyapi.dto.MouseGeneFullDto;
 import org.orthologyapi.dto.MouseGeneInfoDto;
 import org.orthologyapi.dto.OrthologDto;
 import org.orthologyapi.projection.CoordinatesProjection;
 import org.orthologyapi.projection.EnsemblUrlProjection;
+import org.orthologyapi.projection.MouseGeneFullProjection;
 import org.orthologyapi.projection.MouseGeneInfoProjection;
 import org.orthologyapi.projection.OrthologProjection;
 
@@ -59,6 +61,33 @@ public class OrthologMapper {
             projection.getEnsemblStrand(),
             projection.getMgiGeneAccId(),
             projection.getSymbol()
+        );
+    }
+
+    public static MouseGeneFullDto mouseGeneFullToDto(
+            MouseGeneFullProjection projection) {
+        return new MouseGeneFullDto(
+            projection.getEnsemblChromosome(),
+            projection.getEnsemblGeneAccId(),
+            projection.getEnsemblStart(),
+            projection.getEnsemblStop(),
+            projection.getEnsemblStrand(),
+            projection.getEntrezGeneAccId(),
+            projection.getGenomeBuild(),
+            projection.getMgiChromosome(),
+            projection.getMgiCm(),
+            projection.getMgiGeneAccId(),
+            projection.getMgiStart(),
+            projection.getMgiStop(),
+            projection.getMgiStrand(),
+            projection.getName(),
+            projection.getNcbiChromosome(),
+            projection.getNcbiStart(),
+            projection.getNcbiStop(),
+            projection.getNcbiStrand(),
+            projection.getSubtype(),
+            projection.getSymbol(),
+            projection.getType()
         );
     }
 }

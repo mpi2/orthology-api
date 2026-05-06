@@ -282,8 +282,198 @@ Get All the one-to-one Impc orthologs as tsv file
 
 
 
+#### MOUSE GENES
+
+This section describes endpoints that return raw mouse-gene records from the `mouse_gene`
+table — no ortholog/mapping joins. Used by downstream services that need basic gene metadata
+without the ortholog payload.
+
+##### Full Mouse Gene Fields
+
+The "full" endpoints below return all 21 fields below. JSON keys are camelCase and ordered
+alphabetically.
+
+| Path | Type | Description |
+| ------ | ------ | ------ |
+| ensemblChromosome | String | Ensembl Chromosome (raw value as stored in DB, no `chr` prefix) |
+| ensemblGeneAccId | String | Ensembl Gene Accession Id |
+| ensemblStart | Number | Ensembl Start |
+| ensemblStop | Number | Ensembl Stop |
+| ensemblStrand | String | Ensembl Strand |
+| entrezGeneAccId | Number | Entrez Gene Accession Id |
+| genomeBuild | String | Genome Build |
+| mgiChromosome | String | MGI Chromosome |
+| mgiCm | String | MGI cM Position |
+| mgiGeneAccId | String | MGI Gene Accession Id |
+| mgiStart | Number | MGI Start |
+| mgiStop | Number | MGI Stop |
+| mgiStrand | String | MGI Strand |
+| name | String | Mouse Gene Name |
+| ncbiChromosome | String | NCBI Chromosome |
+| ncbiStart | Number | NCBI Start |
+| ncbiStop | Number | NCBI Stop |
+| ncbiStrand | String | NCBI Strand |
+| subtype | String | Mouse Gene Subtype |
+| symbol | String | Mouse Gene Symbol |
+| type | String | Mouse Gene Type |
+
+##### Full Mouse Gene By Mgi Accession Ids (GET)
+
+Look up full mouse-gene records by a comma-separated list of MGI accession ids in the
+query string. Note: Parameter size can not be bigger than 650.
+
+###### Example Request
+```sh
+'/api/ortholog/mouse_genes/find_full_by_mgi_ids?mgiIds=MGI:1916649,MGI:1919306' -i -X GET
+```
+###### Example Response
+```sh
+HTTP/1.1 200 OK
+Content-Type: application/json
+[
+  {
+    "ensemblChromosome": "1",
+    "ensemblGeneAccId": "ENSMUSG00000032666",
+    "ensemblStart": 151728154,
+    "ensemblStop": 151965876,
+    "ensemblStrand": "-",
+    "entrezGeneAccId": 69399,
+    "genomeBuild": "GRCm39",
+    "mgiChromosome": "1",
+    "mgiCm": "64.43",
+    "mgiGeneAccId": "MGI:1916649",
+    "mgiStart": 151760275,
+    "mgiStop": 151967941,
+    "mgiStrand": "-",
+    "name": "RIKEN cDNA 1700025G04 gene",
+    "ncbiChromosome": "1",
+    "ncbiStart": 151760275,
+    "ncbiStop": 151967941,
+    "ncbiStrand": "-",
+    "subtype": "protein coding gene",
+    "symbol": "1700025G04Rik",
+    "type": "Gene"
+  }
+]
+```
+
+##### Full Mouse Gene By Mgi Accession Ids (POST)
+
+Same as the GET above, but the MGI ids are sent as a JSON array in the request body. Prefer
+this variant for large lists. Note: Parameter size can not be bigger than 650, and a
+production WAF in front of gentar.org may reject request bodies larger than ~7.5 KB
+(~500 ids); chunk client-side if you have more.
+
+###### Example Request
+```sh
+curl -X POST '/api/ortholog/mouse_genes/find_full_by_mgi_ids' \
+  -H 'Content-Type: application/json' \
+  -d '["MGI:1916649","MGI:1919306"]'
+```
+Response shape is identical to the GET variant.
+
+##### Full Mouse Genes By Symbols Or Acc Ids (POST)
+
+Look up full mouse-gene records by a JSON array of inputs that may be either symbols or MGI
+accession ids. Match is case-sensitive set membership (equivalent to the upstream GraphQL
+`_in` semantics). Note: Parameter size can not be bigger than 650; same ~7.5 KB body cap
+applies in production.
+
+###### Example Request
+```sh
+curl -X POST '/api/ortholog/mouse_genes/find_by_symbols_or_acc_ids' \
+  -H 'Content-Type: application/json' \
+  -d '["1700025G04Rik","MGI:1919306"]'
+```
+Response shape is identical to the previous endpoint (alphabetical by symbol).
+
+##### Full Mouse Gene By Symbol Or Acc Id (GET)
+
+Look up full mouse-gene records by a single symbol or MGI accession id. Match is
+case-insensitive equality (equivalent to the upstream GraphQL `_ilike` with no `%`
+wildcards). Returns a list because in edge cases the same input string can resolve to more
+than one row.
+
+###### Example Request
+```sh
+'/api/ortholog/mouse_genes/find_by_symbol_or_acc_id?input=mgi:1916649' -i -X GET
+```
+###### Example Response
+```sh
+HTTP/1.1 200 OK
+Content-Type: application/json
+[
+  {
+    "ensemblChromosome": "1",
+    "ensemblGeneAccId": "ENSMUSG00000032666",
+    "ensemblStart": 151728154,
+    "ensemblStop": 151965876,
+    "ensemblStrand": "-",
+    "entrezGeneAccId": 69399,
+    "genomeBuild": "GRCm39",
+    "mgiChromosome": "1",
+    "mgiCm": "64.43",
+    "mgiGeneAccId": "MGI:1916649",
+    "mgiStart": 151760275,
+    "mgiStop": 151967941,
+    "mgiStrand": "-",
+    "name": "RIKEN cDNA 1700025G04 gene",
+    "ncbiChromosome": "1",
+    "ncbiStart": 151760275,
+    "ncbiStop": 151967941,
+    "ncbiStrand": "-",
+    "subtype": "protein coding gene",
+    "symbol": "1700025G04Rik",
+    "type": "Gene"
+  }
+]
+```
+
+##### Full Mouse Genes By Synonym (GET)
+
+Look up full mouse-gene records via the `mouse_gene_synonym` join table. Match is
+case-insensitive equality on `synonym`.
+
+###### Example Request
+```sh
+'/api/ortholog/mouse_genes/find_by_synonym?synonym=Cof' -i -X GET
+```
+###### Example Response
+```sh
+HTTP/1.1 200 OK
+Content-Type: application/json
+[
+  {
+    "ensemblChromosome": "19",
+    "ensemblGeneAccId": "ENSMUSG00000056201",
+    "ensemblStart": 5540483,
+    "ensemblStop": 5545229,
+    "ensemblStrand": "+",
+    "entrezGeneAccId": 12631,
+    "genomeBuild": "GRCm39",
+    "mgiChromosome": "19",
+    "mgiCm": "4.34",
+    "mgiGeneAccId": "MGI:101757",
+    "mgiStart": 5540483,
+    "mgiStop": 5544059,
+    "mgiStrand": "+",
+    "name": "cofilin 1, non-muscle",
+    "ncbiChromosome": "19",
+    "ncbiStart": 5540483,
+    "ncbiStop": 5544059,
+    "ncbiStrand": "+",
+    "subtype": "protein coding gene",
+    "symbol": "Cfl1",
+    "type": "Gene"
+  }
+]
+```
+
+
 ##### Lastest updates
 
+* 2026-05-06: - mouse_genes/find_full_by_mgi_ids (GET+POST), find_by_symbols_or_acc_ids
+  (POST), find_by_symbol_or_acc_id (GET), find_by_synonym (GET) added.
 * 2022-06-29: - one_to_one/impc/write_to_tsv_file endpoint added.
 * 2022-06-15: - find_all_by_mgi_ids added.
 

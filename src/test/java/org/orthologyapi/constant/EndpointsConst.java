@@ -18,5 +18,15 @@ public class EndpointsConst {
         "http://localhost:8080/api/ortholog/mouse_genes/find_by_mgi_ids?mgiIds=MGI:1917115";
     public static final String FIND_MOUSE_GENES_BY_MGI_IDS_POST_LINK =
         "http://localhost:8080/api/ortholog/mouse_genes/find_by_mgi_ids";
+    public static final String FIND_FULL_MOUSE_GENES_BY_MGI_IDS_LINK =
+        "http://localhost:8080/api/ortholog/mouse_genes/find_full_by_mgi_ids?mgiIds=MGI:1917115,MGI:104537";
+    public static final String FIND_FULL_MOUSE_GENES_BY_MGI_IDS_POST_LINK =
+        "http://localhost:8080/api/ortholog/mouse_genes/find_full_by_mgi_ids";
+    public static final String FIND_MOUSE_GENES_BY_SYMBOLS_OR_ACC_IDS_POST_LINK =
+        "http://localhost:8080/api/ortholog/mouse_genes/find_by_symbols_or_acc_ids";
+    public static final String FIND_MOUSE_GENE_BY_SYMBOL_OR_ACC_ID_LINK =
+        "http://localhost:8080/api/ortholog/mouse_genes/find_by_symbol_or_acc_id?input=a1cf";
+    public static final String FIND_MOUSE_GENES_BY_SYNONYM_LINK =
+        "http://localhost:8080/api/ortholog/mouse_genes/find_by_synonym?synonym=acf";
 
 }

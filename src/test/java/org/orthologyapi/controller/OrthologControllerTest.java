@@ -2,12 +2,19 @@ package org.orthologyapi.controller;
 
 import static org.orthologyapi.constant.DBSetupFilesPathsConst.DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML;
 import static org.orthologyapi.constant.DBSetupFilesPathsConst.EXPECTED_All_ORTHOLOGS_PAGEABLE_JSON;
+import static org.orthologyapi.constant.DBSetupFilesPathsConst.EXPECTED_FULL_MOUSE_GENES_ALL_JSON;
+import static org.orthologyapi.constant.DBSetupFilesPathsConst.EXPECTED_FULL_MOUSE_GENE_A1CF_JSON;
 import static org.orthologyapi.constant.DBSetupFilesPathsConst.EXPECTED_MOUSE_GENES_BY_MGI_IDS_JSON;
 import static org.orthologyapi.constant.DBSetupFilesPathsConst.EXPECTED_ORTHOLOGS_JSON;
 import static org.orthologyapi.constant.DBSetupFilesPathsConst.INTEGRATION_TESTS_RESOURCE_PATH;
 import static org.orthologyapi.constant.EndpointsConst.FIND_ALL_ORTHOLOGS_LINK;
+import static org.orthologyapi.constant.EndpointsConst.FIND_FULL_MOUSE_GENES_BY_MGI_IDS_LINK;
+import static org.orthologyapi.constant.EndpointsConst.FIND_FULL_MOUSE_GENES_BY_MGI_IDS_POST_LINK;
 import static org.orthologyapi.constant.EndpointsConst.FIND_MOUSE_GENES_BY_MGI_IDS_LINK;
 import static org.orthologyapi.constant.EndpointsConst.FIND_MOUSE_GENES_BY_MGI_IDS_POST_LINK;
+import static org.orthologyapi.constant.EndpointsConst.FIND_MOUSE_GENES_BY_SYMBOLS_OR_ACC_IDS_POST_LINK;
+import static org.orthologyapi.constant.EndpointsConst.FIND_MOUSE_GENES_BY_SYNONYM_LINK;
+import static org.orthologyapi.constant.EndpointsConst.FIND_MOUSE_GENE_BY_SYMBOL_OR_ACC_ID_LINK;
 import static org.orthologyapi.constant.EndpointsConst.FIND_ONE_TO_ONE_BY_HGNC_IDS_LINK;
 import static org.orthologyapi.constant.EndpointsConst.FIND_ONE_TO_ONE_BY_HUMAN_GENES_LINK;
 import static org.orthologyapi.constant.EndpointsConst.FIND_ONE_ONE_BY_MGI_IDS_LINK;
@@ -15,6 +22,11 @@ import static org.orthologyapi.constant.EndpointsConst.FIND_ONE_TO_ONE_BY_MOUSE_
 import static org.orthologyapi.constant.EndpointsConst.FIND_BY_MGI_IDS_LINK;
 import static org.orthologyapi.constant.FolderNamesConst.MOUSE_GENES_BY_MGI_ACCESSION_ID;
 import static org.orthologyapi.constant.FolderNamesConst.MOUSE_GENES_BY_MGI_ACCESSION_ID_POST;
+import static org.orthologyapi.constant.FolderNamesConst.MOUSE_GENES_BY_SYMBOLS_OR_ACC_IDS_POST;
+import static org.orthologyapi.constant.FolderNamesConst.MOUSE_GENES_BY_SYMBOL_OR_ACC_ID;
+import static org.orthologyapi.constant.FolderNamesConst.MOUSE_GENES_BY_SYNONYM;
+import static org.orthologyapi.constant.FolderNamesConst.MOUSE_GENES_FULL_BY_MGI_IDS;
+import static org.orthologyapi.constant.FolderNamesConst.MOUSE_GENES_FULL_BY_MGI_IDS_POST;
 import static org.orthologyapi.constant.FolderNamesConst.ONE_TO_ONE_BY_HGNC_ACCESSION_ID;
 import static org.orthologyapi.constant.FolderNamesConst.ONE_TO_ONE_BY_HUMAN_GENES;
 import static org.orthologyapi.constant.FolderNamesConst.ONE_TO_ONE_BY_MGI_ACCESSION_ID;
@@ -35,6 +47,7 @@ import org.junit.jupiter.api.Test;
 import org.orthologyapi.conf.ControllerTestTemplate;
 import org.orthologyapi.conf.RestCaller;
 import org.orthologyapi.conf.TestResourceLoader;
+import org.orthologyapi.descriptor.MouseGeneFullFieldsDescriptors;
 import org.orthologyapi.descriptor.MouseGeneInfoFieldsDescriptors;
 import org.orthologyapi.descriptor.OrthologyFieldsDescriptors;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -138,6 +151,83 @@ class OrthologControllerTest extends ControllerTestTemplate {
     @Test
     @DatabaseSetup(DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
     @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
+    @DisplayName("Test Full Mouse Genes By Mgi Accession Id List (GET csv)")
+    void findFullMouseGenesByMgiAccessionIdListGet() throws Exception {
+        String contentAsString =
+            restCaller.executeGetAndDocument(FIND_FULL_MOUSE_GENES_BY_MGI_IDS_LINK,
+                documentMouseGeneFullEndpoint(MOUSE_GENES_FULL_BY_MGI_IDS));
+
+        String expectedOutputAsString =
+            loadExpectedResponseFromResource(EXPECTED_FULL_MOUSE_GENES_ALL_JSON);
+
+        JSONAssert.assertEquals(expectedOutputAsString, contentAsString, JSONCompareMode.STRICT);
+    }
+
+    @Test
+    @DatabaseSetup(DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
+    @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
+    @DisplayName("Test Full Mouse Genes By Mgi Accession Id List (POST body)")
+    void findFullMouseGenesByMgiAccessionIdListPost() throws Exception {
+        String contentAsString =
+            restCaller.executePostJsonAndDocument(FIND_FULL_MOUSE_GENES_BY_MGI_IDS_POST_LINK,
+                "[\"MGI:1917115\",\"MGI:104537\"]",
+                documentMouseGeneFullEndpoint(MOUSE_GENES_FULL_BY_MGI_IDS_POST));
+
+        String expectedOutputAsString =
+            loadExpectedResponseFromResource(EXPECTED_FULL_MOUSE_GENES_ALL_JSON);
+
+        JSONAssert.assertEquals(expectedOutputAsString, contentAsString, JSONCompareMode.STRICT);
+    }
+
+    @Test
+    @DatabaseSetup(DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
+    @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
+    @DisplayName("Test Full Mouse Genes By Symbols Or Acc Ids (POST body)")
+    void findFullMouseGenesBySymbolsOrAccIdsPost() throws Exception {
+        String contentAsString =
+            restCaller.executePostJsonAndDocument(FIND_MOUSE_GENES_BY_SYMBOLS_OR_ACC_IDS_POST_LINK,
+                "[\"A1cf\",\"MGI:104537\"]",
+                documentMouseGeneFullEndpoint(MOUSE_GENES_BY_SYMBOLS_OR_ACC_IDS_POST));
+
+        String expectedOutputAsString =
+            loadExpectedResponseFromResource(EXPECTED_FULL_MOUSE_GENES_ALL_JSON);
+
+        JSONAssert.assertEquals(expectedOutputAsString, contentAsString, JSONCompareMode.STRICT);
+    }
+
+    @Test
+    @DatabaseSetup(DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
+    @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
+    @DisplayName("Test Full Mouse Gene By Symbol Or Acc Id (case-insensitive)")
+    void findFullMouseGeneBySymbolOrAccId() throws Exception {
+        String contentAsString =
+            restCaller.executeGetAndDocument(FIND_MOUSE_GENE_BY_SYMBOL_OR_ACC_ID_LINK,
+                documentMouseGeneFullEndpoint(MOUSE_GENES_BY_SYMBOL_OR_ACC_ID));
+
+        String expectedOutputAsString =
+            loadExpectedResponseFromResource(EXPECTED_FULL_MOUSE_GENE_A1CF_JSON);
+
+        JSONAssert.assertEquals(expectedOutputAsString, contentAsString, JSONCompareMode.STRICT);
+    }
+
+    @Test
+    @DatabaseSetup(DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
+    @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
+    @DisplayName("Test Full Mouse Genes By Synonym (case-insensitive)")
+    void findFullMouseGenesBySynonym() throws Exception {
+        String contentAsString =
+            restCaller.executeGetAndDocument(FIND_MOUSE_GENES_BY_SYNONYM_LINK,
+                documentMouseGeneFullEndpoint(MOUSE_GENES_BY_SYNONYM));
+
+        String expectedOutputAsString =
+            loadExpectedResponseFromResource(EXPECTED_FULL_MOUSE_GENE_A1CF_JSON);
+
+        JSONAssert.assertEquals(expectedOutputAsString, contentAsString, JSONCompareMode.STRICT);
+    }
+
+    @Test
+    @DatabaseSetup(DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
+    @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = DBUNIT_ORTHOLOGY_ORTHOLOGY_DB_XML)
     @DisplayName("Test All Orthologs Pageable")
     void findAllOrthologsPageable() throws Exception {
         String contentAsString =
@@ -172,6 +262,12 @@ class OrthologControllerTest extends ControllerTestTemplate {
     private ResultHandler documentMouseGeneInfoEndpoint(String endpoint) {
         List<FieldDescriptor> fields =
             MouseGeneInfoFieldsDescriptors.getMouseGeneInfoFieldsDescriptions();
+        return document(endpoint, responseFields(fields));
+    }
+
+    private ResultHandler documentMouseGeneFullEndpoint(String endpoint) {
+        List<FieldDescriptor> fields =
+            MouseGeneFullFieldsDescriptors.getMouseGeneFullFieldsDescriptions();
         return document(endpoint, responseFields(fields));
     }
 
