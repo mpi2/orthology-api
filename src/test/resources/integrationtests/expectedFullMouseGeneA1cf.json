@@ -1,0 +1,25 @@
+[
+  {
+    "ensemblChromosome": "19",
+    "ensemblGeneAccId": "ENSMUSG00000052595",
+    "ensemblStart": 31905847,
+    "ensemblStop": 31986141,
+    "ensemblStrand": "-",
+    "entrezGeneAccId": 69865,
+    "genomeBuild": "GRCm39",
+    "mgiChromosome": "19",
+    "mgiCm": "46.07",
+    "mgiGeneAccId": "MGI:1917115",
+    "mgiStart": 31905840,
+    "mgiStop": 31986145,
+    "mgiStrand": "-",
+    "name": "APOBEC1 complementation factor",
+    "ncbiChromosome": "19",
+    "ncbiStart": 31905830,
+    "ncbiStop": 31986150,
+    "ncbiStrand": "-",
+    "subtype": "protein coding gene",
+    "symbol": "A1cf",
+    "type": "Gene"
+  }
+]
